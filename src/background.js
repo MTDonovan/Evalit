@@ -26,6 +26,10 @@ let userDefinedFunctionsPath = path.join(
   "user.defined.functions.js"
 );
 if (!fs.existsSync(userDefinedFunctionsPath)) {
+  fs.writeFileSync(
+    userDefinedFunctionsPath,
+    "// Write your functions in this file."
+  );
 }
 
 // Scheme must be registered before the app is ready
