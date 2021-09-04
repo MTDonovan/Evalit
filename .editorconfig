@@ -1,0 +1,20 @@
+root = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*]
+charset = utf-8
+
+# Indentation override for JS and Vue files
+[*.{js, vue}]
+indent_style = space
+indent_size = 2
+
+# Matches the exact file for package.json
+[{package.json}]
+indent_style = space
+indent_size = 2
+
+[EvalScript/**.js]
+indent_style = space
+indent_size = 2
