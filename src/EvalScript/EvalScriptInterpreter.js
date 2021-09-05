@@ -7,7 +7,6 @@ const R = require("rambda");
 /**
  * Collect all functions from initCalls into an array.  Use the array as the funcCalls
  * state item.
- *
  * Warning: funcCalls needs to be global variable outside of the EvalScriptInterpreter
  * class.
  */

@@ -1,6 +1,6 @@
 import { app, ipcRenderer } from "electron";
 import MonacoEditor from "vue-monaco";
-import { E, LabourModel, today } from "./EvalScript/index";
+import { E } from "./EvalScript/index";
 import * as monaco from "monaco-editor";
 const $data = __non_webpack_require__(
   ipcRenderer.sendSync("get-file-path", "data")
