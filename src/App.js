@@ -64,18 +64,28 @@ export default {
     };
   },
   mounted() {
-    console.log(
-      "user.defined.functions.js path: " +
-        ipcRenderer.sendSync("get-file-path", "functions")
-    );
-    console.log(
-      "user.defined.data.js path: " +
-        ipcRenderer.sendSync("get-file-path", "data")
-    );
+    function getFilePath(fileType) {
+      return new Promise(resolve => {
+        setTimeout(_ => {
+          resolve(ipcRenderer.sendSync("get-file-path", fileType));
+        }, 500);
+      });
+    }
+
+    getFilePath("functions").then(res => {
+      this.functionsFilePath = res;
+    });
+    getFilePath("data").then(res => {
+      this.dataFilePath = res;
+    });
+    getFilePath("appdata").then(res => {
+      this.appdataPath = res;
+    });
 
     document
       .querySelector(".multi-editor-container")
       .setAttribute("style", "height: 684px;");
+
     this.$nextTick(() => {
       /**
        * Adjust the elements on resize.
@@ -119,11 +129,9 @@ export default {
       this.currentTheme = theme;
     }
 
-    this.appdataPath = ipcRenderer.send("get-file-path", "appdata");
-    this.dataFilePath = ipcRenderer.send("get-file-path", "data");
-    this.functionsFilePath = ipcRenderer.send("get-file-path", "functions");
-
-    console.log(ipcRenderer.sendSync("synchronous-message", "ping"));
+    // this.appdataPath = ipcRenderer.send("get-file-path", "appdata");
+    // this.dataFilePath = ipcRenderer.send("get-file-path", "data");
+    // this.functionsFilePath = ipcRenderer.send("get-file-path", "functions");
   },
   computed: {
     scaledAutocompleteResultsContainerHeight() {

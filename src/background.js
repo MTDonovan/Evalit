@@ -56,12 +56,6 @@ async function createWindow() {
   //   win.setMenu(null);
   // }
 
-  // ipcMain.on("sample-dialog", arg => {
-  //   dialog.showOpenDialogSync(win, {
-  //     properties: ["openFile", "openDirectory"]
-  //   });
-  // });
-
   ipcMain.on("get-data-text", (event, arg) => {
     let userDefinedDataPath = path.join(
       app.getPath("userData"),
@@ -150,7 +144,6 @@ const execPrefix = () => {
 ipcMain.on("get-file-path", (event, arg) => {
   switch (arg) {
     case "appdata":
-      // console.log(app.getPath("userData"));
       event.returnValue = app.getPath("userData");
       break;
     case "data":
@@ -166,19 +159,6 @@ ipcMain.on("get-file-path", (event, arg) => {
   }
   return;
 });
-
-// ipcMain.on("get-data-text", (event, arg) => {
-//   let userDefinedDataPath = path.join(
-//     app.getPath("userData"),
-//     "user.defined.data.js"
-//   );
-//   let dataText = fs.readFileSync(userDefinedDataPath, {
-//     encoding: "utf8",
-//     flag: "r"
-//   });
-//   event.returnValue = dataText;
-//   return;
-// });
 
 ipcMain.on("set-data-text", (event, arg) => {
   event.returnValue = app.getPath("userData");
@@ -213,8 +193,3 @@ ipcMain.on("relaunch-app", (even, arg) => {
   app.exit();
   return;
 });
-
-// ipcMain.on('asynchronous-message', (event, arg) => {
-//   console.log(arg) // prints "ping"
-//   event.reply('asynchronous-reply', 'pong')
-// })

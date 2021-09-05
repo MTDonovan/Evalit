@@ -74,7 +74,6 @@
           <div class="form-group">
             <label :style="settingsLabelColour">App data path</label>
             <div class="form-group-wrapper">
-<<<<<<< HEAD
               <input
                 readonly
                 v-model="appdataPath"
@@ -90,19 +89,13 @@
                 <span class="icon icon-folder" :style="btnIconStyle"></span
                 ><span :style="btnIconStyle">Open folder</span>
               </button>
-=======
-              <input readonly v-model="appdataPath" class="form-control" :style="settingsInputStyle" type="text"/>
-              <!-- <button class="btn btn-default btn-with-text" :style="btnStyle" @click="openAppDataFolder()">
-                   <span class="icon icon-folder" :style="btnIconStyle"></span><span :style="btnIconStyle">Open folder</span>
-                   </button> -->
->>>>>>> 514bd39fe501e24d5845c6d926ab8b080403e2ea
             </div>
           </div>
           <div class="form-group">
             <label :style="settingsLabelColour">Data file path</label>
             <div class="form-group-wrapper">
-<<<<<<< HEAD
               <input
+                id="data-file-path"
                 readonly
                 v-model="dataFilePath"
                 class="form-control"
@@ -117,19 +110,13 @@
                 <span class="icon icon-code" :style="btnIconStyle"></span
                 ><span :style="btnIconStyle">Open data file</span>
               </button>
-=======
-              <input readonly v-model="dataFilePath" class="form-control" :style="settingsInputStyle" type="text"/>
-              <!-- <button class="btn btn-default btn-with-text" :style="btnStyle" @click="openDataFile()">
-                   <span class="icon icon-code" :style="btnIconStyle"></span><span :style="btnIconStyle">Open data file</span>
-                   </button> -->
->>>>>>> 514bd39fe501e24d5845c6d926ab8b080403e2ea
             </div>
           </div>
           <div class="form-group">
             <label :style="settingsLabelColour">Functions file path</label>
             <div class="form-group-wrapper">
-<<<<<<< HEAD
               <input
+                id="functions-file-path"
                 readonly
                 v-model="functionsFilePath"
                 class="form-control"
@@ -144,12 +131,6 @@
                 <span class="icon icon-code" :style="btnIconStyle"></span
                 ><span :style="btnIconStyle">Open functions file</span>
               </button>
-=======
-              <input readonly v-model="functionsFilePath" class="form-control" :style="settingsInputStyle" type="text"/>
-              <!-- <button class="btn btn-default btn-with-text" :style="btnStyle" @click="openFunctionsFile()">
-                   <span class="icon icon-code" :style="btnIconStyle"></span><span :style="btnIconStyle">Open functions file</span>
-                   </button> -->
->>>>>>> 514bd39fe501e24d5845c6d926ab8b080403e2ea
             </div>
           </div>
         </form>
@@ -163,9 +144,6 @@
           Close
         </button>
       </div>
-      <!-- <div class="btn-group pull-right"> -->
-      <!--   <button class="btn btn-default" @click="saveSettings()">Save</button> -->
-      <!-- </div> -->
     </div>
 
     <!-- Models editor modal -->
