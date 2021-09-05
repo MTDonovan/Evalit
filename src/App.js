@@ -8,14 +8,12 @@ const $data = __non_webpack_require__(
 const $fn = __non_webpack_require__(
   ipcRenderer.sendSync("get-file-path", "functions")
 );
-import PostExecInputs from "./components/PostExecInputs";
 import * as path from "path";
 
 export default {
   name: "App",
   components: {
-    MonacoEditor,
-    PostExecInputs
+    MonacoEditor
   },
   data() {
     return {

@@ -10,6 +10,7 @@ import * as path from "path";
 import * as fs from "fs";
 
 const exec = require("child_process").exec;
+// const spawn = require("child_process").spawn;
 
 /**
  * If the user defined data and user defined functions do not exist, create the files in the appdata.
@@ -165,9 +166,10 @@ ipcMain.on("set-data-text", (event, arg) => {
   return;
 });
 
-ipcMain.on("open-path-default-app", (even, arg) => {
+ipcMain.on("open-path-default-app", (event, arg) => {
   switch (arg) {
     case "appdata":
+      // spawn(execPrefix(), [app.getPath("userData")]);
       exec(execPrefix() + " " + app.getPath("userData"));
       break;
     case "data":
@@ -188,7 +190,7 @@ ipcMain.on("open-path-default-app", (even, arg) => {
   return;
 });
 
-ipcMain.on("relaunch-app", (even, arg) => {
+ipcMain.on("relaunch-app", (event, arg) => {
   app.relaunch();
   app.exit();
   return;

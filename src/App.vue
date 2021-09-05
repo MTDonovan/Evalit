@@ -30,18 +30,15 @@
           <span class="icon icon-ccw" :style="btnIconStyle"></span
           ><span :style="btnIconStyle">Reload</span>
         </button>
-        <!-- <button id="quake-btn" class="btn btn-default btn-with-text" @click="openQuakeConsole()" :style="btnStyle"> -->
-        <!--   <span class="icon icon-right-open-mini" :style="btnIconStyle"></span><span :style="btnIconStyle">Console</span> -->
-        <!-- </button> -->
-        <button
-          id="save-btn"
-          class="btn btn-default"
-          @click="saveEvalText()"
-          :style="btnStyle"
-        >
-          <span class="icon" :style="btnIconStyle"></span
-          ><span :style="btnIconStyle">Save</span>
-        </button>
+        <!-- <button
+             id="save-btn"
+             class="btn btn-default"
+             @click="saveEvalText()"
+             :style="btnStyle"
+             >
+             <span class="icon" :style="btnIconStyle"></span
+             ><span :style="btnIconStyle">Save</span>
+             </button> -->
         <button
           id="settings-btn"
           class="btn btn-default btn-with-text"
@@ -52,15 +49,6 @@
           ><span :style="btnIconStyle">Settings</span>
         </button>
       </div>
-      <!-- <div class="btn-group pull-right" style="display: grid;grid-template-columns: auto auto;"> -->
-      <!--   <\!-- <button class="btn btn-default btn-with-text"> -\-> -->
-      <!--   <\!--   <span @click="outputEditorVisible = !outputEditorVisible">Table</span> -\-> -->
-      <!--   <\!-- </button> -\-> -->
-      <!--   <div style="display: inline-block;"> -->
-      <!--     <span class="header-label" :style="headerLabelStyle">Sum</span> -->
-      <!--     <input v-model="sr" class="toolbar-input" type="text" :style="toolbarStyle"> -->
-      <!--   </div> -->
-      <!-- </div> -->
     </header>
 
     <!-- Settings modal -->
@@ -81,14 +69,14 @@
                 :style="settingsInputStyle"
                 type="text"
               />
-              <button
-                class="btn btn-default btn-with-text"
-                :style="btnStyle"
-                @click="openAppDataFolder()"
-              >
-                <span class="icon icon-folder" :style="btnIconStyle"></span
-                ><span :style="btnIconStyle">Open folder</span>
-              </button>
+              <!-- <button
+                   class="btn btn-default btn-with-text"
+                   :style="btnStyle"
+                   @click="openAppDataFolder()"
+                   >
+                   <span class="icon icon-folder" :style="btnIconStyle"></span
+                   ><span :style="btnIconStyle">Open folder</span>
+                   </button> -->
             </div>
           </div>
           <div class="form-group">
@@ -102,14 +90,14 @@
                 :style="settingsInputStyle"
                 type="text"
               />
-              <button
-                class="btn btn-default btn-with-text"
-                :style="btnStyle"
-                @click="openDataFile()"
-              >
-                <span class="icon icon-code" :style="btnIconStyle"></span
-                ><span :style="btnIconStyle">Open data file</span>
-              </button>
+              <!-- <button
+                   class="btn btn-default btn-with-text"
+                   :style="btnStyle"
+                   @click="openDataFile()"
+                   >
+                   <span class="icon icon-code" :style="btnIconStyle"></span
+                   ><span :style="btnIconStyle">Open data file</span>
+                   </button> -->
             </div>
           </div>
           <div class="form-group">
@@ -123,14 +111,14 @@
                 :style="settingsInputStyle"
                 type="text"
               />
-              <button
-                class="btn btn-default btn-with-text"
-                :style="btnStyle"
-                @click="openFunctionsFile()"
-              >
-                <span class="icon icon-code" :style="btnIconStyle"></span
-                ><span :style="btnIconStyle">Open functions file</span>
-              </button>
+              <!-- <button
+                   class="btn btn-default btn-with-text"
+                   :style="btnStyle"
+                   @click="openFunctionsFile()"
+                   >
+                   <span class="icon icon-code" :style="btnIconStyle"></span
+                   ><span :style="btnIconStyle">Open functions file</span>
+                   </button> -->
             </div>
           </div>
         </form>
@@ -190,23 +178,6 @@
         ref="refOutputEditor"
         :style="outputEditorVisible ? '' : 'display: none;'"
       ></monaco-editor>
-      <div
-        id="post-exec-table-container"
-        :style="outputEditorVisible ? 'display: none;' : ''"
-      >
-        <table class="table-striped">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Expression</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-            <PostExecInputs v-for="(v, k) in 12" :key="k" />
-          </tbody>
-        </table>
-      </div>
     </div>
     <footer class="toobar toolbar-footer" :style="footerStyle">
       <div class="toolbar-actions">
