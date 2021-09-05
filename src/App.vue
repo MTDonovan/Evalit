@@ -1,8 +1,4 @@
 <template>
-  <!-- <div id="app" v-shortkey="{ -->
-  <!--                           eval: ['alt', 'enter'], -->
-  <!--                           openConsole: ['alt', 'x'], -->
-  <!--                           }" @shortkey="handleHotKeys($event)"> -->
   <div
     id="app"
     v-shortkey="{
@@ -69,14 +65,6 @@
                 :style="settingsInputStyle"
                 type="text"
               />
-              <!-- <button
-                   class="btn btn-default btn-with-text"
-                   :style="btnStyle"
-                   @click="openAppDataFolder()"
-                   >
-                   <span class="icon icon-folder" :style="btnIconStyle"></span
-                   ><span :style="btnIconStyle">Open folder</span>
-                   </button> -->
             </div>
           </div>
           <div class="form-group">
@@ -90,14 +78,6 @@
                 :style="settingsInputStyle"
                 type="text"
               />
-              <!-- <button
-                   class="btn btn-default btn-with-text"
-                   :style="btnStyle"
-                   @click="openDataFile()"
-                   >
-                   <span class="icon icon-code" :style="btnIconStyle"></span
-                   ><span :style="btnIconStyle">Open data file</span>
-                   </button> -->
             </div>
           </div>
           <div class="form-group">
@@ -111,14 +91,6 @@
                 :style="settingsInputStyle"
                 type="text"
               />
-              <!-- <button
-                   class="btn btn-default btn-with-text"
-                   :style="btnStyle"
-                   @click="openFunctionsFile()"
-                   >
-                   <span class="icon icon-code" :style="btnIconStyle"></span
-                   ><span :style="btnIconStyle">Open functions file</span>
-                   </button> -->
             </div>
           </div>
         </form>
