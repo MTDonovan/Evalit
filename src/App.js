@@ -67,9 +67,12 @@ export default {
       this.appdataPath = res;
     });
 
+    // document
+    //   .querySelector(".multi-editor-container")
+    //   .setAttribute("style", "height: 684px;");
     document
       .querySelector(".multi-editor-container")
-      .setAttribute("style", "height: 684px;");
+      .setAttribute("style", "height: 723px;");
 
     this.$nextTick(() => {
       /**
@@ -91,7 +94,6 @@ export default {
       this.maineditor = tmp;
       this.evalEvent();
     }
-
     /// WARNING :: The editor height is broken. It only increases, never decreases. I've
     /// disabled the previous height settings for now.
     // /**
@@ -113,10 +115,6 @@ export default {
     if (theme) {
       this.currentTheme = theme;
     }
-
-    // this.appdataPath = ipcRenderer.send("get-file-path", "appdata");
-    // this.dataFilePath = ipcRenderer.send("get-file-path", "data");
-    // this.functionsFilePath = ipcRenderer.send("get-file-path", "functions");
   },
   computed: {
     scaledAutocompleteResultsContainerHeight() {
@@ -478,8 +476,6 @@ export default {
         .split("\n")
         .slice(0, -1)
         .join("\n");
-      // console.log(this.$refs.refMainEditor.getEditor());
-      // this.$refs.refOutputEditor.getEditor().setValue("This is some text");
     }
     // setOutputSelection() {
     //   // Parameters

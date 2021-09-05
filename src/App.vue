@@ -30,15 +30,15 @@
           <span class="icon icon-ccw" :style="btnIconStyle"></span
           ><span :style="btnIconStyle">Reload</span>
         </button>
-        <!-- <button
-             id="save-btn"
-             class="btn btn-default"
-             @click="saveEvalText()"
-             :style="btnStyle"
-             >
-             <span class="icon" :style="btnIconStyle"></span
-             ><span :style="btnIconStyle">Save</span>
-             </button> -->
+        <button
+          id="save-btn"
+          class="btn btn-default"
+          @click="saveEvalText()"
+          :style="btnStyle"
+        >
+          <span class="icon" :style="btnIconStyle"></span
+          ><span :style="btnIconStyle">Save</span>
+        </button>
         <button
           id="settings-btn"
           class="btn btn-default btn-with-text"
