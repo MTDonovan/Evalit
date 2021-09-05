@@ -10,7 +10,6 @@ import * as path from "path";
 import * as fs from "fs";
 
 const exec = require("child_process").exec;
-// const spawn = require("child_process").spawn;
 
 /**
  * If the user defined data and user defined functions do not exist, create the files in the appdata.
@@ -130,22 +129,6 @@ if (isDevelopment) {
   }
 }
 
-/**
- * Handle IPC communications.
- */
-const execPrefix = () => {
-  switch (process.platform) {
-    case "darwin":
-      return "open";
-    case "win32":
-      return "start";
-    case "win64":
-      return "start";
-    default:
-      return "xdg-open";
-  }
-};
-
 ipcMain.on("get-file-path", (event, arg) => {
   switch (arg) {
     case "appdata":
@@ -160,35 +143,6 @@ ipcMain.on("get-file-path", (event, arg) => {
       event.returnValue = path
         .join(app.getPath("userData"), "user.defined.functions.js")
         .replace(/\\/g, "/");
-      break;
-  }
-  return;
-});
-
-ipcMain.on("set-data-text", (event, arg) => {
-  event.returnValue = app.getPath("userData");
-  return;
-});
-
-ipcMain.on("open-path-default-app", (event, arg) => {
-  switch (arg) {
-    case "appdata":
-      // spawn(execPrefix(), [app.getPath("userData")]);
-      exec(execPrefix() + " " + app.getPath("userData"));
-      break;
-    case "data":
-      exec(
-        execPrefix() +
-          " " +
-          path.join(app.getPath("userData"), "user.defined.data.js")
-      );
-      break;
-    case "functions":
-      exec(
-        execPrefix() +
-          " " +
-          path.join(app.getPath("userData"), "user.defined.functions.js")
-      );
       break;
   }
   return;

@@ -67,9 +67,6 @@ export default {
       this.appdataPath = res;
     });
 
-    // document
-    //   .querySelector(".multi-editor-container")
-    //   .setAttribute("style", "height: 684px;");
     document
       .querySelector(".multi-editor-container")
       .setAttribute("style", "height: 723px;");
@@ -94,18 +91,7 @@ export default {
       this.maineditor = tmp;
       this.evalEvent();
     }
-    /// WARNING :: The editor height is broken. It only increases, never decreases. I've
-    /// disabled the previous height settings for now.
-    // /**
-    //  * Load the previously saved editor group height if it exists in the localstorage.
-    //  */
-    // let editorGroupHeightTMP = localStorage.getItem("editorGroupHeightTMP");
-    // if (editorGroupHeightTMP) {
-    //   document.querySelector(".multi-editor-container").setAttribute("style", `height: ${editorGroupHeightTMP}px;`);
-    // }
 
-    // /** Focus the main editor */
-    // this.$refs.refMainEditor.getEditor().focus();
     this.updateModalEditorSize();
 
     /**
@@ -115,6 +101,11 @@ export default {
     if (theme) {
       this.currentTheme = theme;
     }
+
+    // /** Focus the main editor */
+    this.waitForDocumentElement("#main-editor", 1500).then(elm => {
+      this.$refs.refMainEditor.getEditor().focus();
+    });
   },
   computed: {
     scaledAutocompleteResultsContainerHeight() {
@@ -477,23 +468,5 @@ export default {
         .slice(0, -1)
         .join("\n");
     }
-    // setOutputSelection() {
-    //   // Parameters
-    //   //     startLineNumber: number
-    //   //     startColumn: number
-    //   //     endLineNumber: number
-    //   //     endColumn: number
-    //   var cursorLineNumber = this.$refs.refMainEditor.getEditor().getPosition()
-    //     .lineNumber;
-    //   // var cursorLineEnd = this.$refs.refMainEditor.getEditor().getPosition().column;
-    //   // console.log(this.$refs.refMainEditor.getEditor());
-
-    //   // this.lineDecorationRange = { range: new monaco.Range(cursorLineNumber, 0, cursorLineNumber, 0), options: { isWholeLine: true, linesDecorationsClassName: "myLineDecoration" }};
-
-    //   /// note :: Last used highlighting code.
-    //   // this.$refs.refOutputEditor.getEditor().deltaDecorations([], [
-    //   //   { range: new monaco.Range(cursorLineNumber, 0, cursorLineNumber, 0), options: { isWholeLine: true, linesDecorationsClassName: "myLineDecoration" }}
-    //   // ]);
-    // }
   }
 };

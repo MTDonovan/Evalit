@@ -162,6 +162,7 @@
 
     <div id="editors-container" class="multi-editor-container">
       <monaco-editor
+        id="main-editor"
         v-model="maineditor"
         language="javascript"
         :theme="currentTheme"
