@@ -172,31 +172,6 @@
       </div>
     </div>
 
-    <!-- <div class="quake-console" :style="displayQuakeConsole"> -->
-    <!--   <div class="console-lines-container"> -->
-    <!--     <p class="console-line" v-for="(v, k) in previousConsoleLines" :key="k">{{ v }}</p> -->
-    <!--   </div> -->
-    <!-- </div> -->
-    <!-- <input -->
-    <!--   class="quake-console-input input" -->
-    <!--   :style="displayQuakeConsole" -->
-    <!--   v-model="consoleCommand" -->
-    <!--   @keypress.enter="runConsoleCommand()" -->
-    <!--   type="text" -->
-    <!--   value="" -->
-    <!--   spellcheck="false" -->
-    <!--   /> -->
-    <!-- <div class="autocomplete-results-container" :style="displayQuakeConsole"> -->
-    <!--   <ul class="autocomplete-results-body"> -->
-    <!--     <li -->
-    <!--       v-for="(v, k) in commandsList" -->
-    <!--       :key="k" -->
-    <!--       :tabindex="(k + 1)" -->
-    <!--       > -->
-    <!--       <span><label>{{ v }}</label></span> -->
-    <!--     </li> -->
-    <!--   </ul> -->
-    <!-- </div> -->
     <div id="editors-container" class="multi-editor-container">
       <monaco-editor
         v-model="maineditor"

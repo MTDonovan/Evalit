@@ -23,19 +23,6 @@ export default {
       counter: 0,
       modalEditorVisible: true,
       outputEditorVisible: true,
-      // consoleCommand: "",
-      // commandsList: [
-      //   "commands",
-      //   "cls",
-      //   "appdata",
-      //   "data",
-      //   "functions",
-      //   "theme"
-      // ],
-      // previousCommandIndex: 0,
-      // previousCommands     : [],
-      // previousConsoleLines : [],
-      // quakeConsoleDisplayed: false,
       currentTheme: "vs-dark",
       mainEditorOptions: {
         fontSize: 13,
@@ -279,15 +266,6 @@ export default {
       } else {
         return {};
       }
-    },
-    displayQuakeConsole() {
-      if (this.quakeConsoleDisplayed === true) {
-        return {};
-      } else {
-        return {
-          display: "None"
-        };
-      }
     }
   },
   methods: {
@@ -342,78 +320,6 @@ export default {
             `height: ${modalBodyHeight}px; width: ${modalBodyWidth}px;`
           );
       });
-    },
-    // openQuakeConsole() {
-    //   this.quakeConsoleDisplayed = !this.quakeConsoleDisplayed;
-    //   if (this.quakeConsoleDisplayed) {
-    //     this.waitForDocumentElement(".quake-console-input", 1500).then(() => {
-    //       document.querySelector(".quake-console-input").focus();
-    //     });
-    //   } else {
-    //     this.$refs.refMainEditor.getEditor().focus();
-    //   }
-    // },
-    postRunConsoleCommand() {
-      /**
-       * Save the previous command.
-       */
-      this.previousCommands.push(this.consoleCommand);
-      this.consoleCommand = "";
-      let consoleElm = document.querySelector(".quake-console");
-      consoleElm.scrollTop = consoleElm.scrollHeight;
-    },
-    runConsoleCommand() {
-      /**
-       * Run partial commands with sub commands.
-       */
-      let commandPartialMatch = this.commandsList.filter(x => {
-        let re = new RegExp("^" + x + " [a-z|A-Z]", "g");
-        return this.consoleCommand.match(re);
-      });
-
-      if (commandPartialMatch && commandPartialMatch.length > 0) {
-        if (this.consoleCommand.match(/^theme [a-z|A-Z]/g)) {
-          this.currentTheme = this.consoleCommand.split("theme ")[1];
-        }
-        this.postRunConsoleCommand();
-        return;
-      }
-
-      /**
-       * Verify that the provided console command is in the command list.
-       * + note :: This is for commands without subcommands.
-       */
-      if (!this.commandsList.includes(this.consoleCommand)) {
-        this.previousConsoleLines.push(
-          `Console command "${this.consoleCommand}" does not exist.`
-        );
-        this.postRunConsoleCommand();
-        return;
-      }
-
-      switch (this.consoleCommand) {
-        case "commands":
-          this.previousConsoleLines = this.previousConsoleLines.concat(
-            this.commandsList
-          );
-          break;
-        case "cls":
-          this.previousConsoleLines = [];
-          break;
-        case "appdata":
-          this.quakeConsoleDisplayed = false;
-          ipcRenderer.send("open-path-default-app", "appdata");
-          break;
-        case "data":
-          this.quakeConsoleDisplayed = false;
-          ipcRenderer.send("open-path-default-app", "data");
-          break;
-        case "functions":
-          this.quakeConsoleDisplayed = false;
-          ipcRenderer.send("open-path-default-app", "functions");
-          break;
-      }
-      this.postRunConsoleCommand();
     },
     openAppDataFolder() {
       ipcRenderer.send("open-path-default-app", "appdata");
@@ -536,32 +442,11 @@ export default {
           .setScrollTop(editor.getScrollTop());
       });
     },
-    indexConsoleCommands() {
-      let previousCommand = this.previousCommands.pop();
-      this.consoleCommand = previousCommand;
-    },
     handleHotKeys(event) {
-      /// TODO implement the hotkey in a way that does no block normal up-key usage
-      // if (event.srcKey === "gotoPreviousCommand" &&
-      //     this.quakeConsoleDisplayed &&
-      //     document.querySelector(".quake-console-input") === document.activeElement) {
-      //   this.indexConsoleCommands();
-      // }
       if (event.srcKey === "eval") {
         this.evalEvent();
         return;
       }
-      // if (event.srcKey === "openConsole") {
-      //   this.quakeConsoleDisplayed = !this.quakeConsoleDisplayed;
-      //   if (this.quakeConsoleDisplayed) {
-      //     this.waitForDocumentElement(".quake-console-input", 1500).then(() => {
-      //       document.querySelector(".quake-console-input").focus();
-      //     });
-      //   } else {
-      //     this.$refs.refMainEditor.getEditor().focus();
-      //   }
-      //   return;
-      // }
     },
     secBuild() {
       let sec = new E();
@@ -597,24 +482,24 @@ export default {
         .join("\n");
       // console.log(this.$refs.refMainEditor.getEditor());
       // this.$refs.refOutputEditor.getEditor().setValue("This is some text");
-    },
-    setOutputSelection() {
-      // Parameters
-      //     startLineNumber: number
-      //     startColumn: number
-      //     endLineNumber: number
-      //     endColumn: number
-      var cursorLineNumber = this.$refs.refMainEditor.getEditor().getPosition()
-        .lineNumber;
-      // var cursorLineEnd = this.$refs.refMainEditor.getEditor().getPosition().column;
-      // console.log(this.$refs.refMainEditor.getEditor());
-
-      // this.lineDecorationRange = { range: new monaco.Range(cursorLineNumber, 0, cursorLineNumber, 0), options: { isWholeLine: true, linesDecorationsClassName: "myLineDecoration" }};
-
-      /// note :: Last used highlighting code.
-      // this.$refs.refOutputEditor.getEditor().deltaDecorations([], [
-      //   { range: new monaco.Range(cursorLineNumber, 0, cursorLineNumber, 0), options: { isWholeLine: true, linesDecorationsClassName: "myLineDecoration" }}
-      // ]);
     }
+    // setOutputSelection() {
+    //   // Parameters
+    //   //     startLineNumber: number
+    //   //     startColumn: number
+    //   //     endLineNumber: number
+    //   //     endColumn: number
+    //   var cursorLineNumber = this.$refs.refMainEditor.getEditor().getPosition()
+    //     .lineNumber;
+    //   // var cursorLineEnd = this.$refs.refMainEditor.getEditor().getPosition().column;
+    //   // console.log(this.$refs.refMainEditor.getEditor());
+
+    //   // this.lineDecorationRange = { range: new monaco.Range(cursorLineNumber, 0, cursorLineNumber, 0), options: { isWholeLine: true, linesDecorationsClassName: "myLineDecoration" }};
+
+    //   /// note :: Last used highlighting code.
+    //   // this.$refs.refOutputEditor.getEditor().deltaDecorations([], [
+    //   //   { range: new monaco.Range(cursorLineNumber, 0, cursorLineNumber, 0), options: { isWholeLine: true, linesDecorationsClassName: "myLineDecoration" }}
+    //   // ]);
+    // }
   }
 };
