@@ -129,7 +129,7 @@ if (isDevelopment) {
 ipcMain.on("get-file-path", (event, arg) => {
   switch (arg) {
     case "appdata":
-      event.returnValue = app.getPath("userData");
+      event.returnValue = app.getPath("userData").replace(/\\/g, "/");
       break;
     case "data":
       event.returnValue = path

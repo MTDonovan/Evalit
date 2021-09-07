@@ -361,9 +361,8 @@ class EvalScriptInterpreter {
       }
       /** Return nothing if the line cannot be evaluated */
       try {
-        // console.log("This is the final item: " + item);
         return eval(item);
-      } catch (e) {
+      } catch (_e) {
         console.log("Error occurred during eval: " + item.toString());
         return null;
       }
