@@ -106,6 +106,7 @@ dist
 # Emacs files
 *#
 *~
+notes.org
 
 # Dist folder
 dist_electron/
