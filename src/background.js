@@ -39,7 +39,7 @@ async function createWindow() {
   const staticHeight = 800;
   const win = new BrowserWindow({
     width: 1050,
-    minWidth: 800,
+    minWidth: 805,
     height: staticHeight,
     minHeight: staticHeight,
     maxHeight: staticHeight,
