@@ -23,7 +23,7 @@ default functionality builtin. This includes basics such as:
 In the Evalit appdata directory's "user.defined.functions.js" file:
 
 ``` js
-var fix  = exp => exp[0].toFixed(exp[1]);             // Round a number to a specified point
+var fix  = exp => exp[0].toFixed(exp[1]);             // Round a number to a specific point
 var sub  = exp => exp[0] - exp[1];                    // Substract
 var up   = exp => exp[0] + (exp[0] * (exp[1] / 100)); // Increase a number by a percentage
 var down = exp => exp[0] - (exp[0] * (exp[1] / 100)); // Decrease a number by a percentage
