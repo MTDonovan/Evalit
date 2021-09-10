@@ -19,11 +19,11 @@
         </button>
         <button
           id="save-btn"
-          class="btn btn-default"
+          class="btn btn-default btn-with-text"
           @click="saveEvalText()"
           :style="btnStyle"
         >
-          <span class="icon" :style="btnIconStyle"></span
+          <span class="icon icon-floppy" :style="btnIconStyle"></span
           ><span :style="btnIconStyle">Save</span>
         </button>
         <button

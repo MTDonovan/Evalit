@@ -81,7 +81,6 @@ You can then use the defined contant anywhere in the notepad:
 ```js
 (@pi / 0.5) * 100 // This line will resolve to "628"
 ```
-
 The function chaining syntax (inspired by the F# pipeline operator) is used to
 
 
@@ -96,5 +95,5 @@ module.exports = {
 
 ```js
 // Evalit notepad
-150 . up {25} // This line will resolve to "115"
+150 . up {25} // This line will resolve to "187.5"
 ```
