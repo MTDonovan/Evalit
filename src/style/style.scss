@@ -128,18 +128,9 @@ select.free-select {
     margin-left: 4px;
     font-size: 12px;
     line-height: 1.4;
-    // color: #333;
     white-space: nowrap;
     margin-bottom: 0px;
-    // border: 1px solid transparent;
     border-radius: 4px;
-    // border-top-color: #c2c0c2;
-    // border-right-color: #c2c0c2;
-    // border-bottom-color: #a19fa1;
-    // border-left-color: #c2c0c2;
-    // background-color: #fcfcfc;
-    // background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#f1f1f1));
-    // background-image: linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%);
 }
 
 .header-label {
@@ -204,9 +195,6 @@ select.free-select {
         padding-left: 40px;
         padding-right: 40px;
         .form-group-wrapper {
-            /* display: grid; */
-            /* grid-template-columns: auto 28%; */
-            /* grid-gap: 7px; */
             label {
                 width: 120px;
                 transform: translateY(14px);
@@ -386,7 +374,6 @@ select {
     max-width: 30%;
     border: 2px solid #ddd;
     min-width: 150px;
-    // max-height: 300px;
     transform: translateY(30px);
     height: 250px;
     background-color: black;
@@ -404,9 +391,6 @@ select {
             padding: 1px;
             padding-top: 4px;
             cursor: pointer;
-            // &:hover {
-            //     background-color: #dcdfe1;
-            // }
         }
     }
 }
