@@ -103,6 +103,6 @@ EvalScript supports "//" comments for preventing a line from being evaluated. Li
 do not being with a numeric value or a "@" will also not be evaluated.
 
 ``` js
-// This line will not be evaluated. Text will be outputed to the read-only editor unchanged.
+// This line will not be evaluated; text in this line will be outputed to the read-only editor unchanged.
 This line will also not be evaluated.
 ```
