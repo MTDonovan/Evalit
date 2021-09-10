@@ -100,7 +100,7 @@ module.exports = {
 ```
 
 EvalScript supports "//" comments for preventing a line from being evaluated. Lines that
-do not being with a numeric value or a "@" will also not be evaluated.
+do not begin with a numeric value or a "@" will also not be evaluated.
 
 ``` js
 // This line will not be evaluated; text in this line will be outputed to the read-only editor unchanged.
