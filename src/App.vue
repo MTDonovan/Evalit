@@ -9,15 +9,6 @@
     <header class="toolbar toolbar-header" :style="headerStyle">
       <div class="btn-group pull-left">
         <button
-          id="eval-btn"
-          class="btn btn-default btn-with-text"
-          @click="evalEvent()"
-          :style="btnStyle"
-        >
-          <span class="icon icon-right-dir" :style="btnIconStyle"></span
-          ><span :style="btnIconStyle">Eval</span>
-        </button>
-        <button
           id="reload-btn"
           class="btn btn-default btn-with-text"
           @click="reloadEvent()"
