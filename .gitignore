@@ -104,6 +104,7 @@ dist
 .tern-port
 
 # Emacs files
+.#*
 *#
 *~
 notes.org
