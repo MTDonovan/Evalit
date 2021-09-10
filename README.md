@@ -51,7 +51,7 @@ Post-Tax Total
 
 Result in Evalit:
 
-![Alt text](InvoiceExample.png)
+![Alt text](screenshots/InvoiceExample.png)
 
 # Full instructions
 
