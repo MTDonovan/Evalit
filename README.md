@@ -1,14 +1,99 @@
-## Project setup
+Evalit is a notepad calculator app that allows you to leverage your JavaScript knowledge
+to create custom functions. The aim of Evalit is to merge the freedom and ease of use of
+programs like Soulver and NoteCalc with the deep configurability of spreadsheet programs
+like LibreOffice Calc.
 
-### Compiles and hot-reloads for development
-```
-npm run electron:serve
+Evalit is not a drop-in replacement for full fledged live computing environments like
+Jupyter or Emacs with Org Mode. Instead, you can think of Evalit as being a step-up from
+conventional calculator apps that lack automation oriented tools.
+
+Evalit accepts conventional infix notation mathematical expressions (just as you learned
+in primary school) with additional syntax built on top to allow users to define custom
+functions JavaScript that can be invoked at runtime using a pipeline operator.
+
+The Evalit notepad was built using Microsoft's Monaco editor and has most of the editor's
+default functionality builtin. This includes basics such as:
+- Multipile cursors
+- Search and replace
+- Line numbers
+- Autocomplete
+
+# Syntax demo for people who can't be bothered to read instructions
+
+In the Evalit appdata directory's "user.defined.functions.js" file:
+
+``` js
+var fix  = exp => exp[0].toFixed(exp[1]);
+var sub  = exp => exp[0] - exp[1];
+var up   = exp => exp[0] + (exp[0] * (exp[1] / 100));
+var down = exp => exp[0] - (exp[0] * (exp[1] / 100));
+
+module.exports = {
+  fix, sub, up, down
+};
 ```
 
-### Compiles and minifies for production
-```
-npm run electron:build
+Result in Evalit:
+
+[Invoice Example notepad](InvoiceExample.png)
+
+
+In the Evalit notepad:
+
+```js
+def @total = 925.548
+def @tax   = 5.5
+
+Sub Total
+@total . fix {2}
+Tax Amount
+@total . up {@tax} . sub {@total} . fix {2}
+Post Tax Total
+@total . up {@tax} . fix {2}
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Full instructions
+
+## EvalScript
+
+EvalScript is the syntax that runs within the Evalit notepad. EvalScript is evaluated
+line-by-line (similar in effect to a REPL).
+
+There are three values that take into account all evaluated lines at the bottom of the
+Evalit GUI:
+- Average
+- Count
+- Sum
+
+
+that allows you to do the following:
+1. Define constants
+2. Chain user defined functions
+
+Defining a constant is done as follows:
+
+```js
+def @pi = 3.14
+```
+You can then use the defined contant anywhere in the notepad:
+
+```js
+(@pi / 0.5) * 100 // This line will resolve to "628"
+```
+
+The function chaining syntax (inspired by the F# pipeline operator) is used to
+
+
+``` js
+// user.defined.functions.js file
+var up = exp => exp[0] + (exp[0] * (exp[1] / 100));
+
+module.exports = {
+  up
+};
+```
+
+```js
+// Evalit notepad
+150 . up {25} // This line will resolve to "115"
+```
