@@ -35,7 +35,7 @@ module.exports = {                                    // Export the functions
 
 In the Evalit notepad:
 
-```js
+``` js
 def @total = 925.548
 def @tax   = 5.5
 
@@ -53,7 +53,7 @@ Result in Evalit:
 
 ![Alt text](screenshots/InvoiceExample.png)
 
-# Full instructions
+# Instructions
 
 ## EvalScript
 
@@ -67,18 +67,19 @@ Evalit GUI:
 - Sum
 
 
-that allows you to do the following:
+The EvalScript syntax allows you to do the following in the notepad:
 1. Define constants
 2. Chain user defined functions
 
-Defining a constant is done as follows:
+Define a constant in the notepad:
 
-```js
+``` js
 def @pi = 3.14
 ```
-You can then use the defined contant anywhere in the notepad:
 
-```js
+Use the defined contant anywhere in the notepad:
+
+``` js
 (@pi / 0.5) * 100 // This line will resolve to "628"
 ```
 The function chaining syntax (inspired by the F# pipeline operator) is used to
@@ -93,7 +94,15 @@ module.exports = {
 };
 ```
 
-```js
+``` js
 // Evalit notepad
 150 . up {25} // This line will resolve to "187.5"
+```
+
+EvalScript supports "//" comments for preventing a line from being evaluated. Lines that
+do not being with a numeric value or a "@" will also not be evaluated.
+
+``` js
+// This line will not be evaluated. Text will be outputed to the read-only editor unchanged.
+This line will also not be evaluated.
 ```
