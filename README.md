@@ -33,11 +33,6 @@ module.exports = {
 };
 ```
 
-Result in Evalit:
-
-[Invoice Example notepad](InvoiceExample.png)
-
-
 In the Evalit notepad:
 
 ```js
@@ -46,11 +41,17 @@ def @tax   = 5.5
 
 Sub Total
 @total . fix {2}
+
 Tax Amount
 @total . up {@tax} . sub {@total} . fix {2}
-Post Tax Total
+
+Post-Tax Total
 @total . up {@tax} . fix {2}
 ```
+
+Result in Evalit:
+
+[Invoice Example notepad](InvoiceExample.png)
 
 # Full instructions
 
