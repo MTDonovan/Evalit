@@ -83,8 +83,9 @@ Use the defined contant anywhere in the notepad:
 (@pi / 0.5) * 100 // This line will resolve to "628"
 ```
 
-The function chaining syntax was inspired by the pipeline operator in programming languages
-such as Elixir. When you invoke a chained function on a
+The function chaining syntax was inspired by the pipeline operator in programming
+languages such as Elixir. When you invoke a chained function on a number, the number is
+used as the first parameter of the function.
 
 
 ``` js

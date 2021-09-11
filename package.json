@@ -10,7 +10,8 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "scss": "node-sass ./src/style -o ./src/style"
+    "scss": "node-sass ./src/style -o ./src/style",
+    "appimage": "./dist_electron/Evalit-0.1.0.AppImage"
   },
   "main": "background.js",
   "dependencies": {
