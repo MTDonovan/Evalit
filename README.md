@@ -102,6 +102,18 @@ module.exports = {
 150 . up {25} // This line will resolve to "187.5"
 ```
 
+You can also assign the result of mathematical expressions and functions to a constant. To
+use a function in a constant assignment, you are required to prefix the assignment with "@
+.".
+
+``` js
+def @result = @ . 150 . up {5.225} . fix {4} // This will assign the value "157.8375"
+
+@result * 3.0 . down {25} . fix {2} // This line will resolve to "355.13"
+@result * 2.0 . down {15} . fix {2} // This line will resolve to "268.32"
+@result * 0.5 . down {15} . fix {2} // This line will resolve to "67.08"
+```
+
 EvalScript supports "//" comments for preventing a line from being evaluated. Lines that
 do not begin with a numeric value or a "@" will also not be evaluated.
 
