@@ -112,7 +112,7 @@ class EvalScriptInterpreter {
     return false;
   }
   verifyOutputOnlyEval(lineItem) {
-    /** If the line beings with "!#", return true */
+    /** If the line beings with the IGN syntax, return true. */
     switch (this.comment) {
       case "sh":
         if (lineItem.match(/^(( |\t)+)?!#/g)) {
@@ -131,7 +131,7 @@ class EvalScriptInterpreter {
     /** Split the array on the first instance "=" is found */
     let y = x.split(/=(.+)/g).map((item, index) => {
       /**
-       * If a pipe call is present on the second index, return is without replacing
+       * If a pipe call is present on the second index, return it without replacing
        * any spaces.
        */
       if (index === 1 && item.match(/^([\s]+)?@([\s]+)?\.([\s]+)?/g)) {
@@ -184,7 +184,7 @@ class EvalScriptInterpreter {
     let funcCallPresent = false;
     for (let i = 0; i < funcCalls.length; i++) {
       /**
-       * Location function calls that begin with varibles.
+       * Locate function calls that begin with variables.
        */
       let variableLocationPattern = funcCalls[i].name,
         re_1 = new RegExp(`(^ ?${variableLocationPattern} ?{(.*)}$)`, "g");
@@ -193,7 +193,7 @@ class EvalScriptInterpreter {
         break;
       }
       /**
-       * Location function calls that do not begin with variables.
+       * Locate function calls that do not begin with variables.
        */
       let re_2 = new RegExp(this.pipeFunctionOperatorPattern, "g");
       if (lineItem.match(re_2)) {
@@ -237,8 +237,8 @@ class EvalScriptInterpreter {
           x => funcCalls[i](x)
         )(y);
 
-        /** Return 0 if the function is equal to 0 or the result cannot be
-         * evaluated */
+        /** Return 0 if the function is equal to 0 or if the result cannot be *
+            evaluated */
         if (eval(res) === 0 || !eval(res)) {
           return "0";
         }
@@ -247,8 +247,6 @@ class EvalScriptInterpreter {
     }
     return lineItem;
   }
-  /// TODO change the "invokePipeCalls" function to allow pipe functions to be called
-  /// without curly brace parameters.
   invokePipeCalls(lineItem, variables) {
     /** Remove the prefixed ignore operator if it is present */
     const sanitizedLineItem =
@@ -313,16 +311,16 @@ class EvalScriptInterpreter {
       if (this.verifyOutputOnlyEval(item)) {
         return item;
       }
-      /** Allow variable declarations to remain in the splitArr unaltered */
+      /** Allow variable declarations to remain in the splitArr unmodified. */
       if (item.match(/^def/g)) {
         return item;
       }
-      /** Allow lines that use variables to remain in the splitArr unaltered */
+      /** Allow lines that use variables to remain in the splitArr unmodified. */
       if (item.match(/@/g)) {
         return item;
       }
       /**
-       * If the item contains a reference to a funcCall, return the item unaltered.
+       * If the item contains a reference to a funcCall, return the item unmodified.
        */
       if (this.locateFuncCalls(item)) {
         return item;
@@ -334,35 +332,35 @@ class EvalScriptInterpreter {
     let variables = [];
 
     let filteredArr = splitArr.filter(item => {
-      /** Return lines that are either empty or start with "#" (i.e. comments) */
+      /** Return lines that are either empty or start with the comment syntax. */
       if (this.verifyLineEmptyOrComment(item)) {
         return item;
       }
       if (this.verifyOutputOnlyEval(item)) {
         return item;
       }
-      /** If an item begins with "@", push it into the variables array */
+      /** If an item begins with "@", push it into the variables array. */
       if (item.match(/^def/g)) {
         variables.push(this.splitVariable(item, variables));
         return item;
       }
       /**
        * If the line contains a previously declared variable, leave it in the array
-       * unchanged.
+       * unmodified.
        */
       if (item.match(/@/g)) {
         return item;
       }
       /**
-       * If the item contains a reference to a funcCall, return the item unaltered.
+       * If the item contains a reference to a funcCall, return the item unmodified.
        */
       if (this.locateFuncCalls(item)) {
         return item;
       }
-      /** Return nothing if the line cannot be evaluated */
+      /** Return nothing if the line cannot be evaluated. */
       try {
         return eval(item);
-      } catch (_e) {
+      } catch (e) {
         console.log("Error occurred during eval: " + item.toString());
         return null;
       }
