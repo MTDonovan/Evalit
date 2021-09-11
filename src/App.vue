@@ -134,6 +134,7 @@
         ref="refMainEditor"
       ></monaco-editor>
       <monaco-editor
+        id="output-editor"
         v-model="output"
         language="javascript"
         :theme="currentTheme"

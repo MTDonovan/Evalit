@@ -23,17 +23,19 @@ export default {
       outputEditorVisible: true,
       currentTheme: "vs-dark",
       mainEditorOptions: {
-        fontSize: 13,
+        fontSize: 14,
         minimap: {
           enabled: false
-        }
+        },
+        automaticLayout: true
       },
       outputEditorOptions: {
-        fontSize: 13,
+        fontSize: 14,
         readOnly: true,
         minimap: {
           enabled: false
-        }
+        },
+        automaticLayout: true
       },
       maineditor: "",
       modaleditor: "",
@@ -289,6 +291,18 @@ export default {
             "style",
             `height: ${window.innerHeight - (headerHeight + footerHeight)}px;`
           );
+        document
+          .querySelector("#main-editor")
+          .setAttribute(
+            "style",
+            `height: ${window.innerHeight - (headerHeight + footerHeight)}px;`
+          );
+        document
+          .querySelector("#output-editor")
+          .setAttribute(
+            "style",
+            `height: ${window.innerHeight - (headerHeight + footerHeight)}px;`
+          );
         this.$refs.refMainEditor.getEditor().layout();
         this.$refs.refOutputEditor.getEditor().layout();
       });
@@ -307,15 +321,6 @@ export default {
             `height: ${modalBodyHeight}px; width: ${modalBodyWidth}px;`
           );
       });
-    },
-    openAppDataFolder() {
-      ipcRenderer.send("open-path-default-app", "appdata");
-    },
-    openDataFile() {
-      ipcRenderer.send("open-path-default-app", "data");
-    },
-    openFunctionsFile() {
-      ipcRenderer.send("open-path-default-app", "functions");
     },
     updateData() {
       this.modalEditorVisible = false;
