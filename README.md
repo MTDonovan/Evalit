@@ -107,7 +107,7 @@ use a function in a constant assignment, you are required to prefix the assignme
 .".
 
 ``` js
-def @result = @ . 150 . up {5.225} . fix {4} // This will assign the value "157.8375" to "@result"
+def @result = @ . (150 / 1.25) * 2 . up {5.225} . fix {4} // This will assign the value "157.8375" to "@result"
 
 @result * 3.0 . down {25} . fix {2} // This line will resolve to "355.13"
 @result * 2.0 . down {15} . fix {2} // This line will resolve to "268.32"
