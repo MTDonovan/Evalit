@@ -285,24 +285,16 @@ export default {
       let headerHeight = document.querySelector(".toolbar-header").clientHeight;
       let footerHeight = document.querySelector(".toolbar-footer").clientHeight;
       this.waitForDocumentElement(selector, 1500).then(() => {
+        let calcHeight = window.innerHeight - (headerHeight + footerHeight);
         document
           .querySelector(selector)
-          .setAttribute(
-            "style",
-            `height: ${window.innerHeight - (headerHeight + footerHeight)}px;`
-          );
+          .setAttribute("style", `height: ${calcHeight}px;`);
         document
           .querySelector("#main-editor")
-          .setAttribute(
-            "style",
-            `height: ${window.innerHeight - (headerHeight + footerHeight)}px;`
-          );
+          .setAttribute("style", `height: ${calcHeight}px;`);
         document
           .querySelector("#output-editor")
-          .setAttribute(
-            "style",
-            `height: ${window.innerHeight - (headerHeight + footerHeight)}px;`
-          );
+          .setAttribute("style", `height: ${calcHeight}px;`);
         this.$refs.refMainEditor.getEditor().layout();
         this.$refs.refOutputEditor.getEditor().layout();
       });
