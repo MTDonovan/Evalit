@@ -107,11 +107,11 @@ use a function in a constant assignment, you are required to prefix the assignme
 .".
 
 ``` js
-def @result = @ . (150 / 1.25) * 2 . up {5.225} . fix {4} // This will assign the value "157.8375" to "@result"
+def @result = @ . (150 / 1.2255) * 2 . up {5.225} . fix {4} // This will assign the value "257.5887" to "@result"
 
-@result * 3.0 . down {25} . fix {2} // This line will resolve to "355.13"
-@result * 2.0 . down {15} . fix {2} // This line will resolve to "268.32"
-@result * 0.5 . down {15} . fix {2} // This line will resolve to "67.08"
+@result * 3.0 . down {25} . fix {2} // This line will resolve to "579.57"
+@result * 2.0 . down {15} . fix {2} // This line will resolve to "437.9"
+@result * 0.5 . down {15} . fix {2} // This line will resolve to "109.48"
 ```
 
 EvalScript supports "//" comments for preventing a line from being evaluated. Lines that
