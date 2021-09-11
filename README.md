@@ -107,9 +107,9 @@ do not begin with a numeric value or a "@" will also not be evaluated.
 This line will also not be evaluated.
 ```
 
-EvalScript allow allows you to evaluate a line without having its value included in the
-Count, Average, and Sum values in the Evalit GUI footer by prefixing the line with "!//".
-Lines that are evaluated in this manner will be outputted to the read-only editor with the
+EvalScript allows you to evaluate a line without having its value included in the Count,
+Average, and Sum values in the Evalit GUI footer by prefixing the line with "!//". Lines
+that are evaluated in this manner will be outputted to the read-only editor with the
 prefix "IGN".
 
 ![Alt text](screenshots/IGNExample.png)
