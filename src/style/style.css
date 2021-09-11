@@ -1,5 +1,5 @@
 .grid-column-header {
-  font-size: 12pt; }
+  font-size: 10pt; }
 
 .checkbox input:hover, .checkbox label:hover {
   cursor: pointer; }
@@ -8,7 +8,7 @@
   font-size: 9pt; }
 
 label {
-  font-size: 12pt; }
+  font-size: 11pt; }
 
 header {
   height: 12%; }
@@ -22,8 +22,10 @@ footer {
 button:hover {
   cursor: pointer; }
 
-.btn span:hover {
-  cursor: pointer; }
+.btn {
+  font-size: 10pt; }
+  .btn span:hover {
+    cursor: pointer; }
 
 .btn-with-text {
   /** The button icon */ }
@@ -33,13 +35,13 @@ button:hover {
     margin-right: 7px; }
 
 input {
-  height: 29px;
-  font-size: 12pt; }
+  font-size: 11pt !important;
+  height: 29px; }
   input:hover {
     cursor: text; }
 
 textarea {
-  font-size: 12pt;
+  font-size: 10pt;
   resize: none; }
   textarea:hover {
     cursor: text; }
@@ -103,6 +105,7 @@ select.free-select {
   width: 80px; }
 
 .footer-label {
+  font-size: 11pt;
   margin-left: 5px; }
 
 .footer-input {
@@ -201,32 +204,6 @@ select.free-select {
   width: 5px !important;
   margin-left: 3px; }
 
-.quake-console {
-  z-index: 10;
-  position: absolute;
-  transform: translate(0, 30px);
-  background-color: black;
-  opacity: 0.9;
-  width: 100%;
-  height: 250px;
-  overflow-y: auto; }
-  .quake-console .console-lines-container {
-    padding-top: 5px;
-    padding-left: 5px;
-    line-height: 0.5; }
-    .quake-console .console-lines-container .console-line {
-      color: white; }
-
-.quake-console-input {
-  z-index: 10;
-  position: absolute;
-  height: 30px;
-  width: 100%;
-  color: white;
-  background-color: black;
-  opacity: 0.9;
-  padding-left: 5px; }
-
 .toolbar {
   background-image: linear-gradient(to bottom, #323130 0%, #2b2b2a 100%);
   box-shadow: 0 1px 1px #323130; }
@@ -266,43 +243,15 @@ footer {
   border: 1px solid #262424; }
 
 select {
+  font-size: 10pt !important;
   color: white;
   background-image: linear-gradient(to bottom, #383838 0%, #323130 100%);
-  border: 1px solid #262424;
-  font-size: 12px; }
+  border: 1px solid #262424; }
   select option {
     color: white;
     background-image: linear-gradient(to bottom, #383838 0%, #323130 100%);
     background-color: #383838;
-    font-size: 12px; }
-
-.autocomplete-results-container {
-  z-index: 11;
-  position: absolute;
-  background-color: white;
-  transform: translateY(0.1%);
-  overflow-x: auto;
-  overflow-y: auto;
-  word-break: break-word;
-  max-width: 30%;
-  border: 2px solid #ddd;
-  min-width: 150px;
-  transform: translateY(30px);
-  height: 250px;
-  background-color: black;
-  opacity: 0.9; }
-  .autocomplete-results-container > .autocomplete-results-body {
-    list-style-type: none;
-    padding: 2px;
-    margin: 2px; }
-    .autocomplete-results-container > .autocomplete-results-body li {
-      display: grid;
-      grid-template-columns: 10px auto; }
-    .autocomplete-results-container > .autocomplete-results-body li, .autocomplete-results-container > .autocomplete-results-body span, .autocomplete-results-container > .autocomplete-results-body label {
-      color: white;
-      padding: 1px;
-      padding-top: 4px;
-      cursor: pointer; }
+    font-size: 10pt !important; }
 
 .theme-text {
   text-transform: capitalize; }

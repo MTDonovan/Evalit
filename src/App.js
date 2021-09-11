@@ -23,14 +23,14 @@ export default {
       outputEditorVisible: true,
       currentTheme: "vs-dark",
       mainEditorOptions: {
-        fontSize: 14,
+        fontSize: 13,
         minimap: {
           enabled: false
         },
         automaticLayout: true
       },
       outputEditorOptions: {
-        fontSize: 14,
+        fontSize: 13,
         readOnly: true,
         minimap: {
           enabled: false
@@ -71,7 +71,7 @@ export default {
 
     document
       .querySelector(".multi-editor-container")
-      .setAttribute("style", "height: 723px;");
+      .setAttribute("style", "height: 720px;");
 
     this.$nextTick(() => {
       /**
@@ -94,8 +94,6 @@ export default {
       this.evalEvent();
     }
 
-    this.updateModalEditorSize();
-
     /**
      * Load the preferred theme. Set to vs-dark if no theme is provided.
      */
@@ -104,10 +102,12 @@ export default {
       this.currentTheme = theme;
     }
 
-    // /** Focus the main editor */
+    /** Focus the main editor */
     this.waitForDocumentElement("#main-editor", 1500).then(elm => {
       this.$refs.refMainEditor.getEditor().focus();
     });
+
+    this.updateTableWrapperHeight();
   },
   computed: {
     scaledAutocompleteResultsContainerHeight() {

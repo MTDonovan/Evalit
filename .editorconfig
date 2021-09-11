@@ -10,6 +10,14 @@ charset = utf-8
 indent_style = space
 indent_size = 2
 
+[*.scss]
+indent_style = space
+indent_size = 4
+
+[*.css]
+indent_style = space
+indent_size = 4
+
 # Matches the exact file for package.json
 [{package.json}]
 indent_style = space
