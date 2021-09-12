@@ -66,7 +66,6 @@ Evalit GUI:
 - Count
 - Sum
 
-
 The EvalScript syntax allows you to do the following in the notepad:
 1. Define constants
 2. Chain user defined functions
