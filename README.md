@@ -11,13 +11,6 @@ Evalit accepts conventional infix notation mathematical expressions (just as you
 in primary school) with additional syntax built on top to allow users to define custom
 functions JavaScript that can be invoked at runtime using a pipeline operator.
 
-The Evalit notepad was built using Microsoft's Monaco editor and has most of the editor's
-default functionality builtin. This includes basics such as:
-- Multipile cursors
-- Search and replace
-- Line numbers
-- Autocomplete
-
 # Syntax demo for people who can't be bothered to read instructions
 
 In the Evalit appdata directory's "user.defined.functions.js" file:
