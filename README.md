@@ -74,9 +74,9 @@ Use the variable anywhere in the notepad:
 
 The function chaining syntax was inspired by the pipeline operator in programming
 languages such as Elixir. When you invoke a chained function on a number, the number is
-used as the first parameter of the function. Note that the function parameters are always
-going to be passed into the function as an array. You access the individual EvalScript
-function parameters as indexes of the array.
+used as the first parameter of the function and the following parameters are the values
+passed to the EvalScript function call (i.e., "functionName {param1, param2, etc.}"). You
+access the individual EvalScript function parameters as indexes of the array.
 
 ``` js
 // user.defined.functions.js" file
