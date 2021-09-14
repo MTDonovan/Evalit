@@ -124,8 +124,8 @@ prefix "IGN".
 
 ![Alt text](screenshots/IGNExample.png)
 
-Also be aware that, because all lines are evaluated in JavaScript as template literals,
-you can insert literal JavaScript into a line like so:
+Also be aware that, because all lines are evaluated in JavaScript are template literals,
+you can insert JavaScript snippets into lines like so:
 
 ``` js
 ${ Math.floor([50.15, 0.899].reduce((x, y) => x + y)) } // This line will resolve to "51"
