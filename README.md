@@ -5,7 +5,8 @@ knowledge to create custom functions.
 
 The aim of Evalit is to merge the ease of use of notepad calculator apps like Soulver and
 NoteCalc with the configurability of spreadsheet programs like LibreOffice Calc. This is
-accomplished by loading two
+accomplished by loading two JavaScript files containing user defined modules into the
+app's runtime which can then be accessed using the EvalScript syntax.
 
 Evalit accepts conventional infix mathematical expressions with additional syntax built on
 top that allows you to define custom functions in JavaScript that can be invoked at
@@ -60,16 +61,16 @@ Evalit GUI:
 - Sum
 
 The EvalScript syntax allows you to do the following in the notepad:
-1. Define constants
+1. Define variables
 2. Chain user defined functions
 
-Define a constant in the notepad:
+Define a variable in the notepad:
 
 ``` js
 def @pi = 3.14
 ```
 
-Use the defined contant anywhere in the notepad:
+Use the defined variable anywhere in the notepad:
 
 ``` js
 (@pi / 0.5) * 100 // This line will resolve to "628"
@@ -94,8 +95,8 @@ module.exports = {
 150 . up {25} // This line will resolve to "187.5"
 ```
 
-You can also assign the result of mathematical expressions and functions to a constant. To
-use a function in a constant assignment, you are required to prefix the assignment with "@
+You can also assign the result of mathematical expressions and functions to a variable. To
+use a function in a variable assignment, you are required to prefix the assignment with "@
 .".
 
 ``` js
