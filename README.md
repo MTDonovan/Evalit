@@ -8,10 +8,6 @@ NoteCalc with the configurability of spreadsheet programs like LibreOffice Calc.
 accomplished by loading two JavaScript files containing user defined modules into the
 app's runtime which can then be accessed using the EvalScript syntax.
 
-Evalit accepts conventional infix mathematical expressions with additional syntax built on
-top that allows you to define custom functions in JavaScript that can be invoked at
-runtime using a pipeline operator.
-
 # Demo for people who can't be bothered to read instructions
 
 In the Evalit appdata directory's "user.defined.functions.js" file:
