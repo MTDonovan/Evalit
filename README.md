@@ -66,7 +66,7 @@ Define a variable in the notepad:
 def @pi = 3.14
 ```
 
-Use the defined variable anywhere in the notepad:
+Use the variable anywhere in the notepad:
 
 ``` js
 (@pi / 0.5) * 100 // This line will resolve to "628"
@@ -74,12 +74,17 @@ Use the defined variable anywhere in the notepad:
 
 The function chaining syntax was inspired by the pipeline operator in programming
 languages such as Elixir. When you invoke a chained function on a number, the number is
-used as the first parameter of the function.
-
+used as the first parameter of the function. Note that the function parameters are always
+going to be passed into the function as an array. You access the individual EvalScript
+function parameters as indexes of the array.
 
 ``` js
 // user.defined.functions.js" file
-var up = exp => exp[0] + (exp[0] * (exp[1] / 100));
+var up = exp => {
+    let base = exp[0];       // exp[0] is the number that the function is being called on.
+    let percentage = exp[1]; // exp[1] is the first parameter in the EvalScript function parameters (i.e. "up {param1}").
+    return exp[0] + (exp[0] * (exp[1] / 100));
+};
 
 module.exports = {
   up
