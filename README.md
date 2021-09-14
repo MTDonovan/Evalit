@@ -10,7 +10,7 @@ app's runtime which can then be accessed using the EvalScript syntax.
 
 # Demo for people who can't be bothered to read instructions
 
-In the Evalit appdata directory's "user.defined.functions.js" file:
+In the Evalit appdata > user.defined.functions.js file:
 
 ``` js
 var fix  = exp => exp[0].toFixed(exp[1]);             // Round a number to a specific point
