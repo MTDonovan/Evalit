@@ -76,7 +76,8 @@ The function chaining syntax was inspired by the pipeline operator in programmin
 languages such as Elixir. When you invoke a chained function on a number, the number is
 used as the first parameter of the function and the following parameters are the values
 passed to the EvalScript function call (i.e., "functionName {param1, param2, etc.}"). You
-access the individual EvalScript function parameters as indexes of the array.
+access the individual EvalScript function parameters as indexes of the array in
+JavaScript.
 
 ``` js
 // user.defined.functions.js" file
