@@ -17,7 +17,7 @@ JavaScript calculator.
 
 # Demo for people who can't be bothered to read instructions
 
-In the Evalit appdata directory's "user.defined.functions.js"" file:
+In the Evalit appdata directory's "user.defined.functions.js" file:
 
 ``` js"
 var fix  = exp => exp[0].toFixed(exp[1]);             // Round a number to a specific point
@@ -160,5 +160,3 @@ module.exports = {                                    // Export the $fn module
 ${ $data.pi }            // This line will resolve to "3.14"
 
 // Access the $fn module exported from user.defined.functions.js
-${ $fn.up([150, 5.25]) } // This line will resolve to "157.875"
-```
