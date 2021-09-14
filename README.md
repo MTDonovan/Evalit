@@ -11,10 +11,6 @@ Evalit accepts conventional infix mathematical expressions with additional synta
 top that allows you to define custom functions in JavaScript that can be invoked at
 runtime using a pipeline operator.
 
-Please note that Evalit is not a drop-in replacement for full fledged live computing
-environments like Jupyter. Instead, you can think of Evalit as being a kind of an enhanced
-multi-line calculator front-end for JavaScript.
-
 # Demo for people who can't be bothered to read instructions
 
 In the Evalit appdata directory's "user.defined.functions.js" file:
