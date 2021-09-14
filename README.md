@@ -1,17 +1,17 @@
 Evalit is a notepad calculator app that allows you to leverage your JavaScript knowledge
-to create custom functions. The aim of Evalit is to merge the freedom and ease of use of
-programs like Soulver and NoteCalc with the deep configurability of spreadsheet programs
-like LibreOffice Calc.
+to create custom functions. The aim of Evalit is to merge the ease of use of programs like
+Soulver and NoteCalc with the deep configurability of spreadsheet programs like
+LibreOffice Calc.
+
+Evalit accepts conventional infix notation mathematical expressions with additional syntax
+built on top to allow you to define custom functions JavaScript that can be invoked at
+runtime using a pipeline operator.
 
 Evalit is not a drop-in replacement for full fledged live computing environments like
-Jupyter or Emacs with Org Mode. Instead, you can think of Evalit as being a step-up from
-conventional calculator apps that lack automation oriented tools.
+Jupyter. Instead, you can think of Evalit as being a step-up from a conventional
+calculator apps with additional automation oriented tools.
 
-Evalit accepts conventional infix notation mathematical expressions (just as you learned
-in primary school) with additional syntax built on top to allow users to define custom
-functions JavaScript that can be invoked at runtime using a pipeline operator.
-
-# Syntax demo for people who can't be bothered to read instructions
+# Demo for people who can't be bothered to read instructions
 
 In the Evalit appdata directory's "user.defined.functions.js" file:
 
