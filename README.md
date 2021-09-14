@@ -82,9 +82,9 @@ JavaScript.
 ``` js
 // user.defined.functions.js" file
 var up = exp => {
-    let base = exp[0];       // exp[0] is the number that the function is being called on.
+    let num = exp[0];        // exp[0] is the number that the function is being called on.
     let percentage = exp[1]; // exp[1] is the first parameter in the EvalScript function parameters (i.e. "up {param1}").
-    return exp[0] + (exp[0] * (exp[1] / 100));
+    return num + (num * (percentage / 100));
 };
 
 module.exports = {
