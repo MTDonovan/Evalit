@@ -122,7 +122,7 @@ Also be aware that, because all lines are evaluated in JavaScript as template li
 you can insert literal JavaScript into a line like so:
 
 ``` js
-${ Math.floor([50.15, 0.899].reduce((x, y) => x + y)) } // This line will resolve to "128.06"
+${ Math.floor([50.15, 0.899].reduce((x, y) => x + y)) } // This line will resolve to "51"
 ```
 
 You can use template literals to access the code from the "user.defined.data.js" and
