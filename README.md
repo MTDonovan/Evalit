@@ -17,9 +17,9 @@ JavaScript calculator.
 
 # Demo for people who can't be bothered to read instructions
 
-In the Evalit appdata directory's "user.defined.functions.js" file:
+In the Evalit appdata directory's "user.defined.functions.js file:
 
-``` js"
+``` js
 var fix  = exp => exp[0].toFixed(exp[1]);             // Round a number to a specific point
 var sub  = exp => exp[0] - exp[1];                    // Substract
 var up   = exp => exp[0] + (exp[0] * (exp[1] / 100)); // Increase a number by a percentage
@@ -32,7 +32,7 @@ module.exports = {                                    // Export the functions
 
 In the Evalit notepad:
 
-``` js"
+``` js
 def @total = 925.548
 def @tax   = 5.5
 
@@ -69,13 +69,13 @@ The EvalScript syntax allows you to do the following in the notepad:
 
 Define a constant in the notepad:
 
-``` js"
+``` js
 def @pi = 3.14
 ```
 
 Use the defined contant anywhere in the notepad:
 
-``` js"
+``` js
 (@pi / 0.5) * 100 // This line will resolve to "628"
 ```
 
@@ -84,8 +84,8 @@ languages such as Elixir. When you invoke a chained function on a number, the nu
 used as the first parameter of the function.
 
 
-``` js"
-// user.defined.functions.js" file
+``` js
+// user.defined.functions.js file
 var up = exp => exp[0] + (exp[0] * (exp[1] / 100));
 
 module.exports = {
@@ -93,7 +93,7 @@ module.exports = {
 };
 ```
 
-``` js"
+``` js
 // Evalit notepad
 150 . up {25} // This line will resolve to "187.5"
 ```
@@ -102,7 +102,7 @@ You can also assign the result of mathematical expressions and functions to a co
 use a function in a constant assignment, you are required to prefix the assignment with "@
 .".
 
-``` js"
+``` js
 def @result = @ . (150 / 1.2255) * 2 . up {5.225} . fix {4} // This will assign the value "257.5887" to "@result"
 
 @result * 3.0 . down {25} . fix {2} // This line will resolve to "579.57"
@@ -113,7 +113,7 @@ def @result = @ . (150 / 1.2255) * 2 . up {5.225} . fix {4} // This will assign 
 EvalScript supports "//" comments for preventing a line from being evaluated. Lines that
 do not begin with a numeric value or a "@" will also not be evaluated.
 
-``` js"
+``` js
 // This line will not be evaluated; text in this line will be outputed to the read-only editor unchanged.
 This line will also not be evaluated.
 ```
@@ -128,12 +128,12 @@ prefix "IGN".
 Also be aware that, because all lines are evaluated in JavaScript as template literals,
 you can insert literal JavaScript into a line like so:
 
-``` js"
+``` js
 ${ Math.floor([50.15, 0.899].reduce((x, y) => x + y)) } // This line will resolve to "128.06"
 ```
 
-You can use template literals to access the code from the "user.defined.data.js" and
-"user.defined.functions.js" modules like so:
+You can use template literals to access the code from the "user.defined.data.js and
+"user.defined.functions.js modules like so:
 
 ``` js
 // user.defined.data.js file
