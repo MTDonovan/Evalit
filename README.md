@@ -13,7 +13,7 @@ runtime using a pipeline operator.
 
 Please note that Evalit is not a drop-in replacement for full fledged live computing
 environments like Jupyter. Instead, you can think of Evalit as being a kind of an enhanced
-JavaScript calculator.
+multi-line calculator front-end for JavaScript.
 
 # Demo for people who can't be bothered to read instructions
 
