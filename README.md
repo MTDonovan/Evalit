@@ -1,5 +1,6 @@
 Evalit is a FOSS notepad calculator app that allows you to leverage your JavaScript
-knowledge to create custom functions.
+knowledge to create custom functions. You can find binaries for Windows 10 (exe installer)
+and Linux (AppImage) on the [release page](https://github.com/MTDonovan/Evalit/releases/tag/binaries).
 
 ![Alt text](screenshots/BasicExample.png)
 
