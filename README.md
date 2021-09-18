@@ -111,7 +111,7 @@ def @result = @ . (150 / 1.2255) * 2 . up {5.225} . fix {4} // This will assign 
 ```
 
 EvalScript supports "//" comments for preventing a line from being evaluated. Lines that
-do not begin with a numeric value or a "@" will also not be evaluated.
+begin with a quotation mark, double quotation mark, or letter, will also not be evaluated.
 
 ``` js
 // This line will not be evaluated; text in this line will be outputed to the read-only editor unchanged.
