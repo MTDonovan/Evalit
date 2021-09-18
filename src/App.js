@@ -69,9 +69,9 @@ export default {
       this.appdataPath = res;
     });
 
-    document
-      .querySelector(".multi-editor-container")
-      .setAttribute("style", "height: 720px;");
+    // document
+    //   .querySelector(".multi-editor-container")
+    //   .setAttribute("style", "height: 700px;");
 
     this.$nextTick(() => {
       /**

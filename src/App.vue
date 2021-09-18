@@ -47,7 +47,7 @@
         <form>
           <h3>Settings</h3>
           <div class="form-group">
-            <label :style="settingsLabelColour">App data path</label>
+            <label :style="settingsLabelColour">Evalit app data path</label>
             <div class="form-group-wrapper">
               <input
                 readonly
@@ -59,7 +59,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label :style="settingsLabelColour">Data file path</label>
+            <label :style="settingsLabelColour">User defined data file path</label>
             <div class="form-group-wrapper">
               <input
                 id="data-file-path"
@@ -72,7 +72,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label :style="settingsLabelColour">Functions file path</label>
+            <label :style="settingsLabelColour">User defined functions file path</label>
             <div class="form-group-wrapper">
               <input
                 id="functions-file-path"
