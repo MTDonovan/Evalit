@@ -23,14 +23,14 @@ export default {
       outputEditorVisible: true,
       currentTheme: "vs-dark",
       mainEditorOptions: {
-        fontSize: 13,
+        fontSize: 14,
         minimap: {
           enabled: false
         },
         automaticLayout: true
       },
       outputEditorOptions: {
-        fontSize: 13,
+        fontSize: 14,
         readOnly: true,
         minimap: {
           enabled: false
