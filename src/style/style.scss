@@ -44,6 +44,9 @@ button {
             cursor: pointer;
         }
     }
+    &:active {
+        background-image: linear-gradient(to bottom, #EFE2E2 0%, #DDCBCB 100%) !important;
+    }
 }
 
 .btn-with-text {
