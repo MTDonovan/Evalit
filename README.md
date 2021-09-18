@@ -125,7 +125,7 @@ prefix "IGN".
 
 ![Alt text](screenshots/IGNExample.png)
 
-Also be aware that, because all lines are evaluated in JavaScript are template literals,
+Also be aware that because all lines are evaluated in JavaScript as template literals,
 you can insert JavaScript snippets into lines like so:
 
 ``` js
