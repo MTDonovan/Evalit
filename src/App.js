@@ -1,4 +1,4 @@
-import { app, ipcRenderer } from "electron";
+import { app, ipcRenderer, remote } from "electron";
 import MonacoEditor from "vue-monaco";
 import { E } from "./EvalScript/index";
 import * as monaco from "monaco-editor";
@@ -9,6 +9,8 @@ const $fn = __non_webpack_require__(
   ipcRenderer.sendSync("get-file-path", "functions")
 );
 import * as path from "path";
+import { writeFileSync, readFileSync } from "fs";
+
 
 export default {
   name: "App",
@@ -267,7 +269,6 @@ export default {
       } else {
         this.settingsModalVisible = true;
       }
-      // ipcRenderer.send("sample-dialog", "");
     },
     saveSettings() {
       this.toggleSettingsModal();
@@ -431,6 +432,46 @@ export default {
         this.evalEvent();
         return;
       }
+      if (event.srcKey === "save") {
+        this.saveToFile();
+        return;
+      }
+      if (event.srcKey === "load") {
+        this.loadFromFile();
+        return;
+      }
+    },
+    saveToFile() {
+      let promptAnswer = remote.dialog.showSaveDialogSync({
+        title: "Select a file to save the notepad text to",
+        // defaultPath: path.join(this.appdataPath),
+        buttonLabel: "Save",
+        filters: [
+          {
+            name: "Text Files",
+            extensions: ["eval", "txt", "js", "ts", "coffee"]
+          }
+        ],
+        properties: []
+      });
+      writeFileSync(promptAnswer, this.maineditor);
+    },
+    loadFromFile() {
+      // let promptAnswer = remote.dialog.showOpenDialogSync({ properties: [] })
+      let promptAnswer = remote.dialog.showOpenDialogSync({
+        title: "Select a file to open in the notepad",
+        // defaultPath: path.join(this.appdataPath),
+        buttonLabel: "Open",
+        filters: [
+          {
+            name: "Text Files",
+            extensions: ["eval", "txt", "js", "ts", "coffee"]
+          }
+        ],
+        properties: []
+      })[0]
+
+      this.maineditor = readFileSync(promptAnswer, "utf-8");
     },
     secBuild() {
       let sec = new E();

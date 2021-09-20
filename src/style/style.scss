@@ -177,7 +177,7 @@ select.free-select {
     > .crude-modal-body {
         box-shadow: $box-shadow-stack;
         background-color: #181818;
-        height: 500px;
+        height: 380px;
         width: 700px;
         border: 2px solid #ddd;
         border-radius: 4px;
@@ -341,7 +341,7 @@ select {
 
 .footer-left-wrapper {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     grid-gap: 5px;
     align-items: center;
 }
