@@ -112,3 +112,4 @@ notes.org
 # Dist folder and files
 dist_electron/
 run
+evalscript_files/
