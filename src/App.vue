@@ -4,8 +4,7 @@
     v-shortkey="{
       eval: ['alt', 'enter'],
       save: ['ctrl', 's'],
-      load: ['ctrl', 'o'],
-      closeModal: ['esc']
+      load: ['ctrl', 'o']
     }"
     @shortkey="handleHotKeys($event)"
   >

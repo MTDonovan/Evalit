@@ -440,10 +440,10 @@ export default {
         this.loadFromFile();
         return;
       }
-      if (event.srcKey === "closeModal") {
-        this.settingsModalVisible = false;
-        return;
-      }
+      // if (event.srcKey === "closeModal") {
+      //   this.settingsModalVisible = false;
+      //   return;
+      // }
     },
     saveToFile() {
       let promptAnswer = remote.dialog.showSaveDialogSync({
