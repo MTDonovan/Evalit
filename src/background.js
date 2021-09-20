@@ -1,6 +1,7 @@
 "use strict";
 import { ipcMain } from "electron";
-import { app, protocol, BrowserWindow, dialog } from "electron";
+// import { app, protocol, BrowserWindow, dialog, Tray, nativeImage } from "electron";
+import { app, protocol, BrowserWindow } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -43,16 +44,22 @@ async function createWindow() {
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       // nodeIntegration: true,
-      // enableRemoteModule: true
+      enableRemoteModule: true
     }
   });
 
-  win.setMenu(null);
-  // if (!isDevelopment) {
-  //   win.setMenu(null);
+  // /** Set the icons */
+  // if (!process.env.IS_TEST) {
+  //   const iconPath = path.join(__dirname, ".icon-ico/icon.ico");
+  //   win.tray = new Tray(iconPath);
+  // } else {
+  //   const iconPath = path.join(app.getPath("userData"), ".icon-ico/icon.ico");
+  //   win.tray = new Tray(iconPath);
   // }
+
+  win.setMenu(null);
 
   ipcMain.on("get-data-text", (event, arg) => {
     let userDefinedDataPath = path.join(

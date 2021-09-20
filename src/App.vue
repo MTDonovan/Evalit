@@ -2,7 +2,9 @@
   <div
     id="app"
     v-shortkey="{
-      eval: ['alt', 'enter']
+      eval: ['alt', 'enter'],
+      save: ['ctrl', 's'],
+      load: ['ctrl', 'o']
     }"
     @shortkey="handleHotKeys($event)"
   >
@@ -15,7 +17,7 @@
           :style="btnStyle"
         >
           <span class="icon icon-ccw" :style="btnIconStyle"></span
-          ><span :style="btnIconStyle">Reload</span>
+          ><span :style="btnIconStyle">Reload Modules</span>
         </button>
         <button
           id="save-btn"
@@ -23,8 +25,8 @@
           @click="saveEvalText()"
           :style="btnStyle"
         >
-          <span class="icon icon-floppy" :style="btnIconStyle"></span
-          ><span :style="btnIconStyle">Save</span>
+          <span class="icon icon-code" :style="btnIconStyle"></span
+          ><span :style="btnIconStyle">Keep Notepad</span>
         </button>
         <button
           id="settings-btn"
@@ -34,6 +36,24 @@
         >
           <span class="icon icon-popup" :style="btnIconStyle"></span
           ><span :style="btnIconStyle">Settings</span>
+        </button>
+      </div>
+      <div class="btn-group pull-right">
+        <button
+          id="save-file-btn"
+          class="btn btn-default btn-with-text"
+          @click="saveToFile()"
+          :style="btnStyle"
+        ><span class="icon icon-floppy" :style="btnIconStyle"></span>
+        <span :style="btnIconStyle">Save</span>
+        </button>
+        <button
+          id="load-file-btn"
+          class="btn btn-default btn-with-text"
+          @click="loadFromFile()"
+          :style="btnStyle"
+        ><span class="icon icon-folder" :style="btnIconStyle"></span>
+        <span :style="btnIconStyle">Load</span>
         </button>
       </div>
     </header>

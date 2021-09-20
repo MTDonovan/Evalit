@@ -260,6 +260,12 @@ select {
 
 .footer-left-wrapper {
   display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 5px;
+  align-items: center; }
+
+.header-right-wrapper {
+  display: grid;
   grid-template-columns: auto auto;
   grid-gap: 5px;
   align-items: center; }
