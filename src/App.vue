@@ -3,6 +3,7 @@
     id="app"
     v-shortkey="{
       eval: ['alt', 'enter'],
+      keepNotepad: ['ctrl', 'shift', 's'],
       save: ['ctrl', 's'],
       load: ['ctrl', 'o']
     }"

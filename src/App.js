@@ -332,58 +332,69 @@ export default {
         waitForElementToDisplay(selector, 200);
       });
     },
+    setOutputEditorPosition() {
+      this.$refs.refOutputEditor.getEditor().setPosition(this.$refs.refMainEditor.getEditor().getPosition());
+    },
     mainEditorDidMount(editor) {
       window.addEventListener("resize", () => editor.layout());
-      editor.onContextMenu(_e => {
-        this.evalEvent();
-      });
-      editor.onDidAttemptReadOnlyEdit(_e => {
-        this.evalEvent();
-      });
+      // editor.onContextMenu(_e => {
+      //   this.evalEvent();
+      // });
+      // editor.onDidAttemptReadOnlyEdit(_e => {
+      //   this.evalEvent();
+      // });
       editor.onDidBlurEditorText(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onDidBlurEditorWidget(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
-      editor.onDidChangeConfiguration(_e => {
-        this.evalEvent();
-      });
+      // editor.onDidChangeConfiguration(_e => {
+      //   this.evalEvent();
+      // });
       editor.onDidChangeCursorPosition(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onDidChangeCursorSelection(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
-      editor.onDidChangeModel(_e => {
-        this.evalEvent();
-      });
-      editor.onDidChangeModelContent(_e => {
-        this.evalEvent();
-      });
-      editor.onDidChangeModelDecorations(_e => {
-        this.evalEvent();
-      });
-      editor.onDidChangeModelLanguage(_e => {
-        this.evalEvent();
-      });
-      editor.onDidChangeModelLanguageConfiguration(_e => {
-        this.evalEvent();
-      });
-      editor.onDidChangeModelOptions(_e => {
-        this.evalEvent();
-      });
+      // editor.onDidChangeModel(_e => {
+      //   this.evalEvent();
+      // });
+      // editor.onDidChangeModelContent(_e => {
+      //   this.evalEvent();
+      // });
+      // editor.onDidChangeModelDecorations(_e => {
+      //   this.evalEvent();
+      // });
+      // editor.onDidChangeModelLanguage(_e => {
+      //   this.evalEvent();
+      // });
+      // editor.onDidChangeModelLanguageConfiguration(_e => {
+      //   this.evalEvent();
+      // });
+      // editor.onDidChangeModelOptions(_e => {
+      //   this.evalEvent();
+      // });
       editor.onDidContentSizeChange(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onDidDispose(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onDidFocusEditorText(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onDidFocusEditorWidget(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onDidLayoutChange(_e => {
         this.updateTableWrapperHeight();
@@ -391,24 +402,31 @@ export default {
       });
       editor.onDidPaste(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onKeyDown(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onKeyUp(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onMouseDown(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onMouseLeave(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onMouseMove(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       editor.onMouseUp(_e => {
         this.evalEvent();
+        this.setOutputEditorPosition();
       });
       /**
        * Re-evalulate the stack as the user types.
@@ -432,6 +450,10 @@ export default {
         this.evalEvent();
         return;
       }
+      if (event.srcKey === "keepNotepad") {
+        this.saveEvalText();
+        return;
+      }
       if (event.srcKey === "save") {
         this.saveToFile();
         return;
@@ -440,10 +462,6 @@ export default {
         this.loadFromFile();
         return;
       }
-      // if (event.srcKey === "closeModal") {
-      //   this.settingsModalVisible = false;
-      //   return;
-      // }
     },
     saveToFile() {
       let promptAnswer = remote.dialog.showSaveDialogSync({
@@ -453,7 +471,7 @@ export default {
         filters: [
           {
             name: "Text Files",
-            extensions: ["eval", "txt", "js", "ts", "coffee"]
+            extensions: ["eval", "txt", "js", "ts", "coffee", "sigma"]
           }
         ],
         properties: []
@@ -469,7 +487,7 @@ export default {
         filters: [
           {
             name: "Text Files",
-            extensions: ["eval", "txt", "js", "ts", "coffee"]
+            extensions: ["eval", "txt", "js", "ts", "coffee", "sigma"]
           }
         ],
         properties: []
