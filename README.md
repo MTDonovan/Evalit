@@ -9,7 +9,7 @@ NoteCalc with the configurability of spreadsheet programs like LibreOffice Calc.
 accomplished by loading two JavaScript files containing user defined modules into the
 app's runtime which can then be accessed using the EvalScript syntax.
 
-# Demo for people who can't be bothered to read instructions
+# Quickstart
 
 In the Evalit appdata > user.defined.functions.js file:
 
