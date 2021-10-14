@@ -71,10 +71,6 @@ export default {
       this.appdataPath = res;
     });
 
-    // document
-    //   .querySelector(".multi-editor-container")
-    //   .setAttribute("style", "height: 700px;");
-
     this.$nextTick(() => {
       /**
        * Adjust the elements on resize.
@@ -104,7 +100,7 @@ export default {
       this.currentTheme = theme;
     }
 
-    /** Focus the main editor */
+    /** Focus the main editor. */
     this.waitForDocumentElement("#main-editor", 1500).then(elm => {
       this.$refs.refMainEditor.getEditor().focus();
     });
@@ -277,7 +273,6 @@ export default {
       window.localStorage.setItem("theme", this.currentTheme);
     },
     getPreferredTableWrapperHeight() {
-      // let selector = "#editors-container";
       let headerHeight = document.querySelector(".toolbar-header").clientHeight;
       return window.innerHeight - headerHeight;
     },
@@ -337,12 +332,6 @@ export default {
     },
     mainEditorDidMount(editor) {
       window.addEventListener("resize", () => editor.layout());
-      // editor.onContextMenu(_e => {
-      //   this.evalEvent();
-      // });
-      // editor.onDidAttemptReadOnlyEdit(_e => {
-      //   this.evalEvent();
-      // });
       editor.onDidBlurEditorText(_e => {
         this.evalEvent();
         this.setOutputEditorPosition();
@@ -351,9 +340,6 @@ export default {
         this.evalEvent();
         this.setOutputEditorPosition();
       });
-      // editor.onDidChangeConfiguration(_e => {
-      //   this.evalEvent();
-      // });
       editor.onDidChangeCursorPosition(_e => {
         this.evalEvent();
         this.setOutputEditorPosition();
@@ -362,24 +348,6 @@ export default {
         this.evalEvent();
         this.setOutputEditorPosition();
       });
-      // editor.onDidChangeModel(_e => {
-      //   this.evalEvent();
-      // });
-      // editor.onDidChangeModelContent(_e => {
-      //   this.evalEvent();
-      // });
-      // editor.onDidChangeModelDecorations(_e => {
-      //   this.evalEvent();
-      // });
-      // editor.onDidChangeModelLanguage(_e => {
-      //   this.evalEvent();
-      // });
-      // editor.onDidChangeModelLanguageConfiguration(_e => {
-      //   this.evalEvent();
-      // });
-      // editor.onDidChangeModelOptions(_e => {
-      //   this.evalEvent();
-      // });
       editor.onDidContentSizeChange(_e => {
         this.evalEvent();
         this.setOutputEditorPosition();
@@ -466,7 +434,6 @@ export default {
     saveToFile() {
       let promptAnswer = remote.dialog.showSaveDialogSync({
         title: "Select a file to save the notepad text to",
-        // defaultPath: path.join(this.appdataPath),
         buttonLabel: "Save",
         filters: [
           {
@@ -479,10 +446,8 @@ export default {
       writeFileSync(promptAnswer, this.maineditor);
     },
     loadFromFile() {
-      // let promptAnswer = remote.dialog.showOpenDialogSync({ properties: [] })
       let promptAnswer = remote.dialog.showOpenDialogSync({
         title: "Select a file to open in the notepad",
-        // defaultPath: path.join(this.appdataPath),
         buttonLabel: "Open",
         filters: [
           {
@@ -498,8 +463,8 @@ export default {
     secBuild() {
       let sec = new E();
       /**
-       * Transform the stack editor text into a template literal.
-       * This is required to allow the user to use javascript templates.
+       * Transform the stack editor text into a template literal. This is required to
+       * allow the user to insert JavaScript snippets.
        */
       sec.code = eval("`" + this.maineditor + "`");
       sec.setLineno(false).build();

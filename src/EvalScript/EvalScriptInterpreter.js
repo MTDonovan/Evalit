@@ -4,12 +4,6 @@ const macros = __non_webpack_require__(
 );
 const R = require("rambda");
 
-/**
- * Collect all functions from initCalls into an array.  Use the array as the funcCalls
- * state item.
- * Warning: funcCalls needs to be global variable outside of the EvalScriptInterpreter
- * class.
- */
 var funcCalls = [];
 for (let i in macros) {
   if (typeof macros[i] === "function") {
@@ -76,20 +70,18 @@ class EvalScriptInterpreter {
     }
 
     /**
-     * If an fixed point is provided, call the "fix" method before returning the
-     * outString function.
+     * If an fixed point is provided, call the "fix" method before returning the outString
+     * function.
      */
     builtObj.fix(fixToPoint);
 
     return outString(builtObj);
   }
   verifyLineEmptyOrComment(lineItem) {
-    /** Ignore all lines that are either empty or start with the comment token. */
     /**
-     * Also ignore all lines that being with a letter (excluding the "def" keyword) or
-     * a quotation mark.
+     * Ignore all lines that are either empty or start with the comment token. Ignore all
+     * lines that being with a letter (excluding the "def" keyword) or a quotation mark.
      */
-
     switch (this.comment) {
       case "sh":
         if (
@@ -131,8 +123,8 @@ class EvalScriptInterpreter {
     /** Split the array on the first instance "=" is found */
     let y = x.split(/=(.+)/g).map((item, index) => {
       /**
-       * If a pipe call is present on the second index, return it without replacing
-       * any spaces.
+       * If a pipe call is present on the second index, return it without replacing any
+       * spaces.
        */
       if (index === 1 && item.match(/^([\s]+)?@([\s]+)?\.([\s]+)?/g)) {
         return item;
@@ -160,11 +152,11 @@ class EvalScriptInterpreter {
   /** Locate the variable and interpolate the stored value in the eval string */
   interpolateVariable(lineItem, variablesArray) {
     /**
-     * If a substring in the line begins with "@", locate the correct variable from
-     * the variable array, parse the variable's value from the array, and then replace
-     * the variables with their associated values.
+     * If a substring in the line begins with "@", locate the correct variable from the
+     * variable array, parse the variable's value from the array, and then replace the
+     * variables with their associated values.
      *
-     * The return value should be the non-eval'd line.
+     * The return value should be the unevaluated line.
      */
     variablesArray.map(item => {
       if (lineItem.includes(item[0])) {
@@ -204,8 +196,9 @@ class EvalScriptInterpreter {
 
     return funcCallPresent;
   }
-  /// TODO Bug in method: Does not find instances of func calls without "@ ." prefix during variable assignment.
-  /** Run an eval statement using the given funcCalls in the line */
+  /// TODO Bug in method: Does not find instances of func calls without "@ ." prefix
+  /// during variable assignment.
+  /** Run an eval statement using the given funcCalls in the line. */
   invokeFuncCalls(lineItem, variablesArray) {
     for (let i = 0; i < funcCalls.length; i++) {
       let variableLocationPattern = funcCalls[i].name,
@@ -237,8 +230,9 @@ class EvalScriptInterpreter {
           x => funcCalls[i](x)
         )(y);
 
-        /** Return 0 if the function is equal to 0 or if the result cannot be *
-            evaluated */
+        /**
+         * Return 0 if the function is equal to 0 or if the result cannot be evaluated.
+         */
         if (eval(res) === 0 || !eval(res)) {
           return "0";
         }
@@ -248,7 +242,7 @@ class EvalScriptInterpreter {
     return lineItem;
   }
   invokePipeCalls(lineItem, variables) {
-    /** Remove the prefixed ignore operator if it is present */
+    /** Remove the prefixed ignore operator if it is present. */
     const sanitizedLineItem =
       this.comment === "sh"
         ? lineItem.replace(/!# ?/g, "")
@@ -274,12 +268,12 @@ class EvalScriptInterpreter {
           eval
         )([pipedString, variables]);
 
-        /** Modify the current item in the array to match the piped output */
+        /** Modify the current item in the array to match the piped output. */
         y[i] = res;
       } else if (this.locateFuncCalls(trimmedItem) && i === 0) {
         /**
-         * If the funcCall is the first func in the pipe, just eval the funcCall
-         * and modify the current item in the pipe chain.
+         * If the funcCall is the first func in the pipe, eval the funcCall and modify the
+         * current item in the pipe chain.
          */
         const res = R.pipe(
           x => this.invokeFuncCalls(...x),
@@ -294,8 +288,7 @@ class EvalScriptInterpreter {
   }
   compileEvalResults() {
     /**
-     * In the case the expression does not have opening and closing braces, skip the
-     * item.
+     * In the case the expression does not have opening and closing braces, skip the item.
      */
     if (!this.code) {
       this.total = "";
@@ -303,7 +296,7 @@ class EvalScriptInterpreter {
 
     let arr = this.code.split("\n");
 
-    /** Per array item, remove problem characters */
+    /** Per array item, remove problem characters. */
     let splitArr = arr.map(item => {
       if (this.verifyLineEmptyOrComment(item)) {
         return item;
@@ -325,7 +318,7 @@ class EvalScriptInterpreter {
       if (this.locateFuncCalls(item)) {
         return item;
       }
-      /** Remove the garbage characters from the given item */
+q      /** Remove the garbage characters from the given item */
       return item.split(/\$|,|[a-zA-Z]/g).join("");
     });
 
@@ -393,8 +386,9 @@ class EvalScriptInterpreter {
             return item;
           })
           .map(item => {
-            /** In the case the line contains one or more pipe operators,
-             * eval the statement using the "invokePipeCalls" function.
+            /**
+             * In the case the line contains one or more pipe operators, eval the
+             * statement using the "invokePipeCalls" function.
              */
             if (item.match(this.pipeFunctionOperatorPattern)) {
               return this.invokePipeCalls(item, variables);
