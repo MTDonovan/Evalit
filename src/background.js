@@ -10,7 +10,8 @@ import * as fs from "fs";
 const exec = require("child_process").exec;
 
 /**
- * If the user defined data and user defined functions do not exist, create the files in the appdata.
+ * If the user defined data and user defined functions do not exist, create the files in
+ * the appdata.
  */
 let userDefinedDataPath = path.join(
   app.getPath("userData"),
@@ -41,22 +42,10 @@ async function createWindow() {
     width: 900,
     height: 720,
     webPreferences: {
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      // nodeIntegration: true,
       enableRemoteModule: true
     }
   });
-
-  // /** Set the icons */
-  // if (!process.env.IS_TEST) {
-  //   const iconPath = path.join(__dirname, ".icon-ico/icon.ico");
-  //   win.tray = new Tray(iconPath);
-  // } else {
-  //   const iconPath = path.join(app.getPath("userData"), ".icon-ico/icon.ico");
-  //   win.tray = new Tray(iconPath);
-  // }
 
   win.setMenu(null);
 
@@ -86,22 +75,21 @@ async function createWindow() {
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
+  // On macOS it is common for applications and their menu bar to stay active until the
+  // user quits explicitly with Cmd + Q
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
 app.on("activate", () => {
-  // On macOS it"s common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
+  // On macOS it"s common to re-create a window in the app when the dock icon is clicked
+  // and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+// This method will be called when Electron has finished initialization and is ready to
+// create browser windows. Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
