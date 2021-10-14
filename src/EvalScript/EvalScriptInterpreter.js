@@ -318,7 +318,7 @@ class EvalScriptInterpreter {
       if (this.locateFuncCalls(item)) {
         return item;
       }
-q      /** Remove the garbage characters from the given item */
+      /** Remove the garbage characters from the given item */
       return item.split(/\$|,|[a-zA-Z]/g).join("");
     });
 
