@@ -1,8 +1,11 @@
-import { ipcRenderer } from "electron";
-const macros = __non_webpack_require__(
-  ipcRenderer.sendSync("get-file-path", "functions")
-);
+import { app, ipcRenderer } from "electron";
 const R = require("rambda");
+try {
+  const macros = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
+} catch (err) {
+  alert(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThe error needs to be resolved to run Evalit.`);
+}
+const macros = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 
 var funcCalls = [];
 for (let i in macros) {
@@ -318,7 +321,7 @@ class EvalScriptInterpreter {
       if (this.locateFuncCalls(item)) {
         return item;
       }
-q      /** Remove the garbage characters from the given item */
+      /** Remove the garbage characters from the given item */
       return item.split(/\$|,|[a-zA-Z]/g).join("");
     });
 
