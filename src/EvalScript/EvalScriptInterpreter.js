@@ -3,7 +3,7 @@ const R = require("rambda");
 try {
   const macros = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 } catch (err) {
-  alert(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThe error needs to be resolved to run Evalit.`);
+  alert(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
 }
 const macros = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 
