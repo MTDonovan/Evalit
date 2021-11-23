@@ -5,13 +5,13 @@ import * as monaco from "monaco-editor";
 try {
   const $data = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "data"));
 } catch (err) {
-  alert(`Unable to load module from user.defined.data.js as the following error occurred:\n\n${err}\n\nThe error needs to be resolved to run Evalit.`);
+  alert(`Unable to load module from user.defined.data.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
 }
 const $data = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "data"));
 try {
   const $fn = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 } catch (err) {
-  alert(`Unable to load module from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThe error needs to be resolved to run Evalit.`);
+  alert(`Unable to load module from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
 }
 const $fn = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 import * as path from "path";
@@ -386,22 +386,22 @@ export default {
         this.evalEvent();
         this.setOutputEditorPosition();
       });
-      editor.onMouseDown(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
-      editor.onMouseLeave(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
-      editor.onMouseMove(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
-      editor.onMouseUp(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
+      // editor.onMouseDown(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
+      // editor.onMouseLeave(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
+      // editor.onMouseMove(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
+      // editor.onMouseUp(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
       /**
        * Re-evalulate the stack as the user types.
        */

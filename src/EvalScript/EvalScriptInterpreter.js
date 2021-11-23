@@ -3,7 +3,7 @@ const R = require("rambda");
 try {
   const macros = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 } catch (err) {
-  alert(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThe error needs to be resolved to run Evalit.`);
+  alert(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
 }
 const macros = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 
@@ -33,6 +33,9 @@ class EvalScriptInterpreter {
     this.comment = "js";
     this.lineno = true;
     this.count = 0;
+
+    this.sumArray   = [];
+    this.runningSum = 0;
   }
   get sr() {
     this.total = parseFloat(this.total) ? parseFloat(this.total) : 0.0;
@@ -410,28 +413,29 @@ class EvalScriptInterpreter {
       this.out = arr
         .map((item, index) => {
           if (this.verifyLineEmptyOrComment(item)) {
-            return `${
-              this.lineno ? (index + 1).toString() + "  " : ""
-            }${item}\n`;
+            this.sumArray.push(this.runningSum);
+            this.runningSum = 0;
+            return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
+          }
+          /** Replace instances of "$sum" key word with current sum index value. */
+          if (item.match(/\$sum/g)) {
+            item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
           }
           if (item.match(/^def/g)) {
-            return `${
-              this.lineno ? (index + 1).toString() + "  " : ""
-            }${item}\n`;
+            return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
+
           try {
             if (item.match(this.pipeFunctionOperatorPattern)) {
               const res = this.invokePipeCalls(item, variables);
 
               if (this.verifyOutputOnlyEval(item)) {
-                return `${this.lineno ? (index + 1).toString() + "  " : ""}${
-                  this.ignoreResultFlag
-                }${res}\n`;
+                return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.ignoreResultFlag}${res}\n`;
               } else {
+                /** Update the running sum with the resolved function value. */
+                this.runningSum += res;
                 this.count += 1;
-                return `${this.lineno ? (index + 1).toString() + "  " : ""}${
-                  this.lineResultFlag
-                }${res}\n`;
+                return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
               }
             }
 
@@ -462,14 +466,12 @@ class EvalScriptInterpreter {
               )(item);
 
               if (this.verifyOutputOnlyEval(item)) {
-                return `${this.lineno ? (index + 1).toString() + "  " : ""}${
-                  this.ignoreResultFlag
-                }${res}\n`;
+                return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.ignoreResultFlag}${res}\n`;
               } else {
+                /** Update the running sum with the resolved function value. */
+                this.runningSum += res;
                 this.count += 1;
-                return `${this.lineno ? (index + 1).toString() + "  " : ""}${
-                  this.lineResultFlag
-                }${res}\n`;
+                return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
               }
             }
 
@@ -484,14 +486,12 @@ class EvalScriptInterpreter {
             }
 
             if (this.verifyOutputOnlyEval(item)) {
-              return `${this.lineno ? (index + 1).toString() + "  " : ""}${
-                this.ignoreResultFlag
-              }${res}\n`;
+              return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.ignoreResultFlag}${res}\n`;
             } else {
+              /** Update the running sum with the resolved function value. */
+              this.runningSum += res;
               this.count += 1;
-              return `${this.lineno ? (index + 1).toString() + "  " : ""}${
-                this.lineResultFlag
-              }${res}\n`;
+              return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
             }
           } catch (e) {
             return `${(index + 1).toString()} !! ${e}\n`;
