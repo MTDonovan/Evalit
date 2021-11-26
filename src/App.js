@@ -350,42 +350,42 @@ export default {
         this.evalEvent();
         this.setOutputEditorPosition();
       });
-      editor.onDidChangeCursorSelection(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
-      editor.onDidContentSizeChange(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
+      // editor.onDidChangeCursorSelection(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
+      // editor.onDidContentSizeChange(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
       editor.onDidDispose(_e => {
         this.evalEvent();
         this.setOutputEditorPosition();
       });
-      editor.onDidFocusEditorText(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
-      editor.onDidFocusEditorWidget(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
-      editor.onDidLayoutChange(_e => {
-        this.updateTableWrapperHeight();
-        this.evalEvent();
-      });
+      // editor.onDidFocusEditorText(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
+      // editor.onDidFocusEditorWidget(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
+      // editor.onDidLayoutChange(_e => {
+      //   this.updateTableWrapperHeight();
+      //   this.evalEvent();
+      // });
       editor.onDidPaste(_e => {
         this.evalEvent();
         this.setOutputEditorPosition();
       });
-      editor.onKeyDown(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
-      editor.onKeyUp(_e => {
-        this.evalEvent();
-        this.setOutputEditorPosition();
-      });
+      // editor.onKeyDown(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
+      // editor.onKeyUp(_e => {
+      //   this.evalEvent();
+      //   this.setOutputEditorPosition();
+      // });
       // editor.onMouseDown(_e => {
       //   this.evalEvent();
       //   this.setOutputEditorPosition();
