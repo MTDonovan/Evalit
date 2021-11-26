@@ -428,6 +428,7 @@ class EvalScriptInterpreter {
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
+            printd("item after replacing $sum", [item]);
           }
           if (item.match(/^set/g)) {
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
