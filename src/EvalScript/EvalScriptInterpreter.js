@@ -428,7 +428,6 @@ class EvalScriptInterpreter {
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
-            printd("item after replacing $sum", [item]);
           }
           if (item.match(/^set/g)) {
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
@@ -444,8 +443,6 @@ class EvalScriptInterpreter {
                 /** Update the running sum with the resolved function value. */
                 this.runningSum += res;
                 this.count += 1;
-                // printd("$sum value following invokeFuncCalls", [this.runningSum]);
-                // printd("res following invokeFuncCalls", [res]);
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
               }
             }
