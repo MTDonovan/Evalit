@@ -444,7 +444,7 @@ export default {
         filters: [
           {
             name: "Text Files",
-            extensions: ["eval", "txt", "js", "ts", "coffee", "sigma"]
+            extensions: ["eval", "txt"]
           }
         ],
         properties: []
@@ -458,7 +458,7 @@ export default {
         filters: [
           {
             name: "Text Files",
-            extensions: ["eval", "txt", "js", "ts", "coffee", "sigma"]
+            extensions: ["eval", "txt"]
           }
         ],
         properties: []

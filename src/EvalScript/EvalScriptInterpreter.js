@@ -15,10 +15,10 @@ for (let i in macros) {
 }
 
 var printd = (message, arr) => {
-  console.log("start/--------------------/start");
+  console.log("START///debug-statement");
   console.log("printd: " + message);
   arr.map(val => console.log(val));
-  console.log("end/-----------------------/end");
+  console.log("END///debug-statement");
 }
 
 class EvalScriptInterpreter {
@@ -443,8 +443,7 @@ class EvalScriptInterpreter {
                 /** Update the running sum with the resolved function value. */
                 this.runningSum += res;
                 this.count += 1;
-
-                printd("$sum value following invokeFuncCalls", [this.runningSum]);
+                // printd("$sum value following invokeFuncCalls", [this.runningSum]);
                 // printd("res following invokeFuncCalls", [res]);
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
               }
