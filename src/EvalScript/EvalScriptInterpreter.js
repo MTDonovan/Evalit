@@ -14,6 +14,13 @@ for (let i in macros) {
   }
 }
 
+var printd = (message, arr) => {
+  console.log("start/--------------------/start");
+  console.log("printd: " + message);
+  arr.map(val => console.log(val));
+  console.log("end/-----------------------/end");
+}
+
 class EvalScriptInterpreter {
   constructor() {
     this.evalErrorText = "";
@@ -86,14 +93,14 @@ class EvalScriptInterpreter {
   verifyLineEmptyOrComment(lineItem) {
     /**
      * Ignore all lines that are either empty or start with the comment token. Ignore all
-     * lines that being with a letter (excluding the "def" keyword) or a quotation mark.
+     * lines that being with a letter (excluding the "set" keyword) or a quotation mark.
      */
     switch (this.comment) {
       case "sh":
         if (
           !lineItem ||
           lineItem.match(/^(( |\t)+)?#/g) ||
-          lineItem.match(/^(( |\t)+)?(?!def )([a-z]|[A-Z]|('|"))/g)
+          lineItem.match(/^(( |\t)+)?(?!set )([a-z]|[A-Z]|('|"))/g)
         ) {
           return true;
         }
@@ -102,7 +109,7 @@ class EvalScriptInterpreter {
         if (
           !lineItem ||
           lineItem.match(/^(( |\t)+)?\/\//g) ||
-          lineItem.match(/^(( |\t)+)?(?!def )([a-z]|[A-Z]|('|"))/g)
+          lineItem.match(/^(( |\t)+)?(?!set )([a-z]|[A-Z]|('|"))/g)
         ) {
           return true;
         }
@@ -125,8 +132,9 @@ class EvalScriptInterpreter {
     return false;
   }
   splitVariable(lineItem, variablesArray) {
-    let x = lineItem.split("def ")[1];
+    let x = lineItem.split("set ")[1];
     /** Split the array on the first instance "=" is found */
+    // let y = x.split(/^set[\s]+(@[a-z]+|[A-Z]+|[0-9]+)[\s]+(.+)/g).map((item, index) => {
     let y = x.split(/=(.+)/g).map((item, index) => {
       /**
        * If a pipe call is present on the second index, return it without replacing any
@@ -311,7 +319,7 @@ class EvalScriptInterpreter {
         return item;
       }
       /** Allow variable declarations to remain in the splitArr unmodified. */
-      if (item.match(/^def/g)) {
+      if (item.match(/^set/g)) {
         return item;
       }
       /** Allow lines that use variables to remain in the splitArr unmodified. */
@@ -339,7 +347,7 @@ class EvalScriptInterpreter {
         return item;
       }
       /** If an item begins with "@", push it into the variables array. */
-      if (item.match(/^def/g)) {
+      if (item.match(/^set/g)) {
         variables.push(this.splitVariable(item, variables));
         return item;
       }
@@ -386,7 +394,7 @@ class EvalScriptInterpreter {
             if (this.verifyOutputOnlyEval(item)) {
               return null;
             }
-            if (item.match(/^def/g)) {
+            if (item.match(/^set/g)) {
               return null;
             }
             return item;
@@ -421,7 +429,7 @@ class EvalScriptInterpreter {
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
           }
-          if (item.match(/^def/g)) {
+          if (item.match(/^set/g)) {
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
 
@@ -435,6 +443,9 @@ class EvalScriptInterpreter {
                 /** Update the running sum with the resolved function value. */
                 this.runningSum += res;
                 this.count += 1;
+
+                printd("$sum value following invokeFuncCalls", [this.runningSum]);
+                // printd("res following invokeFuncCalls", [res]);
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
               }
             }
