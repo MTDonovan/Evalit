@@ -417,12 +417,13 @@ class EvalScriptInterpreter {
             this.runningSum = 0;
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
+          if (item.match(/^def/g)) {
+            return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
+          }
+
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
-          }
-          if (item.match(/^def/g)) {
-            return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
 
           try {
