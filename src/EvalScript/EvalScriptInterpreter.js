@@ -15,10 +15,16 @@ for (let i in macros) {
 }
 
 var printd = (message, arr) => {
-  console.log("START///debug-statement");
-  console.log("printd: " + message);
-  arr.map(val => console.log(val));
-  console.log("END///debug-statement");
+  let debugMessage = "START///debug\n\n";
+  debugMessage += message + "\n";
+  arr.map(val => debugMessage += `    => ${val}\n`);
+  if (arr.length > 0) {
+    debugMessage += "\n";
+  } else {
+    debugMessage += "\n\n";
+  }
+  debugMessage += "END///debug";
+  console.log(debugMessage);
 }
 
 class EvalScriptInterpreter {
@@ -273,9 +279,7 @@ class EvalScriptInterpreter {
         let evalPreviousIndex = eval(y[i - 1]);
 
         let sp = trimmedItem.split("{");
-        let pipedString = `${sp[0]}{${evalPreviousIndex}${
-          sp[1] ? "," + sp[1] : ""
-        }`;
+        let pipedString = `${sp[0]}{${evalPreviousIndex}${sp[1] ? "," + sp[1] : ""}`;
 
         const res = R.pipe(
           x => this.invokeFuncCalls(...x),
@@ -428,6 +432,7 @@ class EvalScriptInterpreter {
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
+            printd("$sum was replaced in the 'item' instance", [this.lineno, item]);
           }
           if (item.match(/^set/g)) {
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
