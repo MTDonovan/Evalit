@@ -15,7 +15,7 @@ In the Evalit appdata > user.defined.functions.js file:
 
 ``` js
 var fix  = exp => exp[0].toFixed(exp[1]);             // Round a number to a specific point
-var sub  = exp => exp[0] - exp[1];                    // Substract
+var sub  = exp => exp[0] - exp[1];                    // Subtract
 var up   = exp => exp[0] + (exp[0] * (exp[1] / 100)); // Increase a number by a percentage
 var down = exp => exp[0] - (exp[0] * (exp[1] / 100)); // Decrease a number by a percentage
 
