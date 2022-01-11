@@ -486,6 +486,7 @@ export default {
         properties: []
       })[0]
       this.updateFilePathData(promptAnswer);
+      this.maineditor = readFileSync(promptAnswer, "utf-8");
     },
     secBuild() {
       let sec = new E();
