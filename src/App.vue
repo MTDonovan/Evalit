@@ -1,63 +1,74 @@
 <template>
-  <div
-    id="app"
-    v-shortkey="{
-      eval: ['alt', 'enter'],
-      keepNotepad: ['ctrl', 'shift', 's'],
-      save: ['ctrl', 's'],
-      load: ['ctrl', 'o']
-    }"
-    @shortkey="handleHotKeys($event)"
+<div
+  id="app"
+  v-shortkey="{
+              eval: ['alt', 'enter'],
+              keepNotepad: ['ctrl', 'shift', 's'],
+              save: ['ctrl', 's'],
+              load: ['ctrl', 'o']
+              }"
+  @shortkey="handleHotKeys($event)"
   >
-    <header class="toolbar toolbar-header" :style="headerStyle">
-      <div class="btn-group pull-left">
-        <button
-          id="reload-btn"
-          class="btn btn-default btn-with-text"
-          @click="reloadEvent()"
-          :style="btnStyle"
+  <header class="toolbar toolbar-header" :style="headerStyle">
+    <div class="btn-group pull-left">
+      <button
+        id="reload-btn"
+        class="btn btn-default btn-with-text"
+        @click="reloadEvent()"
+        :style="btnStyle"
         >
-          <span class="icon icon-ccw" :style="btnIconStyle"></span
-          ><span :style="btnIconStyle">Reload Modules</span>
-        </button>
-        <button
-          id="save-btn"
-          class="btn btn-default btn-with-text"
-          @click="saveEvalText()"
-          :style="btnStyle"
+        <span class="icon icon-ccw" :style="btnIconStyle"></span
+                                                            ><span :style="btnIconStyle">Reload Modules</span>
+      </button>
+      <button
+        id="save-btn"
+        class="btn btn-default btn-with-text"
+        @click="saveEvalText()"
+        :style="btnStyle"
         >
-          <span class="icon icon-code" :style="btnIconStyle"></span
-          ><span :style="btnIconStyle">Keep Notepad</span>
-        </button>
-        <button
-          id="settings-btn"
-          class="btn btn-default btn-with-text"
-          @click="toggleSettingsModal()"
-          :style="btnStyle"
+        <span class="icon icon-code" :style="btnIconStyle"></span
+                                                             ><span :style="btnIconStyle">Keep Notepad</span>
+      </button>
+      <button
+        id="settings-btn"
+        class="btn btn-default btn-with-text"
+        @click="toggleSettingsModal()"
+        :style="btnStyle"
         >
-          <span class="icon icon-popup" :style="btnIconStyle"></span
-          ><span :style="btnIconStyle">Settings</span>
-        </button>
-      </div>
-      <div class="btn-group pull-right">
-        <button
-          id="save-file-btn"
-          class="btn btn-default btn-with-text"
-          @click="saveToFile()"
-          :style="btnStyle"
-        ><span class="icon icon-floppy" :style="btnIconStyle"></span>
-        <span :style="btnIconStyle">Save</span>
-        </button>
-        <button
-          id="load-file-btn"
-          class="btn btn-default btn-with-text"
-          @click="loadFromFile()"
-          :style="btnStyle"
-        ><span class="icon icon-folder" :style="btnIconStyle"></span>
-        <span :style="btnIconStyle">Load</span>
-        </button>
-      </div>
-    </header>
+        <span class="icon icon-popup" :style="btnIconStyle"></span
+                                                              ><span :style="btnIconStyle">Settings</span>
+      </button>
+    </div>
+    <div class="btn-group pull-left">
+      <span class="header-label" :style="headerLabelStyle" :title="openFileName">{{ openFileNameDisplay}}</span>
+    </div>
+    <div class="btn-group pull-right">
+      <button
+        id="save-file-btn"
+        class="btn btn-default btn-with-text"
+        @click="saveToFile()"
+        :style="btnStyle"
+      ><span class="icon icon-floppy" :style="btnIconStyle"></span>
+      <span :style="btnIconStyle">Save</span>
+      </button>
+      <button
+        id="save-file-btn"
+        class="btn btn-default btn-with-text"
+        @click="saveToFileAs()"
+        :style="btnStyle"
+      ><span class="icon icon-book" :style="btnIconStyle"></span>
+      <span :style="btnIconStyle">Save As</span>
+      </button>
+      <button
+        id="load-file-btn"
+        class="btn btn-default btn-with-text"
+        @click="loadFromFile()"
+        :style="btnStyle"
+      ><span class="icon icon-folder" :style="btnIconStyle"></span>
+      <span :style="btnIconStyle">Load</span>
+      </button>
+    </div>
+  </header>
 
     <!-- Settings modal -->
     <div

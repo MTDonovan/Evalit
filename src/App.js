@@ -55,7 +55,10 @@ export default {
       themeOptions: ["vs-light", "vs-dark"],
       appdataPath: "",
       dataFilePath: "",
-      functionsFilePath: ""
+      functionsFilePath: "",
+      openedFile: null,
+      openFileName: null,
+      openFileNameDisplay: null
     };
   },
   mounted() {
@@ -438,6 +441,14 @@ export default {
       }
     },
     saveToFile() {
+      /** In the case a file has already been opened, save to the opened file. */
+      if (this.openFilePath) {
+        writeFileSync(this.openFilePath, this.maineditor);
+        return;
+      }
+      this.saveToFileAs();
+    },
+    saveToFileAs() {
       let promptAnswer = remote.dialog.showSaveDialogSync({
         title: "Select a file to save the notepad text to",
         buttonLabel: "Save",
@@ -465,6 +476,14 @@ export default {
       })[0]
 
       this.maineditor = readFileSync(promptAnswer, "utf-8");
+      this.openFilePath = promptAnswer.replace(/\\/g, "/");
+      let arr = this.openFilePath.split("/");
+      this.openFileName = arr[arr.length - 1];
+      if (this.openFileName.length > 31) {
+        this.openFileNameDisplay = this.openFileName.substring(0, 31) + "...";
+      } else {
+        this.openFileNameDisplay = this.openFileName;
+      }
     },
     secBuild() {
       let sec = new E();
@@ -487,8 +506,7 @@ export default {
       window.localStorage.setItem("maineditorTMP", this.maineditor);
       window.localStorage.setItem(
         "editorGroupHeightTMP",
-        document.querySelector("body").clientHeight -
-          document.querySelector("header").clientHeight
+        document.querySelector("body").clientHeight - document.querySelector("header").clientHeight
       );
       ipcRenderer.send("relaunch-app");
     },

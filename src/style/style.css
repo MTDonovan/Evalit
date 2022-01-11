@@ -101,6 +101,7 @@ select.free-select {
   border-radius: 4px; }
 
 .header-label {
+  font-size: 11pt;
   margin-left: 5px; }
 
 .header-input {
