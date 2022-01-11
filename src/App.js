@@ -440,6 +440,16 @@ export default {
         return;
       }
     },
+    updateFilePathData(promptAnswer) {
+      this.openFilePath = promptAnswer.replace(/\\/g, "/");
+      let arr = this.openFilePath.split("/");
+      this.openFileName = arr[arr.length - 1];
+      if (this.openFileName.length > 31) {
+        this.openFileNameDisplay = this.openFileName.substring(0, 31) + "...";
+      } else {
+        this.openFileNameDisplay = this.openFileName;
+      }
+    },
     saveToFile() {
       /** In the case a file has already been opened, save to the opened file. */
       if (this.openFilePath) {
@@ -461,6 +471,7 @@ export default {
         properties: []
       });
       writeFileSync(promptAnswer, this.maineditor);
+      this.updateFilePathData(promptAnswer);
     },
     loadFromFile() {
       let promptAnswer = remote.dialog.showOpenDialogSync({
@@ -474,16 +485,7 @@ export default {
         ],
         properties: []
       })[0]
-
-      this.maineditor = readFileSync(promptAnswer, "utf-8");
-      this.openFilePath = promptAnswer.replace(/\\/g, "/");
-      let arr = this.openFilePath.split("/");
-      this.openFileName = arr[arr.length - 1];
-      if (this.openFileName.length > 31) {
-        this.openFileNameDisplay = this.openFileName.substring(0, 31) + "...";
-      } else {
-        this.openFileNameDisplay = this.openFileName;
-      }
+      this.updateFilePathData(promptAnswer);
     },
     secBuild() {
       let sec = new E();

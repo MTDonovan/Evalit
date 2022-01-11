@@ -39,7 +39,7 @@
                                                               ><span :style="btnIconStyle">Settings</span>
       </button>
     </div>
-    <div class="btn-group pull-left">
+    <div class="btn-group pull-left file-path-header-label">
       <span class="header-label" :style="headerLabelStyle" :title="openFileName">{{ openFileNameDisplay}}</span>
     </div>
     <div class="btn-group pull-right">
@@ -56,7 +56,7 @@
         class="btn btn-default btn-with-text"
         @click="saveToFileAs()"
         :style="btnStyle"
-      ><span class="icon icon-book" :style="btnIconStyle"></span>
+        ><span class="icon icon-book" :style="btnIconStyle"></span>
       <span :style="btnIconStyle">Save As</span>
       </button>
       <button
