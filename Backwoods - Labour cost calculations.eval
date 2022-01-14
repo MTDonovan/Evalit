@@ -1,0 +1,34 @@
+AV - PLACEHOLDER WORK TYPE
+"Burden is dumb so it's ignored everywhere"
+def @Burden         = 0
+def @RegularTime    = @ . 20  . add {@Burden}
+def @Overtime       = @ . 22  . add {@Burden}
+def @Subsistence    = @ . 120 . add {@Burden}
+def @TravelTime     = @RegularTime
+def @TruckPayDaily  = @ . 10  . add {@Burden}
+def @TruckPayHourly = @ . 80  . add {@Burden}
+def @BWLOA          = @ . 150 . add {@Burden}
+
+"Ticket" ticket type
+ST
+@RegularTime * 8
+OT
+@Overtime * 6
+TT
+@TravelTime * 4
+NBT
+@RegularTime * 2
+BW LOA
+@BWLOA
+
+// "Matting Logistics Ticket" ticket type
+// Hours
+// @RegularTime * 8
+// GB
+// "No costs associated with GB hours"
+// TT
+// @RegularTime * 4
+// NBT
+// @RegularTime * 2
+// BW LOA
+// @BWLOA

@@ -114,7 +114,7 @@ export default {
     if (localStorage.getItem("openFilePath") && localStorage.getItem("openFileName")) {
       this.openFilePath = localStorage.getItem("openFilePath");
       this.openFileName = localStorage.getItem("openFileName");
-      this.openFileNameDisplay = this.openFileName;
+      this.updateFilePathData(this.openFileName);
       this.evalEvent();
     }
 
