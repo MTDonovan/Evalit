@@ -18,7 +18,7 @@
         :style="btnStyle"
         >
         <span class="icon icon-ccw" :style="btnIconStyle"></span
-                                                            ><span :style="btnIconStyle">Reload Modules</span>
+                                                            ><span :style="btnIconStyle">Reload</span>
       </button>
       <button
         id="save-btn"
