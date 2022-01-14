@@ -506,8 +506,8 @@ export default {
      * Close/disconnect the currently opened file.
      */
     clearOpenFileData() {
-      window.localStorage.setItem("openFilePath", null);
-      window.localStorage.setItem("openFileName", null);
+      localStorage.removeItem("openFilePath");
+      localStorage.removeItem("openFileName");
       this.openFilePath        = null;
       this.openFileName        = null;
       this.openFileNameDisplay = null;
