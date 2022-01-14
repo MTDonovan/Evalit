@@ -26,7 +26,7 @@
         @click="saveEvalText()"
         :style="btnStyle"
         >
-        <span class="icon icon-code" :style="btnIconStyle"></span
+        <span class="icon icon-pencil" :style="btnIconStyle"></span
                                                              ><span :style="btnIconStyle">Keep Notepad</span>
       </button>
       <button
@@ -40,7 +40,7 @@
       </button>
     </div>
     <div class="btn-group pull-left file-path-header-label">
-      <span class="header-label" :style="headerLabelStyle" :title="openFileName">{{ openFileNameDisplay}}</span>
+      <span class="header-label" :style="headerLabelStyle" :title="openFileName">{{ openFileNameDisplay }}</span>
     </div>
     <div class="btn-group pull-right">
       <button
@@ -66,6 +66,15 @@
         :style="btnStyle"
       ><span class="icon icon-folder" :style="btnIconStyle"></span>
       <span :style="btnIconStyle">Load</span>
+      </button>
+      <button
+        id="clear-file-btn"
+        class="btn btn-default btn-with-text"
+        @click="clearOpenFileData()"
+        :style="btnStyle"
+        >
+        <span class="icon icon-cancel-circled" :style="btnIconStyle"></span
+                                                             ><span :style="btnIconStyle">Close File</span>
       </button>
     </div>
   </header>

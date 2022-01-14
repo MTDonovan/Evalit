@@ -100,13 +100,22 @@ export default {
       this.maineditor = tmp;
       this.evalEvent();
     }
-
     /**
      * Load the preferred theme. Set to vs-dark if no theme is provided.
      */
     let theme = window.localStorage.getItem("theme");
     if (theme) {
       this.currentTheme = theme;
+    }
+    /**
+     * Load the previously saved open file path and name if they both exists in the
+     * localstorage.
+     */
+    if (localStorage.getItem("openFilePath") && localStorage.getItem("openFileName")) {
+      this.openFilePath = localStorage.getItem("openFilePath");
+      this.openFileName = localStorage.getItem("openFileName");
+      this.openFileNameDisplay = this.openFileName;
+      this.evalEvent();
     }
 
     /** Focus the main editor. */
@@ -433,6 +442,7 @@ export default {
       }
       if (event.srcKey === "save") {
         this.saveToFile();
+        this.saveEvalText();
         return;
       }
       if (event.srcKey === "load") {
@@ -473,6 +483,7 @@ export default {
       writeFileSync(promptAnswer, this.maineditor);
       this.updateFilePathData(promptAnswer);
       this.saveEvalText();
+      this.setOpenFileDataInLocalStorage();
     },
     loadFromFile() {
       let promptAnswer = remote.dialog.showOpenDialogSync({
@@ -489,6 +500,25 @@ export default {
       this.updateFilePathData(promptAnswer);
       this.maineditor = readFileSync(promptAnswer, "utf-8");
       this.saveEvalText();
+      this.setOpenFileDataInLocalStorage();
+    },
+    /**
+     * Close/disconnect the currently opened file.
+     */
+    clearOpenFileData() {
+      window.localStorage.setItem("openFilePath", null);
+      window.localStorage.setItem("openFileName", null);
+      this.openFilePath        = null;
+      this.openFileName        = null;
+      this.openFileNameDisplay = null;
+    },
+    /**
+     * When a file is opened or "Saved As", save the file path and name to the
+     * localstorage so that it can be loaded when the app is launched.
+     */
+    setOpenFileDataInLocalStorage() {
+      window.localStorage.setItem("openFilePath", this.openFilePath);
+      window.localStorage.setItem("openFileName", this.openFileName);
     },
     secBuild() {
       let sec = new E();
