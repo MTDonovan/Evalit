@@ -472,6 +472,7 @@ export default {
       });
       writeFileSync(promptAnswer, this.maineditor);
       this.updateFilePathData(promptAnswer);
+      this.saveEvalText();
     },
     loadFromFile() {
       let promptAnswer = remote.dialog.showOpenDialogSync({
@@ -487,6 +488,7 @@ export default {
       })[0]
       this.updateFilePathData(promptAnswer);
       this.maineditor = readFileSync(promptAnswer, "utf-8");
+      this.saveEvalText();
     },
     secBuild() {
       let sec = new E();
