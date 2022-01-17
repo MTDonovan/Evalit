@@ -59,6 +59,7 @@ export default {
       openFileName: null,
       openFileNameDisplay: null,
       evalScriptDirectory: null,
+      evalScriptDirectoryDisplayName: null,
       evalScriptsInDirectory: [],
       activeFileTitle: null,
       runningEditorHeight: null
@@ -561,6 +562,8 @@ export default {
     },
     updateVisibleFilesInTree() {
       if (this.evalScriptsInDirectory) {
+        let arr = this.evalScriptDirectory.split("/");
+        this.evalScriptDirectoryDisplayName = arr[arr.length - 1];
         this.evalScriptsInDirectory = readdirSync(this.evalScriptDirectory).filter(file => {
           /**
            * Only return files with applicable file extensions.

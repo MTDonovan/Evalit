@@ -170,7 +170,7 @@
         <h5 class="nav-group-title" :style="navGroupTitleStyle">Open Directory</h5>
         <a class="nav-group-item" :title="evalScriptDirectory" @click="openScriptDirectory" :style="navGroupItemStyle">
           <span class="icon icon-list">
-            </span>{{ evalScriptDirectory ? evalScriptDirectory : "Click here" }}</a>
+            </span>{{ evalScriptDirectory ? evalScriptDirectoryDisplayName : "Click here" }}</a>
         <h5 class="nav-group-title" :style="navGroupTitleStyle">EvalScripts</h5>
 
         <div v-if="evalScriptsInDirectory.length > 0" class="files-in-tree-container">

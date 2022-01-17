@@ -1,6 +1,0 @@
-"Commute to and from house every year"
-24.7 . mul {2} . mul {4} . mul {12}
-"Commute to and from work every year"
-2.7 . mul {2} . mul {5} . mul {4} . mul {12}
-!// 4167.00 / 12
-!// 3876.00 / 12
