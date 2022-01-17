@@ -249,7 +249,8 @@ select.free-select {
 .multi-editor-container {
     position: relative;
     display: grid;
-    grid-template-columns: 50% 50%;
+    // grid-template-columns: 50% 50%;
+    grid-template-columns: 20% 40% 40%;
     height: 88%;
     width: 100%;
 }
@@ -338,6 +339,16 @@ select {
         font-size: $default-font-size !important;
     }
 }
+
+.file-tree-view {
+    .nav-group-title,
+    .nav-group-item {
+        color: rgb(197, 197, 197);
+        &.active {
+            color: #2b2b2a;
+        }
+    }
+}
 /// End dark mode
 
 .theme-text {
@@ -350,3 +361,12 @@ select {
     grid-gap: 5px;
     align-items: center;
 }
+
+.file-tree-view {
+    text-overflow: ellipsis;
+    overflow-y: auto;
+    .files-in-tree-container {
+        margin-bottom: 7px;
+    }
+}
+

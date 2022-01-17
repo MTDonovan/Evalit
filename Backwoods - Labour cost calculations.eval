@@ -1,5 +1,5 @@
 AV - PLACEHOLDER WORK TYPE
-"Burden is dumb so it's ignored everywhere"
+"Burden is ignored everywhere"
 def @Burden         = 0
 def @RegularTime    = @ . 20  . add {@Burden}
 def @Overtime       = @ . 22  . add {@Burden}

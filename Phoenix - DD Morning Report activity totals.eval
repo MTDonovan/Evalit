@@ -1,0 +1,45 @@
+"Values are pulled from the activities that have start times"
+"within the last 24 hours."
+def @feet_sliding  = (70 + 71.85 + 49.44)
+def @feet_rotating = (27.48 + 10)
+def @feet_drilled  = (@feet_sliding + @feet_rotating)
+
+"Get the minutes from hours like so: ${ $fn.toMinutes("12:15") }"
+def @minutes_sliding  = (120 + 15 + 300)
+def @minutes_rotating = (120 + 311)
+def @minutes_drilling = (@minutes_sliding + @minutes_rotating)
+"Minutes from non-sliding, non-rotating activity logs."
+def @misc_minutes     = (60 + 150)
+
+Feet Drilled
+!// @feet_drilled . fix {2}
+Feet Slid
+!// @feet_sliding . fix {2}
+Time Sliding
+!// @ . @minutes_sliding . toHours {}
+Feet Rotated
+!// @feet_rotating . fix {2}
+Time Rotating
+!// @ . @minutes_rotating . toHours {}
+Total Below Rotary Hrs
+!// @ . @minutes_drilling + @misc_minutes . toHours {}
+Avg. ROP
+!// (@feet_drilled * 60) / (@minutes_rotating + @minutes_sliding) . fix {2}
+ROP Slide Avg.
+!// (@feet_sliding * 60) / @minutes_sliding . fix {2}
+ROP Rotary Avg.
+!// (@feet_rotating * 60) / @minutes_rotating . fix {2}
+Avg. Sliding Diff
+!// 51.26
+Avg. Rotate Diff
+!// 52.56
+Total Circulation Hrs
+!// @ . @minutes_drilling . toHours {}
+Slide Time %
+!// (@minutes_sliding / @minutes_drilling) * 100 . fix {2}
+Slide Foot %
+!// (@feet_sliding / @feet_drilled) * 100 . fix {2}
+Rotate Time %
+!// (@minutes_rotating / @minutes_drilling) * 100 . fix {2}
+Rotate Foot %
+!// (@feet_rotating / @feet_drilled) * 100 . fix {2}

@@ -15,7 +15,7 @@ try {
 }
 const $fn = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 import * as path from "path";
-import { writeFileSync, readFileSync } from "fs";
+import { writeFileSync, readFileSync, readdirSync } from "fs";
 
 
 export default {
@@ -28,7 +28,6 @@ export default {
       settingsModalVisible: false,
       counter: 0,
       modalEditorVisible: true,
-      outputEditorVisible: true,
       currentTheme: "vs-dark",
       mainEditorOptions: {
         fontSize: 14,
@@ -58,7 +57,11 @@ export default {
       functionsFilePath: "",
       openedFile: null,
       openFileName: null,
-      openFileNameDisplay: null
+      openFileNameDisplay: null,
+      evalScriptDirectory: null,
+      evalScriptsInDirectory: [],
+      activeFileTitle: null,
+      runningEditorHeight: null
     };
   },
   mounted() {
@@ -108,7 +111,16 @@ export default {
       this.currentTheme = theme;
     }
     /**
-     * Load the previously saved open file path and name if they both exists in the
+     * Load the previous saved directory if it exists in the localstorage. The
+     * "updateFilePathData" method will be run if the file path details are
+     * loaded from the localstorage
+     */
+    if (localStorage.getItem("evalScriptDirectory")) {
+      this.evalScriptDirectory = localStorage.getItem("evalScriptDirectory");
+      this.updateVisibleFilesInTree();
+    }
+    /**
+     * Load the previously saved open file path and name if they both exist in the
      * localstorage.
      */
     if (localStorage.getItem("openFilePath") && localStorage.getItem("openFileName")) {
@@ -213,11 +225,10 @@ export default {
     footerStyle() {
       if (this.currentTheme === "vs-light") {
         return {
-          color: "inherit",
-          "background-image":
-            "linear-gradient(to bottom,#e8e6e8 0,#d1cfd1 100%)",
+          "color": "inherit",
+          "background-image": "linear-gradient(to bottom,#e8e6e8 0,#d1cfd1 100%)",
           "background-color": "#e8e6e8",
-          border: "1px solid #c2c0c2"
+          "border": "1px solid #c2c0c2"
         };
       } else {
         return {};
@@ -235,10 +246,9 @@ export default {
     toolbarStyle() {
       if (this.currentTheme === "vs-light") {
         return {
-          color: "#333",
-          "background-image":
-            "linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%)",
-          border: "1px solid transparent",
+          "color": "#333",
+          "background-image": "linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%)",
+          "border": "1px solid transparent",
           "border-color": "#c2c0c2 #c2c0c2 #a19fa1",
           "box-shadow": "0 1px 1px rgb(0 0 0 / 6%)"
         };
@@ -249,10 +259,9 @@ export default {
     selectStyle() {
       if (this.currentTheme === "vs-light") {
         return {
-          color: "inherit",
-          "background-image":
-            "linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%)",
-          border: "1px solid #ddd",
+          "color": "inherit",
+          "background-image": "linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%)",
+          "border": "1px solid #ddd",
           "border-color": "#c2c0c2 #c2c0c2 #a19fa1",
           "box-shadow": "0 1px 1px rgb(0 0 0 / 6%)"
         };
@@ -263,10 +272,57 @@ export default {
     optionStyle() {
       if (this.currentTheme === "vs-light") {
         return {
-          color: "inherit",
-          "background-image":
-            "linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%)",
+          "color": "inherit",
+          "background-image": "linear-gradient(to bottom, #fcfcfc 0%, #f1f1f1 100%)",
           "background-color": "#fff"
+        };
+      } else {
+        return {};
+      }
+    },
+    editorsContinerStyle() {
+      return {
+        "height": `${this.runningEditorHeight - 4}px`
+      };
+    },
+    mainEditorStyle() {
+      return {
+        "height": `${this.runningEditorHeight - 4}px`
+      };
+    },
+    outputEditorStyle() {
+      return {
+        "height": `${this.runningEditorHeight - 4}px`
+      };
+    },
+    fileTreeViewStyle() {
+      if (this.currentTheme === "vs-light") {
+        return {
+          "background-color": "#fcfcfc",
+          "border-right": "1px solid rgb(194, 192, 194)",
+          "height": `${this.runningEditorHeight}px`
+        };
+      } else {
+        return {
+          "background-color": "#2b2b2a",
+          "border-right":" 1px solid #262424",
+          "height": `${this.runningEditorHeight}px`
+        };
+      }
+    },
+    navGroupTitleStyle() {
+      if (this.currentTheme === "vs-light") {
+        return {
+          "color": "#262424",
+        };
+      } else {
+        return {};
+      }
+    },
+    navGroupItemStyle() {
+      if (this.currentTheme === "vs-light") {
+        return {
+          "color": "#262424",
         };
       } else {
         return {};
@@ -295,20 +351,10 @@ export default {
       return window.innerHeight - headerHeight;
     },
     updateTableWrapperHeight() {
-      let selector = "#editors-container";
       let headerHeight = document.querySelector(".toolbar-header").clientHeight;
       let footerHeight = document.querySelector(".toolbar-footer").clientHeight;
-      this.waitForDocumentElement(selector, 1500).then(() => {
-        let calcHeight = window.innerHeight - (headerHeight + footerHeight);
-        document
-          .querySelector(selector)
-          .setAttribute("style", `height: ${calcHeight}px;`);
-        document
-          .querySelector("#main-editor")
-          .setAttribute("style", `height: ${calcHeight}px;`);
-        document
-          .querySelector("#output-editor")
-          .setAttribute("style", `height: ${calcHeight}px;`);
+      this.waitForDocumentElement("#editors-container", 1500).then(() => {
+        this.runningEditorHeight = window.innerHeight - (headerHeight + footerHeight);
         this.$refs.refMainEditor.getEditor().layout();
         this.$refs.refOutputEditor.getEditor().layout();
       });
@@ -459,6 +505,13 @@ export default {
       } else {
         this.openFileNameDisplay = this.openFileName;
       }
+      /**
+       * Update the active file name with the loaded file.
+       */
+      this.activeFileTitle = this.openFileName;
+    },
+    updateDirectoryPathData(path) {
+      this.activeFileTitle = this.openFileName;
     },
     saveToFile() {
       /** In the case a file has already been opened, save to the opened file. */
@@ -484,23 +537,81 @@ export default {
       this.updateFilePathData(promptAnswer);
       this.saveEvalText();
       this.setOpenFileDataInLocalStorage();
+      this.updateVisibleFilesInTree();
     },
-    loadFromFile() {
+    openScriptDirectory() {
       let promptAnswer = remote.dialog.showOpenDialogSync({
-        title: "Select a file to open in the notepad",
+        title: "Select a directory to open in the EvalScript file tree",
         buttonLabel: "Open",
-        filters: [
-          {
-            name: "Text Files",
-            extensions: ["eval", "txt"]
-          }
-        ],
-        properties: []
+        properties: [
+          "openDirectory"
+        ]
       })[0]
+      /**
+       * Update the directory name.
+       */
+      this.evalScriptDirectory = promptAnswer.replace(/\\/g, "/");
+      /**
+       * Do the following things when the directory is selected:
+       * - Update the active app data fields to return the correct directory name and EvalScript files.
+       * - Update the require fields in the localstorage (so that the directory settings can be loaded when the app is loaded).
+       */
+      this.updateVisibleFilesInTree();
+      this.setOpenDirectoryInLocalStorage();
+    },
+    updateVisibleFilesInTree() {
+      if (this.evalScriptsInDirectory) {
+        this.evalScriptsInDirectory = readdirSync(this.evalScriptDirectory).filter(file => {
+          /**
+           * Only return files with applicable file extensions.
+           * This also exludes sub-directories.
+           */
+          switch (path.extname(file)) {
+            case ".eval":
+            case ".txt":
+              return file;
+          }
+        });
+      }
+    },
+    loadFromTreeFile(file, event) {
+      this.activeFileTitle = event.target.title;
+      this.loadFromFile(file);
+      this.updateVisibleFilesInTree();
+    },
+    /**
+     * 
+     * @param {script} file Optional file name parameter. If it's not provided, the user will be required to select a file in the OS file explorer.
+     */
+    loadFromFile(file) {
+      let promptAnswer;
+      if (file) {
+        promptAnswer = `${this.evalScriptDirectory}/${file}`;
+      } else {
+        promptAnswer = remote.dialog.showOpenDialogSync({
+          title: "Select a file to open in the notepad",
+          buttonLabel: "Open",
+          filters: [
+            {
+              name: "Text Files",
+              extensions: ["eval", "txt"]
+            }
+          ],
+          properties: []
+        })[0]
+      }
       this.updateFilePathData(promptAnswer);
-      this.maineditor = readFileSync(promptAnswer, "utf-8");
-      this.saveEvalText();
-      this.setOpenFileDataInLocalStorage();
+      /**
+       * Return an error in the case the clicked file does not exist.
+       */
+      try {
+        this.maineditor = readFileSync(promptAnswer, "utf-8");
+        this.saveEvalText();
+        this.setOpenFileDataInLocalStorage();
+      } catch(err) {
+        alert(`File could not be opened due to the following error:\n\t${err}`);
+      }
+      this.updateVisibleFilesInTree();
     },
     /**
      * Close/disconnect the currently opened file.
@@ -511,6 +622,7 @@ export default {
       this.openFilePath        = null;
       this.openFileName        = null;
       this.openFileNameDisplay = null;
+      this.activeFileTitle     = null;
     },
     /**
      * When a file is opened or "Saved As", save the file path and name to the
@@ -519,6 +631,9 @@ export default {
     setOpenFileDataInLocalStorage() {
       window.localStorage.setItem("openFilePath", this.openFilePath);
       window.localStorage.setItem("openFileName", this.openFileName);
+    },
+    setOpenDirectoryInLocalStorage() {
+      window.localStorage.setItem("evalScriptDirectory", this.evalScriptDirectory);
     },
     secBuild() {
       let sec = new E();

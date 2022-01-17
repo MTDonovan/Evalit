@@ -17,8 +17,8 @@
         @click="reloadEvent()"
         :style="btnStyle"
         >
-        <span class="icon icon-ccw" :style="btnIconStyle"></span
-                                                            ><span :style="btnIconStyle">Reload</span>
+        <span class="icon icon-ccw" :style="btnIconStyle"></span>
+        <span :style="btnIconStyle">Reload</span>
       </button>
       <button
         id="save-btn"
@@ -26,8 +26,8 @@
         @click="saveEvalText()"
         :style="btnStyle"
         >
-        <span class="icon icon-pencil" :style="btnIconStyle"></span
-                                                             ><span :style="btnIconStyle">Keep Notepad</span>
+        <span class="icon icon-pencil" :style="btnIconStyle"></span>
+        <span :style="btnIconStyle">Keep Notepad</span>
       </button>
       <button
         id="settings-btn"
@@ -35,8 +35,8 @@
         @click="toggleSettingsModal()"
         :style="btnStyle"
         >
-        <span class="icon icon-popup" :style="btnIconStyle"></span
-                                                              ><span :style="btnIconStyle">Settings</span>
+        <span class="icon icon-popup" :style="btnIconStyle"></span>
+        <span :style="btnIconStyle">Settings</span>
       </button>
     </div>
     <div class="btn-group pull-left file-path-header-label">
@@ -73,8 +73,8 @@
         @click="clearOpenFileData()"
         :style="btnStyle"
         >
-        <span class="icon icon-cancel-circled" :style="btnIconStyle"></span
-                                                             ><span :style="btnIconStyle">Close File</span>
+        <span class="icon icon-cancel-circled" :style="btnIconStyle"></span>
+        <span :style="btnIconStyle">Close File</span>
       </button>
     </div>
   </header>
@@ -164,7 +164,31 @@
       </div>
     </div>
 
-    <div id="editors-container" class="multi-editor-container">
+    <div id="editors-container" class="multi-editor-container" :style="editorsContinerStyle">
+      <!-- File tree navigator -->
+      <nav class="nav-group file-tree-view" :style="fileTreeViewStyle">
+        <h5 class="nav-group-title" :style="navGroupTitleStyle">Open Directory</h5>
+        <a class="nav-group-item" :title="evalScriptDirectory" @click="openScriptDirectory" :style="navGroupItemStyle">
+          <span class="icon icon-list">
+            </span>{{ evalScriptDirectory ? evalScriptDirectory : "Click here" }}</a>
+        <h5 class="nav-group-title" :style="navGroupTitleStyle">EvalScripts</h5>
+
+        <div v-if="evalScriptsInDirectory.length > 0" class="files-in-tree-container">
+          <a v-for="(v, k) in evalScriptsInDirectory"
+              :key="k"
+              :value="v"
+              :title="v"
+              @click="loadFromTreeFile(v, $event)"
+              :class="['nav-group-item', activeFileTitle === v ? 'active' : '']"
+              :style="navGroupItemStyle"
+            ><span class="icon icon-doc-text"></span>{{ v }}</a>
+        </div>
+        <div v-else>
+          <a class="nav-group-item"
+            ><span></span><i>No files to display</i></a>
+        </div>
+      </nav>
+      <!-- Editors -->
       <monaco-editor
         id="main-editor"
         v-model="maineditor"
@@ -173,6 +197,7 @@
         :options="mainEditorOptions"
         @editorDidMount="mainEditorDidMount"
         ref="refMainEditor"
+        :style="mainEditorStyle"
       ></monaco-editor>
       <monaco-editor
         v-model="output"
@@ -181,7 +206,7 @@
         :options="outputEditorOptions"
         @editorDidMount="outputEditorDidMount"
         ref="refOutputEditor"
-        :style="outputEditorVisible ? '' : 'display: none;'"
+        :style="outputEditorStyle"
       ></monaco-editor>
     </div>
     <footer class="toobar toolbar-footer" :style="footerStyle">
