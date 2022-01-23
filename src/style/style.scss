@@ -344,6 +344,12 @@ select {
     .nav-group-title,
     .nav-group-item {
         color: rgb(197, 197, 197);
+        &.alt-active {
+            $alt-active-border-stack: 1px solid #929292;
+            border-top: $alt-active-border-stack;
+            border-bottom: $alt-active-border-stack;
+            padding-left: 2px;
+        }
         &.active {
             color: #2b2b2a;
         }
@@ -369,4 +375,3 @@ select {
         margin-bottom: 7px;
     }
 }
-

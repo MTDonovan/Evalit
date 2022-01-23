@@ -66,6 +66,14 @@ export default {
     };
   },
   mounted() {
+    // var setAppStyleSheet = () => {
+    //   var app  = document.querySelector("#app");
+    //   app.href = "style/style.css";
+    //   app.type = "text/css";
+    //   app.rel  = "stylesheet";
+    // }
+    // setAppStyleSheet();
+
     function getFilePath(fileType) {
       return new Promise(resolve => {
         setTimeout(_ => {
@@ -346,6 +354,9 @@ export default {
     },
     changeThemeSetting() {
       window.localStorage.setItem("theme", this.currentTheme);
+      // if (this.currentTheme === "vs-light") {
+      // } else {
+      // }
     },
     getPreferredTableWrapperHeight() {
       let headerHeight = document.querySelector(".toolbar-header").clientHeight;

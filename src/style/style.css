@@ -345,6 +345,13 @@ select option {
   color: #c5c5c5;
 }
 
+.file-tree-view .nav-group-title.alt-active,
+.file-tree-view .nav-group-item.alt-active {
+  border-top: 1px solid #929292;
+  border-bottom: 1px solid #929292;
+  padding-left: 2px;
+}
+
 .file-tree-view .nav-group-title.active,
 .file-tree-view .nav-group-item.active {
   color: #2b2b2a;
