@@ -265,9 +265,7 @@ class EvalScriptInterpreter {
         let evalPreviousIndex = eval(y[i - 1]);
 
         let sp = trimmedItem.split("{");
-        let pipedString = `${sp[0]}{${evalPreviousIndex}${
-          sp[1] ? "," + sp[1] : ""
-        }`;
+        let pipedString = `${sp[0]}{${evalPreviousIndex}${sp[1] ? "," + sp[1] : ""}`;
 
         const res = R.pipe(
           x => this.invokeFuncCalls(...x),
@@ -289,6 +287,9 @@ class EvalScriptInterpreter {
         y[i] = res;
       }
     }
+
+    // this.runningSum += y[y.length - 1] / 2;
+    // this.count += 1;
 
     return `${y[y.length - 1]}`;
   }
@@ -417,25 +418,26 @@ class EvalScriptInterpreter {
             this.runningSum = 0;
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
-          if (item.match(/^def/g)) {
-            return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
-          }
-
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
+          }
+          /** In the case the line is defining a variable, return the item as-is. */
+          if (item.match(/^def/g)) {
+            return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
 
           try {
             if (item.match(this.pipeFunctionOperatorPattern)) {
               const res = this.invokePipeCalls(item, variables);
-
               if (this.verifyOutputOnlyEval(item)) {
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.ignoreResultFlag}${res}\n`;
               } else {
                 /** Update the running sum with the resolved function value. */
-                this.runningSum += res;
-                this.count += 1;
+                if (parseFloat(res)) {
+                  this.runningSum += parseFloat(res);
+                  this.count += 1;
+                }
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
               }
             }
