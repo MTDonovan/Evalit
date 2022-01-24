@@ -179,7 +179,7 @@
               :value="v"
               :title="v"
               @click="loadFromTreeFile(v, $event)"
-              :class="['nav-group-item', activeFileTitle === v ? 'alt-active' : '']"
+              :class="['nav-group-item', activeFileTitle === v ? 'active-file-in-tree' : '']"
               :style="navGroupItemStyle"
             ><span class="icon icon-doc-text"></span>{{ v }}</a>
         </div>

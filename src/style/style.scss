@@ -344,7 +344,7 @@ select {
     .nav-group-title,
     .nav-group-item {
         color: rgb(197, 197, 197);
-        &.alt-active {
+        &.active-file-in-tree {
             $alt-active-border-stack: 1px solid #929292;
             border-top: $alt-active-border-stack;
             border-bottom: $alt-active-border-stack;

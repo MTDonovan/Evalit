@@ -345,8 +345,8 @@ select option {
   color: #c5c5c5;
 }
 
-.file-tree-view .nav-group-title.alt-active,
-.file-tree-view .nav-group-item.alt-active {
+.file-tree-view .nav-group-title.active-file-in-tree,
+.file-tree-view .nav-group-item.active-file-in-tree {
   border-top: 1px solid #929292;
   border-bottom: 1px solid #929292;
   padding-left: 2px;

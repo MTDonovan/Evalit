@@ -307,7 +307,7 @@ export default {
     fileTreeViewStyle() {
       if (this.currentTheme === "vs-light") {
         return {
-          "background-color": "#fcfcfc",
+          "background-color": "rgb(247 247 247)",
           "border-right": "1px solid rgb(194, 192, 194)",
           "height": `${this.runningEditorHeight}px`
         };
