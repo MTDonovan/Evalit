@@ -141,6 +141,14 @@ select.free-select {
     transform: translateY(2px);
 }
 
+.save-alert-header-label {
+    transform: translateY(2px);
+    padding-right: 5px;
+    > span {
+        color: #ce9aff;
+    }
+}
+
 .header-label {
     font-size: 11pt;
     margin-left: 5px;

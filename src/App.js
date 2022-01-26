@@ -62,18 +62,11 @@ export default {
       evalScriptDirectoryDisplayName: null,
       evalScriptsInDirectory: [],
       activeFileTitle: null,
-      runningEditorHeight: null
+      runningEditorHeight: null,
+      saveEditorVisible: false
     };
   },
   mounted() {
-    // var setAppStyleSheet = () => {
-    //   var app  = document.querySelector("#app");
-    //   app.href = "style/style.css";
-    //   app.type = "text/css";
-    //   app.rel  = "stylesheet";
-    // }
-    // setAppStyleSheet();
-
     function getFilePath(fileType) {
       return new Promise(resolve => {
         setTimeout(_ => {
@@ -231,6 +224,15 @@ export default {
         return {};
       }
     },
+    headerSaveAlertLabelStyle() {
+      if (this.currentTheme === "vs-light") {
+        return {
+          color: "rgb(148 49 241)"
+        };
+      } else {
+        return {};
+      }
+    },
     footerStyle() {
       if (this.currentTheme === "vs-light") {
         return {
@@ -373,10 +375,8 @@ export default {
     },
     updateModalEditorSize() {
       let selector = ".modal-editor-container";
-      let modalBodyHeight = document.querySelector(".crude-modal-body")
-        .clientHeight;
-      let modalBodyWidth = document.querySelector(".crude-modal-body")
-        .clientWidth;
+      let modalBodyHeight = document.querySelector(".crude-modal-body").clientHeight;
+      let modalBodyWidth = document.querySelector(".crude-modal-body").clientWidth;
       this.waitForDocumentElement(selector, 1500).then(() => {
         document
           .querySelector(selector)
@@ -526,6 +526,10 @@ export default {
       this.activeFileTitle = this.openFileName;
     },
     saveToFile() {
+      this.saveEditorVisible = true;
+      setTimeout(() => {
+        this.saveEditorVisible = false;
+      }, 1000);
       /** In the case a file has already been opened, save to the opened file. */
       if (this.openFilePath) {
         writeFileSync(this.openFilePath, this.maineditor);

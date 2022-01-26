@@ -77,6 +77,9 @@
         <span :style="btnIconStyle">Close File</span>
       </button>
     </div>
+    <div class="btn-group pull-right save-alert-header-label" :style="saveEditorVisible ? '' : 'display: none;'">
+      <span class="header-label" :style="headerSaveAlertLabelStyle">Changes saved</span>
+    </div>
   </header>
 
     <!-- Settings modal -->
