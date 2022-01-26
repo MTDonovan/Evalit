@@ -529,7 +529,7 @@ export default {
       this.saveEditorVisible = true;
       setTimeout(() => {
         this.saveEditorVisible = false;
-      }, 1000);
+      }, 500);
       /** In the case a file has already been opened, save to the opened file. */
       if (this.openFilePath) {
         writeFileSync(this.openFilePath, this.maineditor);
