@@ -1,0 +1,16 @@
+def @thing1 = 100
+
+10 . up {25}
+@thing1  . up {25} . down {5}
+1000
+
+$sum
+
+
+
+500
+250
+
+$sum
+
+test

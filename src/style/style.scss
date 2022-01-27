@@ -143,9 +143,14 @@ select.free-select {
 
 .save-alert-header-label {
     transform: translateY(2px);
-    padding-right: 5px;
+    margin-right: 12px;
+    // $save-alert-border-stack: 1px solid #ce9aff;
+    // border-top: $save-alert-border-stack;
+    // border-bottom: $save-alert-border-stack;
+    // border-radius: 5px;
     > span {
-        color: #ce9aff;
+        font-size: 8pt !important;
+        color: grey;
     }
 }
 

@@ -105,9 +105,10 @@ select.free-select {
 
 .save-alert-header-label {
   transform: translateY(2px);
-  padding-right: 5px; }
+  margin-right: 12px; }
   .save-alert-header-label > span {
-    color: blueviolet; }
+    font-size: 8pt !important;
+    color: grey; }
 
 .header-label {
   font-size: 11pt;

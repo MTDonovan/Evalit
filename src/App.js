@@ -227,7 +227,7 @@ export default {
     headerSaveAlertLabelStyle() {
       if (this.currentTheme === "vs-light") {
         return {
-          color: "rgb(148 49 241)"
+          color: "grey"
         };
       } else {
         return {};
