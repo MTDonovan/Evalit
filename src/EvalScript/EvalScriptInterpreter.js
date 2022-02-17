@@ -444,12 +444,6 @@ class EvalScriptInterpreter {
 
       this.out = arr
         .map((item, index) => {
-          // if (this.verifyLineEmptyOrComment(item)) {
-          //   this.sumArray.push(this.runningSum);
-          //   this.runningSum = 0;
-          //   return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
-          // }
-
           if (this.verifyLineEmpty(item)) {
             this.sumArray.push(this.runningSum);
             this.runningSum = 0;
@@ -458,7 +452,6 @@ class EvalScriptInterpreter {
           if (this.verifyComment(item)) {
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
-
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
