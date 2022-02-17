@@ -662,9 +662,9 @@ export default {
       sec.code = eval("`" + this.maineditor + "`");
       sec.setLineno(false).build();
 
-      this.out = sec.out;
-      this.sr = sec.sr.toFixed(2);
-      this.count = sec.count;
+      this.out     = sec.out;
+      this.sr      = sec.sr.toFixed(2);
+      this.count   = sec.count;
       this.average = sec.count ? (this.sr / this.count).toFixed(2) : "0.00";
     },
     /**

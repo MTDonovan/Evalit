@@ -83,6 +83,33 @@ class EvalScriptInterpreter {
 
     return outString(builtObj);
   }
+  verifyComment(lineItem) {
+    /**
+     * Ignore all lines that are either empty or start with the comment token. Ignore all
+     * lines that being with a letter (excluding the "def" keyword) or a quotation mark.
+     */
+    switch (this.comment) {
+      case "sh":
+        if (lineItem.match(/^(( |\t)+)?#/g)) {
+          return true;
+        }
+      case "js":
+      default:
+        if (lineItem.match(/^(( |\t)+)?\/\//g)) {
+          return true;
+        }
+    }
+    return false;
+  }
+  verifyLineEmpty(lineItem) {
+   /**
+    * Ignore all lines that being with a letter (excluding the "def" keyword) or a quotation mark.
+    */
+    if (!lineItem) {
+       return true;
+    }
+    return false;
+  }
   verifyLineEmptyOrComment(lineItem) {
     /**
      * Ignore all lines that are either empty or start with the comment token. Ignore all
@@ -393,6 +420,10 @@ class EvalScriptInterpreter {
             return item;
           })
           .map(item => {
+            /** Replace instances of "$sum" key word with current sum index value. */
+            if (item.match(/\$sum/g)) {
+              item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
+            }
             /**
              * In the case the line contains one or more pipe operators, eval the
              * statement using the "invokePipeCalls" function.
@@ -413,11 +444,21 @@ class EvalScriptInterpreter {
 
       this.out = arr
         .map((item, index) => {
-          if (this.verifyLineEmptyOrComment(item)) {
+          // if (this.verifyLineEmptyOrComment(item)) {
+          //   this.sumArray.push(this.runningSum);
+          //   this.runningSum = 0;
+          //   return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
+          // }
+
+          if (this.verifyLineEmpty(item)) {
             this.sumArray.push(this.runningSum);
             this.runningSum = 0;
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
+          if (this.verifyComment(item)) {
+            return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
+          }
+
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
