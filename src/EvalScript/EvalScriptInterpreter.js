@@ -288,9 +288,6 @@ class EvalScriptInterpreter {
       }
     }
 
-    // this.runningSum += y[y.length - 1] / 2;
-    // this.count += 1;
-
     return `${y[y.length - 1]}`;
   }
   compileEvalResults() {
