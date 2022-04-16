@@ -233,20 +233,20 @@
           </select>
         </div>
         <div class="btn-group pull-right">
-          <span class="footer-label" :style="footerLabelStyle">Average</span>
-          <input
-            v-model="average"
-            class="toolbar-input"
-            type="text"
-            :style="toolbarStyle"
-          />
-          <span class="footer-label" :style="footerLabelStyle">Count</span>
-          <input
-            v-model="count"
-            class="toolbar-input"
-            type="text"
-            :style="toolbarStyle"
-          />
+          <!-- <span class="footer-label" :style="footerLabelStyle">Average</span> -->
+          <!-- <input -->
+          <!--   v-model="average" -->
+          <!--   class="toolbar-input" -->
+          <!--   type="text" -->
+          <!--   :style="toolbarStyle" -->
+          <!-- /> -->
+          <!-- <span class="footer-label" :style="footerLabelStyle">Count</span> -->
+          <!-- <input -->
+          <!--   v-model="count" -->
+          <!--   class="toolbar-input" -->
+          <!--   type="text" -->
+          <!--   :style="toolbarStyle" -->
+          <!-- /> -->
           <span class="footer-label" :style="footerLabelStyle">Sum</span>
           <input
             v-model="sr"
