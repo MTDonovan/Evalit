@@ -262,8 +262,9 @@ select.free-select {
 .multi-editor-container {
     position: relative;
     display: grid;
+    /** The grid-template-columns are set from a style tag control in App.js */
     // grid-template-columns: 50% 50%;
-    grid-template-columns: 20% 40% 40%;
+    // grid-template-columns: 20% 40% 40%;
     height: 88%;
     width: 100%;
 }

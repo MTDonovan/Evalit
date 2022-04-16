@@ -25,6 +25,7 @@ export default {
   },
   data() {
     return {
+      fileTreeVisible: true,
       settingsModalVisible: false,
       counter: 0,
       modalEditorVisible: true,
@@ -49,8 +50,8 @@ export default {
       out: "",
       sr: 0,
       output: "",
-      average: 0,
-      count: 0,
+      // average: 0,
+      // count: 0,
       themeOptions: ["vs-light", "vs-dark"],
       appdataPath: "",
       dataFilePath: "",
@@ -130,6 +131,13 @@ export default {
       this.openFileName = localStorage.getItem("openFileName");
       this.updateFilePathData(this.openFileName);
       this.evalEvent();
+    }
+    /**
+     * Load the file tree toggle state. Set to true if no value is provided.
+     */
+    let fileTreeVisibleStore = window.localStorage.getItem("fileTreeVisible");
+    if (fileTreeVisibleStore) {
+      this.fileTreeVisible = eval(fileTreeVisibleStore);
     }
 
     /** Focus the main editor. */
@@ -292,9 +300,23 @@ export default {
       }
     },
     editorsContinerStyle() {
-      return {
+      let obj = {
         "height": `${this.runningEditorHeight - 4}px`
       };
+
+      if (!this.fileTreeVisible) {
+        return Object.assign(obj, {
+          "grid-template-columns": "50% 50%"
+        });
+      } else {
+        return Object.assign(obj, {
+          "grid-template-columns": "20% 40% 40%"
+        });        
+      }
+
+      // return {
+      //   "height": `${this.runningEditorHeight - 4}px`
+      // };
     },
     mainEditorStyle() {
       return {
@@ -307,6 +329,13 @@ export default {
       };
     },
     fileTreeViewStyle() {
+      /** Hide the file tree if fileTreeVisible is false. */
+      if (!this.fileTreeVisible) {
+        return {
+          "display": "none"
+        };
+      }
+
       if (this.currentTheme === "vs-light") {
         return {
           "background-color": "rgb(247 247 247)",
@@ -341,6 +370,12 @@ export default {
     }
   },
   methods: {
+    toggleFileTree() {
+      this.fileTreeVisible = !this.fileTreeVisible;
+      this.updateTableWrapperHeight();
+      this.updateModalEditorSize();
+      window.localStorage.setItem("fileTreeVisible", this.fileTreeVisible);
+    },
     saveEvalText() {
       window.localStorage.setItem("maineditorTMP", this.maineditor);
     },
@@ -664,8 +699,8 @@ export default {
 
       this.out     = sec.out;
       this.sr      = sec.sr.toFixed(2);
-      this.count   = sec.count;
-      this.average = sec.count ? (this.sr / this.count).toFixed(2) : "0.00";
+      // this.count   = sec.count;
+      // this.average = sec.count ? (this.sr / this.count).toFixed(2) : "0.00";
     },
     /**
      * Set the existing maineditor text in the localstorage and reload the window.

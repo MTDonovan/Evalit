@@ -215,6 +215,14 @@
     <footer class="toobar toolbar-footer" :style="footerStyle">
       <div class="toolbar-actions">
         <div class="btn-group pull-left footer-left-wrapper">
+          <button
+            class="btn btn-default btn-with-text"
+            @click="toggleFileTree()"
+            :style="btnStyle"
+            >
+            <span class="icon icon-menu" :style="btnIconStyle"></span>
+            <span :style="btnIconStyle">Show Tree</span>
+          </button>
           <span class="footer-label" :style="footerLabelStyle">Theme</span>
           <select
             v-model="currentTheme"
