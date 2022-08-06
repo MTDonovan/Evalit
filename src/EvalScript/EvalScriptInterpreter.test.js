@@ -16,7 +16,7 @@ function runsec(value) {
   sec.setLineno(false).build();
 
   return {
-    "out": sec.out.split("\n").slice(0, -1).join("\n"),
+    "out": sec.out,
     "sr": sec.sr.toFixed(2)
   }
 }

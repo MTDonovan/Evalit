@@ -530,7 +530,10 @@ class EvalScriptInterpreter {
             return `${(index + 1).toString()} !! ${e}\n`;
           }
         })
-        .join("");
+        .join("")
+        .split("\n")
+        .slice(0, -1)
+        .join("\n");
     }
   }
 }

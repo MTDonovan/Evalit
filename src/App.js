@@ -722,10 +722,7 @@ export default {
     },
     evalEvent() {
       this.secBuild();
-      this.output = this.out
-        .split("\n")
-        .slice(0, -1)
-        .join("\n");
+      this.output = this.out;
     }
   }
 };
