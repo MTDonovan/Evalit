@@ -22,7 +22,5 @@ function runsec(value) {
 }
 
 test(`"2.586 . fix {2}" shall output "2.59"`, () => {
-  console.log(runsec("2.586 . fix {2}").out);
   expect(runsec("2.586 . fix {2}").out).toBe("2.59");
-  expect(1 + 1).toBe(2);
 });
