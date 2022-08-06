@@ -1,6 +1,6 @@
 import { app, ipcRenderer, remote } from "electron";
 import MonacoEditor from "vue-monaco";
-import { E } from "./EvalScript/index";
+import { E, UDFs } from "./EvalScript/index";
 import * as monaco from "monaco-editor";
 try {
   const $data = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "data"));
@@ -16,13 +16,7 @@ try {
 const $fn = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 import * as path from "path";
 import { writeFileSync, readFileSync, readdirSync } from "fs";
-/** Attempt to import the user defined functions. */
-try {
-  const UDFs = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
-} catch (err) {
-  alert(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
-}
-const UDFs = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
+
 
 
 export default {
@@ -54,6 +48,7 @@ export default {
       },
       maineditor: "",
       modaleditor: "",
+      sec: null,
       out: "",
       sr: 0,
       output: "",
@@ -102,6 +97,13 @@ export default {
     });
 
     this.modalEditorVisible = false;
+
+    /** Instantiate the EvalScript Interpreter */
+    this.sec = new E();
+    /**
+     * Import the user defined functions.
+     */
+    this.sec.setUDFs(UDFs);
 
     /**
      * Load the previously saved maineditor text if it exists in the localstorage.
@@ -694,20 +696,15 @@ export default {
       window.localStorage.setItem("evalScriptDirectory", this.evalScriptDirectory);
     },
     secBuild() {
-      let sec = new E();
-      /**
-       * Import the user defined functions.
-       */
-      sec.setUDFs(UDFs);
       /**
        * Transform the stack editor text into a template literal. This is required to
        * allow the user to insert JavaScript snippets.
        */
-      sec.code = eval("`" + this.maineditor + "`");
-      sec.setLineno(false).build();
+      this.sec.code = eval("`" + this.maineditor + "`");
+      this.sec.setLineno(false).build();
 
-      this.out = sec.out;
-      this.sr  = sec.sr.toFixed(2);
+      this.out = this.sec.out;
+      this.sr  = this.sec.sr.toFixed(2);
     },
     /**
      * Set the existing maineditor text in the localstorage and reload the window.

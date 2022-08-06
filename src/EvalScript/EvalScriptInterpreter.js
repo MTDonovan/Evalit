@@ -3,6 +3,26 @@ const R = require("rambda");
 
 var funcCalls = [];
 
+/** Locate the variable and interpolate the stored value in the eval string */
+const interpolateVariable = (lineItem, variablesArray) => {
+  /**
+   * If a substring in the line begins with "@", locate the correct variable from the
+   * variable array, parse the variable's value from the array, and then replace the
+   * variables with their associated values.
+   *
+   * The return value should be the unevaluated line.
+   */
+  variablesArray.map(item => {
+    if (lineItem.includes(item[0])) {
+      let variableLocationPattern = item[0],
+        re = new RegExp(variableLocationPattern, "g");
+      lineItem = lineItem.replace(re, item[1]);
+    }
+  });
+
+  return lineItem;
+}
+
 class EvalScriptInterpreter {
   constructor() {
     this.evalErrorText = "";
@@ -178,28 +198,27 @@ class EvalScriptInterpreter {
     }
 
     return variablesArray
-      ? [y[0], this.interpolateVariable(y[1], variablesArray)]
+      ? [y[0], interpolateVariable(y[1], variablesArray)]
       : y;
   }
-  /** Locate the variable and interpolate the stored value in the eval string */
-  interpolateVariable(lineItem, variablesArray) {
-    /**
-     * If a substring in the line begins with "@", locate the correct variable from the
-     * variable array, parse the variable's value from the array, and then replace the
-     * variables with their associated values.
-     *
-     * The return value should be the unevaluated line.
-     */
-    variablesArray.map(item => {
-      if (lineItem.includes(item[0])) {
-        let variableLocationPattern = item[0],
-          re = new RegExp(variableLocationPattern, "g");
-        lineItem = lineItem.replace(re, item[1]);
-      }
-    });
-
-    return lineItem;
-  }
+  // /** Locate the variable and interpolate the stored value in the eval string */
+  // interpolateVariable(lineItem, variablesArray) {
+  //   /**
+  //    * If a substring in the line begins with "@", locate the correct variable from the
+  //    * variable array, parse the variable's value from the array, and then replace the
+  //    * variables with their associated values.
+  //    *
+  //    * The return value should be the unevaluated line.
+  //    */
+  //   variablesArray.map(item => {
+  //     if (lineItem.includes(item[0])) {
+  //       let variableLocationPattern = item[0],
+  //         re = new RegExp(variableLocationPattern, "g");
+  //       lineItem = lineItem.replace(re, item[1]);
+  //     }
+  //   });
+  //   return lineItem;
+  // }
   /** If the line contains any of the known funcCalls, return true */
   locateFuncCalls(lineItem) {
     /**
@@ -243,17 +262,6 @@ class EvalScriptInterpreter {
 
         let x = parseFuncCallExpression(lineItem, funcCalls[i].name);
 
-        let interpolateVariable = (lineItem, variablesArray) => {
-          variablesArray.map(item => {
-            if (lineItem.includes(item[0])) {
-              let variableLocationPattern = item[0],
-                re = new RegExp(variableLocationPattern, "g");
-              lineItem = lineItem.replace(re, item[1]);
-            }
-          });
-          return lineItem;
-        };
-
         let y = interpolateVariable(x, variablesArray);
 
         let res = R.pipe(
@@ -283,7 +291,7 @@ class EvalScriptInterpreter {
     const x = sanitizedLineItem
       .split(this.pipeFunctionOperatorPattern)
       .filter(i => !i.match(this.pipeFunctionOperatorPattern));
-    let y = x.map(i => this.interpolateVariable(i, variables));
+    let y = x.map(i => interpolateVariable(i, variables));
     for (let i = 0; i < y.length; i++) {
       let trimmedItem = y[i].trim();
 
@@ -430,10 +438,10 @@ class EvalScriptInterpreter {
             if (this.locateFuncCalls(item)) {
               return (item = this.invokeFuncCalls(item, variables));
             }
-            if (!parseFloat(eval(this.interpolateVariable(item, variables)))) {
+            if (!parseFloat(eval(interpolateVariable(item, variables)))) {
               return (item = "");
             }
-            return (item = this.interpolateVariable(item, variables));
+            return (item = interpolateVariable(item, variables));
           })
           .join(` ${this.currentEvalOperator} `)
       );
@@ -510,7 +518,7 @@ class EvalScriptInterpreter {
 
             let res = R.pipe(
               replaceFn,
-              x => this.interpolateVariable(x, variables),
+              x => interpolateVariable(x, variables),
               eval
             )(item);
 
@@ -530,10 +538,10 @@ class EvalScriptInterpreter {
             return `${(index + 1).toString()} !! ${e}\n`;
           }
         })
-        .join("")
-        .split("\n")
-        .slice(0, -1)
-        .join("\n");
+        .join("");
+
+      /** Remove the final newline character from the output. */
+      this.out = this.out.slice(0, this.out.length - 1);
     }
   }
 }
