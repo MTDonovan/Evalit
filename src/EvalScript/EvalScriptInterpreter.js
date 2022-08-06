@@ -201,24 +201,6 @@ class EvalScriptInterpreter {
       ? [y[0], interpolateVariable(y[1], variablesArray)]
       : y;
   }
-  // /** Locate the variable and interpolate the stored value in the eval string */
-  // interpolateVariable(lineItem, variablesArray) {
-  //   /**
-  //    * If a substring in the line begins with "@", locate the correct variable from the
-  //    * variable array, parse the variable's value from the array, and then replace the
-  //    * variables with their associated values.
-  //    *
-  //    * The return value should be the unevaluated line.
-  //    */
-  //   variablesArray.map(item => {
-  //     if (lineItem.includes(item[0])) {
-  //       let variableLocationPattern = item[0],
-  //         re = new RegExp(variableLocationPattern, "g");
-  //       lineItem = lineItem.replace(re, item[1]);
-  //     }
-  //   });
-  //   return lineItem;
-  // }
   /** If the line contains any of the known funcCalls, return true */
   locateFuncCalls(lineItem) {
     /**
