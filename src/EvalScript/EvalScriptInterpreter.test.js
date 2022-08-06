@@ -1,5 +1,28 @@
 const EvalScriptInterpreter = require('./EvalScriptInterpreter');
+const UDFs = require('./user.defined.functions.sample');
 
-test('add 1 and 1', () => {
+
+function runsec(value) {
+  let sec = new EvalScriptInterpreter.E();
+  /**
+   * Import the user defined functions.
+   */
+  sec.setUDFs(UDFs);
+  /**
+   * Transform the stack editor text into a template literal. This is required to
+   * allow the user to insert JavaScript snippets.
+   */
+  sec.code = eval("`" + value + "`");
+  sec.setLineno(false).build();
+
+  return {
+    "out": sec.out.split("\n").slice(0, -1).join("\n"),
+    "sr": sec.sr.toFixed(2)
+  }
+}
+
+test(`"2.586 . fix {2}" shall output "2.59"`, () => {
+  console.log(runsec("2.586 . fix {2}").out);
+  expect(runsec("2.586 . fix {2}").out).toBe("2.59");
   expect(1 + 1).toBe(2);
 });
