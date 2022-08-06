@@ -16,6 +16,13 @@ try {
 const $fn = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 import * as path from "path";
 import { writeFileSync, readFileSync, readdirSync } from "fs";
+/** Attempt to import the user defined functions. */
+try {
+  const UDFs = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
+} catch (err) {
+  alert(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
+}
+const UDFs = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 
 
 export default {
@@ -50,8 +57,6 @@ export default {
       out: "",
       sr: 0,
       output: "",
-      // average: 0,
-      // count: 0,
       themeOptions: ["vs-light", "vs-dark"],
       appdataPath: "",
       dataFilePath: "",
@@ -691,16 +696,18 @@ export default {
     secBuild() {
       let sec = new E();
       /**
+       * Import the user defined functions.
+       */
+      sec.setUDFs(UDFs);
+      /**
        * Transform the stack editor text into a template literal. This is required to
        * allow the user to insert JavaScript snippets.
        */
       sec.code = eval("`" + this.maineditor + "`");
       sec.setLineno(false).build();
 
-      this.out     = sec.out;
-      this.sr      = sec.sr.toFixed(2);
-      // this.count   = sec.count;
-      // this.average = sec.count ? (this.sr / this.count).toFixed(2) : "0.00";
+      this.out = sec.out;
+      this.sr  = sec.sr.toFixed(2);
     },
     /**
      * Set the existing maineditor text in the localstorage and reload the window.

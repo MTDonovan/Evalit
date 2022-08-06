@@ -1,18 +1,7 @@
-import { app, ipcRenderer } from "electron";
 const R = require("rambda");
-try {
-  const macros = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
-} catch (err) {
-  alert(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
-}
-const macros = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
+
 
 var funcCalls = [];
-for (let i in macros) {
-  if (typeof macros[i] === "function") {
-    funcCalls.push(macros[i]);
-  }
-}
 
 class EvalScriptInterpreter {
   constructor() {
@@ -36,6 +25,16 @@ class EvalScriptInterpreter {
 
     this.sumArray   = [];
     this.runningSum = 0;
+  }
+  /**
+   * Import the user defined functions. This method is called in App.js
+   */
+  setUDFs(udfs) {
+    for (let i in udfs) {
+      if (typeof udfs[i] === "function") {
+        funcCalls.push(udfs[i]);
+      }
+    }
   }
   get sr() {
     this.total = parseFloat(this.total) ? parseFloat(this.total) : 0.0;

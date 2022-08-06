@@ -54,7 +54,7 @@
       <button
         id="save-file-btn"
         class="btn btn-default btn-with-text"
-        @click="saveToFileAs()"
+p        @click="saveToFileAs()"
         :style="btnStyle"
         ><span class="icon icon-book" :style="btnIconStyle"></span>
       <span :style="btnIconStyle">Save As</span>
@@ -241,20 +241,6 @@
           </select>
         </div>
         <div class="btn-group pull-right">
-          <!-- <span class="footer-label" :style="footerLabelStyle">Average</span> -->
-          <!-- <input -->
-          <!--   v-model="average" -->
-          <!--   class="toolbar-input" -->
-          <!--   type="text" -->
-          <!--   :style="toolbarStyle" -->
-          <!-- /> -->
-          <!-- <span class="footer-label" :style="footerLabelStyle">Count</span> -->
-          <!-- <input -->
-          <!--   v-model="count" -->
-          <!--   class="toolbar-input" -->
-          <!--   type="text" -->
-          <!--   :style="toolbarStyle" -->
-          <!-- /> -->
           <span class="footer-label" :style="footerLabelStyle">Sum</span>
           <input
             v-model="sr"
