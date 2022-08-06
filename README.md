@@ -51,11 +51,7 @@ Result in Evalit:
 EvalScript is the syntax that runs within the Evalit notepad. EvalScript is evaluated
 line-by-line (similar in effect to a REPL).
 
-There are three values that take into account all evaluated lines at the bottom of the
-Evalit GUI:
-- Average
-- Count
-- Sum
+In the app window's footer, there is a Sum value value that take into account all evaluated lines.
 
 The EvalScript syntax allows you to do the following in the notepad:
 1. Define variables
@@ -118,15 +114,14 @@ begin with a quotation mark, double quotation mark, or letter, will also not be 
 This line will also not be evaluated.
 ```
 
-EvalScript allows you to evaluate a line without having its value included in the Count,
-Average, and Sum values in the Evalit GUI footer by prefixing the line with "!//". Lines
-that are evaluated in this manner will be outputted to the read-only editor with the
-prefix "IGN".
+EvalScript allows you to evaluate a line without having its value included in the Sum
+in the app window's footer by prefixing the line with "!//". Lines that are
+evaluated in this manner will be outputted to the read-only editor with the prefix "IGN".
 
 ![Alt text](screenshots/IGNExample.png)
 
-Also be aware that because all lines are evaluated in JavaScript as template literals,
-you can insert JavaScript snippets into lines like so:
+Also be aware that because all lines are evaluated in JavaScript as template literals, you
+can insert JavaScript snippets into lines like so:
 
 ``` js
 ${ Math.floor([50.15, 0.899].reduce((x, y) => x + y)) } // This line will resolve to "51"
