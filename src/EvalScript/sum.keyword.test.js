@@ -17,7 +17,7 @@ var expt = editor(`
 20
 30
 
-60
+SUM 60
 `);
 
 test(multiLineTest(expr, "shall equal", expt), () => {
@@ -42,7 +42,7 @@ var expt = editor(`
 10.052
 10.053
 
-30.16
+SUM 30.16
 `);
 
 test(multiLineTest(expr, "shall equal", expt), () => {
@@ -69,9 +69,9 @@ var expt = editor(`
 10.052
 10.053
 
-30.156000000000002
-30.16
-90.156
+SUM 30.156000000000002
+SUM 30.16
+SUM 90.156
 `);
 
 test(multiLineTest(expr, "shall equal", expt), () => {
@@ -108,19 +108,19 @@ var expt = editor(`
 20
 30
 
-60
+SUM 60
 
 100
 200
 300
 
-600
+SUM 600
 
 1000
 2000
 3000
 
-6000
+SUM 6000
 `);
 
 test(multiLineTest(expr, "shall equal", expt), () => {

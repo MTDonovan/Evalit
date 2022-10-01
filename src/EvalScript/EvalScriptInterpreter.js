@@ -430,6 +430,7 @@ class EvalScriptInterpreter {
 
       this.out = arr
         .map((item, index) => {
+          let isSum = false;
           if (this.verifyLineEmpty(item)) {
             this.sumArray.push(this.runningSum);
             this.runningSum = 0;
@@ -441,6 +442,7 @@ class EvalScriptInterpreter {
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
+            isSum = true;
           }
           /** In the case the line is defining a variable, return the item as-is. */
           if (item.match(/^def/g)) {
@@ -458,7 +460,11 @@ class EvalScriptInterpreter {
                   this.runningSum += parseFloat(res);
                   this.count += 1;
                 }
-                return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
+                if (isSum) {
+                  return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}SUM ${res}\n`;
+                } else {
+                  return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
+                }
               }
             }
 
@@ -494,7 +500,11 @@ class EvalScriptInterpreter {
                 /** Update the running sum with the resolved function value. */
                 this.runningSum += res;
                 this.count += 1;
-                return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
+                if (isSum) {
+                  return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}SUM ${res}\n`;
+                } else {
+                  return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
+                }
               }
             }
 
@@ -514,10 +524,14 @@ class EvalScriptInterpreter {
               /** Update the running sum with the resolved function value. */
               this.runningSum += res;
               this.count += 1;
-              return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
+              if (isSum) {
+                return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}SUM ${res}\n`;
+              } else {
+                return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
+              }
             }
           } catch (e) {
-            return `${(index + 1).toString()} !! ${e}\n`;
+            return `${this.lineno ? (index + 1).toString() + "  " : ""}${e}\n`;
           }
         })
         .join("");
