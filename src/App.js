@@ -701,7 +701,8 @@ export default {
        * allow the user to insert JavaScript snippets.
        */
       this.sec.code = eval("`" + this.maineditor + "`");
-      this.sec.setLineno(false).build();
+      this.sec.setLineno(false);
+      this.sec.build();
 
       this.out = this.sec.out;
       this.sr  = this.sec.sr.toFixed(2);

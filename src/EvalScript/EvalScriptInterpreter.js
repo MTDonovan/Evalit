@@ -43,7 +43,7 @@ class EvalScriptInterpreter {
     this.lineno = true;
     this.count = 0;
 
-    this.sumArray   = [];
+    this.sumArray = [];
     this.runningSum = 0;
   }
   /**
@@ -408,7 +408,12 @@ class EvalScriptInterpreter {
           .map(item => {
             /** Replace instances of "$sum" key word with current sum index value. */
             if (item.match(/\$sum/g)) {
-              item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
+              item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length]);
+              // if (this.sumArray.length === 1) {
+              //   item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length]);
+              // } else {
+              //   item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
+              // }
             }
             /**
              * In the case the line contains one or more pipe operators, eval the

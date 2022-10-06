@@ -16,7 +16,8 @@ const runsec = (value) => {
    * the user to insert JavaScript snippets.
    */
   sec.code = eval("`" + value + "`");
-  sec.setLineno(false).build();
+  sec.setLineno(false);
+  sec.build();
 
   return {
     "out": sec.out,
