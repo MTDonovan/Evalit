@@ -409,11 +409,6 @@ class EvalScriptInterpreter {
             /** Replace instances of "$sum" key word with current sum index value. */
             if (item.match(/\$sum/g)) {
               item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length]);
-              // if (this.sumArray.length === 1) {
-              //   item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length]);
-              // } else {
-              //   item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
-              // }
             }
             /**
              * In the case the line contains one or more pipe operators, eval the
@@ -519,6 +514,9 @@ class EvalScriptInterpreter {
               eval
             )(item);
 
+            // if (!res) {
+            //   return "0\n";
+            // }
             if (!res) {
               return "~\n";
             }
