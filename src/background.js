@@ -8,28 +8,94 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 import * as path from "path";
 import * as fs from "fs";
 const exec = require("child_process").exec;
+const homedir = require('os').homedir();
+import { E } from './EvalScript/index'
+
 
 /**
  * If the user defined data and user defined functions do not exist, create the files in
  * the appdata.
  */
-let userDefinedDataPath = path.join(
-  app.getPath("userData"),
-  "user.defined.data.js"
-);
+let userDefinedDataPath = path.join(app.getPath("userData"), "user.defined.data.js");
 if (!fs.existsSync(userDefinedDataPath)) {
   fs.writeFileSync(userDefinedDataPath, "// Write your data in this file.");
 }
-let userDefinedFunctionsPath = path.join(
-  app.getPath("userData"),
-  "user.defined.functions.js"
-);
+
+let userDefinedFunctionsPath = path.join(app.getPath("userData"), "user.defined.functions.js");
 if (!fs.existsSync(userDefinedFunctionsPath)) {
-  fs.writeFileSync(
-    userDefinedFunctionsPath,
-    "// Write your functions in this file."
-  );
+  fs.writeFileSync(userDefinedFunctionsPath, "// Write your functions in this file.");
 }
+
+/**
+ * Cmd line evalit.
+ */
+// var args;
+// if (isDevelopment && !process.env.IS_TEST) {
+//   args = process.argv.slice(2);
+//   console.log(args);
+// } else {
+//   args = process.argv.slice(2);
+//   console.log(args);
+// }
+
+var args = process.argv.slice(2);
+
+// const evalitconfig = `${homedir}/.evalitconf`;
+
+if (args[0] === "--cmd" || args[0] === "-c") {
+
+  if (!args[1]) {
+    console.error("File path required to run Evalit from the cmd line.");
+    app.exit();
+  }
+  
+  // if (!fs.existsSync(evalitconfig)) {
+  //   const defaultConfig = {
+  //     paths: {
+  //       functions: null,
+  //       data: null
+  //     }
+  //   }
+  //   fs.writeFileSync(evalitconfig, JSON.stringify(defaultConfig));
+  // }
+  
+  // var configText;
+  // try {
+  //   configText = fs.readFileSync(evalitconfig, 'utf8');
+  // } catch (err) {
+  //   console.error(err);
+  //   process.exit();
+  // }
+  // var configObj = JSON.parse(configText);
+  // configObj.paths.data = userDefinedDataPath;
+  // configObj.paths.functions = userDefinedFunctionsPath;
+  // fs.writeFileSync(evalitconfig, JSON.parse(configObj));
+
+  const UDFs = __non_webpack_require__(path.join(app.getPath("userData"), "user.defined.functions.js"));
+  const maineditor = fs.readFileSync(args[1], "utf8");
+
+  /**
+   * Instantiate the EvalScript Interpreter.
+   */
+  const sec = new E(true);
+  /**
+   * Import the user defined functions.
+   */
+  sec.setUDFs(UDFs);
+
+  sec.code = eval("`" + maineditor + "`");
+  // sec.code = eval(maineditor);
+  sec.setLineno(false);
+  sec.build();
+  
+  console.log(sec.out);
+
+  /**
+   * Exit the process before initializing the app window
+   */
+  app.exit();
+}
+
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
