@@ -85,13 +85,6 @@ if (args[0] === "--cmd" || args[0] === "-c") {
 
 }
 
-// /**
-//  * Exit the process before initializing the app window
-//  */
-// if (args[0] === "--cmd" || args[0] === "-c") {
-//   process.exit();
-// }
-
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } }
