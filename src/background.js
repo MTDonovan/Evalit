@@ -7,8 +7,8 @@ import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
 import * as path from "path";
 import * as fs from "fs";
-const exec = require("child_process").exec;
-const homedir = require('os').homedir();
+// const exec = require("child_process").exec;
+// const homedir = require('os').homedir();
 import { E } from './EvalScript/index'
 
 
@@ -29,73 +29,68 @@ if (!fs.existsSync(userDefinedFunctionsPath)) {
 /**
  * Cmd line evalit.
  */
-// var args;
-// if (isDevelopment && !process.env.IS_TEST) {
-//   args = process.argv.slice(2);
-//   console.log(args);
-// } else {
-//   args = process.argv.slice(2);
-//   console.log(args);
-// }
-
-var args = process.argv.slice(2);
-
-// const evalitconfig = `${homedir}/.evalitconf`;
+var args;
+if (isDevelopment && !process.env.IS_TEST) {
+  args = process.argv.slice(2);
+} else {
+  args = process.argv.slice(1);
+}
 
 if (args[0] === "--cmd" || args[0] === "-c") {
 
   if (!args[1]) {
     console.error("File path required to run Evalit from the cmd line.");
-    app.exit();
+    app.quit();
   }
   
-  // if (!fs.existsSync(evalitconfig)) {
-  //   const defaultConfig = {
-  //     paths: {
-  //       functions: null,
-  //       data: null
-  //     }
-  //   }
-  //   fs.writeFileSync(evalitconfig, JSON.stringify(defaultConfig));
-  // }
-  
-  // var configText;
-  // try {
-  //   configText = fs.readFileSync(evalitconfig, 'utf8');
-  // } catch (err) {
-  //   console.error(err);
-  //   process.exit();
-  // }
-  // var configObj = JSON.parse(configText);
-  // configObj.paths.data = userDefinedDataPath;
-  // configObj.paths.functions = userDefinedFunctionsPath;
-  // fs.writeFileSync(evalitconfig, JSON.parse(configObj));
+  var UDFs;
+  try {
+    UDFs = __non_webpack_require__(path.join(app.getPath("userData"), "user.defined.functions.js"));
+  } catch (err) {
+    console.error(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
+    app.quit();
+  }
 
-  const UDFs = __non_webpack_require__(path.join(app.getPath("userData"), "user.defined.functions.js"));
+  var $data;
+  try {
+    $data = __non_webpack_require__(path.join(app.getPath("userData"), "user.defined.data.js"));
+  } catch (err) {
+    console.error(`Unable to load module from user.defined.data.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
+    app.quit();
+  }
+  var $fn;
+  try {
+    $fn = __non_webpack_require__(path.join(app.getPath("userData"), "user.defined.functions.js"));
+  } catch (err) {
+    console.error(`Unable to load module from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
+    app.quit();
+  }
+
   const maineditor = fs.readFileSync(args[1], "utf8");
 
   /**
    * Instantiate the EvalScript Interpreter.
    */
-  const sec = new E(true);
+  const sec = new E();
   /**
    * Import the user defined functions.
    */
   sec.setUDFs(UDFs);
 
   sec.code = eval("`" + maineditor + "`");
-  // sec.code = eval(maineditor);
   sec.setLineno(false);
   sec.build();
   
   console.log(sec.out);
 
-  /**
-   * Exit the process before initializing the app window
-   */
-  app.exit();
 }
 
+// /**
+//  * Exit the process before initializing the app window
+//  */
+// if (args[0] === "--cmd" || args[0] === "-c") {
+//   process.exit();
+// }
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -150,7 +145,7 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
-  // On macOS it"s common to re-create a window in the app when the dock icon is clicked
+// On macOS it"s common to re-create a window in the app when the dock icon is clicked
   // and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
@@ -158,6 +153,15 @@ app.on("activate", () => {
 // This method will be called when Electron has finished initialization and is ready to
 // create browser windows. Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
+
+  /**
+   * Exit the process before initializing the app window
+   */
+  if (args[0] === "--cmd" || args[0] === "-c") {
+    app.quit();
+    process.exit();
+  }
+
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {

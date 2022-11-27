@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 
+
 Vue.use(require("vue-shortkey"));
 
 Vue.config.productionTip = false;
