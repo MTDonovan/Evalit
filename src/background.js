@@ -80,9 +80,8 @@ if (args[0] === "--cmd" || args[0] === "-c") {
   sec.code = eval("`" + maineditor + "`");
   sec.setLineno(false);
   sec.build();
-  
-  console.log(sec.out);
 
+  console.log(sec.out);
 }
 
 // Scheme must be registered before the app is ready
