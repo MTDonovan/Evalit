@@ -40,7 +40,7 @@ if (args[0] === "--cmd" || args[0] === "-c") {
 
   if (!args[1]) {
     console.error("File path required to run Evalit from the cmd line.");
-    app.quit();
+    process.exit();
   }
   
   var UDFs;
@@ -48,7 +48,7 @@ if (args[0] === "--cmd" || args[0] === "-c") {
     UDFs = __non_webpack_require__(path.join(app.getPath("userData"), "user.defined.functions.js"));
   } catch (err) {
     console.error(`Unable to load functions from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
-    app.quit();
+    process.exit();
   }
 
   var $data;
@@ -56,14 +56,14 @@ if (args[0] === "--cmd" || args[0] === "-c") {
     $data = __non_webpack_require__(path.join(app.getPath("userData"), "user.defined.data.js"));
   } catch (err) {
     console.error(`Unable to load module from user.defined.data.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
-    app.quit();
+    process.exit();
   }
   var $fn;
   try {
     $fn = __non_webpack_require__(path.join(app.getPath("userData"), "user.defined.functions.js"));
   } catch (err) {
     console.error(`Unable to load module from user.defined.functions.js as the following error occurred:\n\n${err}\n\nThis error needs to be resolved to run Evalit`);
-    app.quit();
+    process.exit();
   }
 
   const maineditor = fs.readFileSync(args[1], "utf8");
@@ -82,6 +82,8 @@ if (args[0] === "--cmd" || args[0] === "-c") {
   sec.build();
 
   console.log(sec.out);
+
+  process.exit();
 }
 
 // Scheme must be registered before the app is ready
