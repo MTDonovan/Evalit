@@ -42,6 +42,11 @@ if (args[0] === "--cmd" || args[0] === "-c") {
     console.error("File path required to run Evalit from the cmd line.");
     process.exit();
   }
+
+  if (!fs.existsSync(args[1])) {
+    console.error("File does not exist.");
+    process.exit();    
+  }
   
   var UDFs;
   try {
