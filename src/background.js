@@ -1,15 +1,12 @@
 "use strict";
 import { ipcMain } from "electron";
-// import { app, protocol, BrowserWindow, dialog, Tray, nativeImage } from "electron";
 import { app, protocol, BrowserWindow } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
 import * as path from "path";
 import * as fs from "fs";
-// const exec = require("child_process").exec;
-// const homedir = require('os').homedir();
-import { E } from './EvalScript/index'
+import { E } from "./EvalScript/index";
 
 
 /**
