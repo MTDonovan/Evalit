@@ -705,7 +705,6 @@ export default {
       this.sec.build();
 
       this.out = this.sec.out;
-      this.sr  = this.sec.sr.toFixed(2);
     },
     /**
      * Set the existing maineditor text in the localstorage and reload the window.

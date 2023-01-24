@@ -28,7 +28,6 @@ class EvalScriptInterpreter {
     this.evalErrorText = "";
     /** The "code" attribute contains the unparsed text of the EvalScript file. */
     this.code = "";
-    this.total = "";
     this.out = "";
     this.currentEvalOperator = "+";
     this.operators = ["+", "-", "*", "/"];
@@ -56,10 +55,6 @@ class EvalScriptInterpreter {
       }
     }
   }
-  get sr() {
-    this.total = parseFloat(this.total) ? parseFloat(this.total) : 0.0;
-    return this.total;
-  }
   setCode(codeString) {
     this.code = codeString;
     return this;
@@ -70,13 +65,6 @@ class EvalScriptInterpreter {
   }
   setLineno(useLineno) {
     this.lineno = useLineno;
-    return this;
-  }
-  /**
-   * After compile the code, fix the stack register to the specifed decimal point.
-   */
-  fix(fixToPoint) {
-    this.total = parseFloat(this.total).toFixed(fixToPoint);
     return this;
   }
   changeOperator(operator) {
@@ -307,13 +295,6 @@ class EvalScriptInterpreter {
     return `${y[y.length - 1]}`;
   }
   compileEvalResults() {
-    /**
-     * In the case the expression does not have opening and closing braces, skip the item.
-     */
-    if (!this.code) {
-      this.total = "";
-    }
-
     let arr = this.code.split("\n");
 
     /** Per array item, remove problem characters. */
@@ -380,54 +361,10 @@ class EvalScriptInterpreter {
     });
 
     if (filteredArr.length === 0) {
-      this.total = "";
       this.out = "";
     }
 
     if (filteredArr.length !== 0) {
-      this.total = eval(
-        filteredArr
-          .filter(item => {
-            /** Filter the eval results to exclude the following lines:
-             * + Empty lines
-             * + Comments
-             * + Lines reserved only for the output textarea
-             * + Lines that declare variables
-             */
-            if (this.verifyLineEmptyOrComment(item)) {
-              return null;
-            }
-            if (this.verifyOutputOnlyEval(item)) {
-              return null;
-            }
-            if (item.match(/^def/g)) {
-              return null;
-            }
-            return item;
-          })
-          .map(item => {
-            /** Replace instances of "$sum" key word with current sum index value. */
-            if (item.match(/\$sum/g)) {
-              item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length]);
-            }
-            /**
-             * In the case the line contains one or more pipe operators, eval the
-             * statement using the "invokePipeCalls" function.
-             */
-            if (item.match(this.pipeFunctionOperatorPattern)) {
-              return this.invokePipeCalls(item, variables);
-            }
-            if (this.locateFuncCalls(item)) {
-              return (item = this.invokeFuncCalls(item, variables));
-            }
-            if (!parseFloat(eval(interpolateVariable(item, variables)))) {
-              return (item = "");
-            }
-            return (item = interpolateVariable(item, variables));
-          })
-          .join(` ${this.currentEvalOperator} `)
-      );
-
       this.out = arr
         .map((item, index) => {
           let isSum = false;
@@ -514,12 +451,12 @@ class EvalScriptInterpreter {
               eval
             )(item);
 
-            // if (!res) {
-            //   return "0\n";
-            // }
             if (!res) {
-              return "~\n";
+              return "0\n";
             }
+            // if (!res) {
+            //   return "~\n";
+            // }
 
             if (this.verifyOutputOnlyEval(item)) {
               return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.ignoreResultFlag}${res}\n`;

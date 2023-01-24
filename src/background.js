@@ -79,9 +79,14 @@ if (args[0] === "--cmd" || args[0] === "-c") {
    */
   sec.setUDFs(UDFs);
 
-  sec.code = eval("`" + maineditor + "`");
-  sec.setLineno(false);
-  sec.build();
+  try {
+    sec.code = eval("`" + maineditor + "`");
+    sec.setLineno(false);
+    sec.build();
+  } catch (err) {
+    console.log(err);
+    process.exit();
+  }
 
   console.log(sec.out);
 

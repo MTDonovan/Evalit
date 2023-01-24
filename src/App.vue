@@ -240,15 +240,6 @@ p        @click="saveToFileAs()"
             >
           </select>
         </div>
-        <div class="btn-group pull-right">
-          <span class="footer-label" :style="footerLabelStyle">Sum</span>
-          <input
-            v-model="sr"
-            class="toolbar-input"
-            type="text"
-            :style="toolbarStyle"
-          />
-        </div>
       </div>
     </footer>
   </div>

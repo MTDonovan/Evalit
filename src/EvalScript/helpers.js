@@ -20,8 +20,7 @@ const runsec = (value) => {
   sec.build();
 
   return {
-    "out": sec.out,
-    "sr": sec.sr.toFixed(2)
+    "out": sec.out
   }
 }
 
