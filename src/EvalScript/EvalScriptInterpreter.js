@@ -379,6 +379,7 @@ class EvalScriptInterpreter {
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
+            debugger;
             isSum = true;
           }
           /** In the case the line is defining a variable, return the item as-is. */
