@@ -34,7 +34,7 @@ var expr = editor(`
 10.052
 10.053
 
-$sum . fix {2}
+$sum | fix {2}
 `);
 
 var expt = editor(`
@@ -60,8 +60,8 @@ var expr = editor(`
 10.053
 
 $sum
-$sum . fix {2}
-$sum . add {10, 20, 30}
+$sum | fix {2}
+$sum | add {10, 20, 30}
 `);
 
 var expt = editor(`

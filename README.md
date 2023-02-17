@@ -30,14 +30,14 @@ In the Evalit notepad:
 def @total = 925.548
 def @tax   = 5.5
 
-Sub Total
-@total . fix {2}
+// Sub Total
+@total | fix {2}
 
-Tax Amount
-@total . up {@tax} . sub {@total} . fix {2}
+// Tax Amount
+@total | up {@tax} | sub {@total} | fix {2}
 
-Post-Tax Total
-@total . up {@tax} . fix {2}
+// Post-Tax Total
+@total | up {@tax} | fix {2}
 ```
 
 Result in Evalit:
@@ -91,27 +91,25 @@ module.exports = {
 
 ``` js
 // Evalit notepad
-150 . up {25} // This line will resolve to "187.5"
+150 | up {25} // This line will resolve to "187.5"
 ```
 
 You can also assign the result of mathematical expressions and functions to a variable. To
 use a function in a variable assignment, you are required to prefix the assignment with "@
-.".
+|".
 
 ``` js
-def @result = @ . (150 / 1.2255) * 2 . up {5.225} . fix {4} // This will assign the value "257.5887" to "@result"
+def @result = @ | (150 / 1.2255) * 2 | up {5.225} | fix {4} // This will assign the value "257.5887" to "@result"
 
-@result * 3.0 . down {25} . fix {2} // This line will resolve to "579.57"
-@result * 2.0 . down {15} . fix {2} // This line will resolve to "437.9"
-@result * 0.5 . down {15} . fix {2} // This line will resolve to "109.48"
+@result * 3.0 | down {25} | fix {2} // This line will resolve to "579.57"
+@result * 2.0 | down {15} | fix {2} // This line will resolve to "437.9"
+@result * 0.5 | down {15} | fix {2} // This line will resolve to "109.48"
 ```
 
-EvalScript supports "//" comments for preventing a line from being evaluated. Lines that
-begin with a quotation mark, double quotation mark, or letter, will also not be evaluated.
+EvalScript supports "//" comments for preventing a line from being evaluated.
 
 ``` js
 // This line will not be evaluated; text in this line will be outputed to the read-only editor unchanged.
-This line will also not be evaluated.
 ```
 
 EvalScript allows you to evaluate a line without having its value included in the Sum

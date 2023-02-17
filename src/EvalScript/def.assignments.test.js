@@ -34,12 +34,12 @@ test(multiLineTest(expr, "shall resolve to", expt), () => {
 
 
 var expr = editor(`
-def @num = @ . 10.568 . fix {2}
+def @num = @ | 10.568 | fix {2}
 
 @num
 `);
 var expt = editor(`
-def @num = @ . 10.568 . fix {2}
+def @num = @ | 10.568 | fix {2}
 
 10.57
 `);

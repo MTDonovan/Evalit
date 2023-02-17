@@ -33,7 +33,7 @@ class EvalScriptInterpreter {
     this.operators = ["+", "-", "*", "/"];
     this.lineResultFlag = "";
     this.ignoreResultFlag = "IGN ";
-    this.pipeFunctionOperatorPattern = /([ ]{1,}\.[ ]{1,})+/g;
+    this.pipeFunctionOperatorPattern = /([ ]{1,}\|[ ]{1,})+/g;
     /**
      * Set the comment type to js (i.e. "\/\/") by default. The other option is "sh"
      * (i.e. "#"). This property changes the by-line comment type.
@@ -166,7 +166,7 @@ class EvalScriptInterpreter {
        * If a pipe call is present on the second index, return it without replacing any
        * spaces.
        */
-      if (index === 1 && item.match(/^([\s]+)?@([\s]+)?\.([\s]+)?/g)) {
+      if (index === 1 && item.match(/^([\s]+)?@([\s]+)?\|([\s]+)?/g)) {
         return item;
       }
       return item.replace(/\s/g, "");
@@ -217,7 +217,7 @@ class EvalScriptInterpreter {
 
     return funcCallPresent;
   }
-  /// TODO Bug in method: Does not find instances of func calls without "@ ." prefix
+  /// TODO Does not find instances of func calls without "@ |" prefix
   /// during variable assignment.
   /** Run an eval statement using the given funcCalls in the line. */
   invokeFuncCalls(lineItem, variablesArray) {
@@ -370,6 +370,7 @@ class EvalScriptInterpreter {
           let isSum = false;
           if (this.verifyLineEmpty(item)) {
             this.sumArray.push(this.runningSum);
+            this.sumArray.push(this.runningSum);
             this.runningSum = 0;
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
@@ -379,7 +380,6 @@ class EvalScriptInterpreter {
           /** Replace instances of "$sum" key word with current sum index value. */
           if (item.match(/\$sum/g)) {
             item = item.replace(/\$sum/g, this.sumArray[this.sumArray.length - 1]);
-            debugger;
             isSum = true;
           }
           /** In the case the line is defining a variable, return the item as-is. */
@@ -455,9 +455,6 @@ class EvalScriptInterpreter {
             if (!res) {
               return "0\n";
             }
-            // if (!res) {
-            //   return "~\n";
-            // }
 
             if (this.verifyOutputOnlyEval(item)) {
               return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.ignoreResultFlag}${res}\n`;
@@ -466,6 +463,8 @@ class EvalScriptInterpreter {
               this.runningSum += res;
               this.count += 1;
               if (isSum) {
+                // HERE!
+                // let len = this.code.match(/\$sum/g).length;
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}SUM ${res}\n`;
               } else {
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
