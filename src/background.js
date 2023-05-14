@@ -98,6 +98,9 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } }
 ]);
 
+let win = null;
+let devtools = null;
+
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
@@ -111,6 +114,7 @@ async function createWindow() {
   });
 
   win.setMenu(null);
+  
 
   ipcMain.on("get-data-text", (event, arg) => {
     let userDefinedDataPath = path.join(
@@ -128,7 +132,13 @@ async function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
-    if (!process.env.IS_TEST) win.webContents.openDevTools();
+    if (!process.env.IS_TEST) {
+      // win.webContents.openDevTools();
+      
+      devtools = new BrowserWindow();
+      win.webContents.setDevToolsWebContents(devtools.webContents);
+      win.webContents.openDevTools({ mode: 'detach' }); 
+    }
   } else {
     createProtocol("app");
     // Load the index.html when not in development

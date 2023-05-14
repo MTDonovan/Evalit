@@ -370,7 +370,6 @@ class EvalScriptInterpreter {
           let isSum = false;
           if (this.verifyLineEmpty(item)) {
             this.sumArray.push(this.runningSum);
-            this.sumArray.push(this.runningSum);
             this.runningSum = 0;
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
