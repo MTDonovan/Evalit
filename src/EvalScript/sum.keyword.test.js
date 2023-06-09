@@ -129,26 +129,25 @@ test(multiLineTest(expr, "shall equal", expt), () => {
 
 
 
-// /**
-//  * Reproduce the first-line infinite $sum addition error.
-//  */
-// var expr = editor(`
-// 10
-// 20
-// 30
+/**
+ * Reproduce the first-line infinite $sum addition error.
+ */
+var expr = editor(`
+10
+20
+30
 
-// $sum
+$sum
+`);
 
-// `);
+var expt = editor(`
+10
+20
+30
 
-// var expt = editor(`
-// 10
-// 20
-// 30
+SUM 60
+`);
 
-// SUM 60
-// `);
-
-// test(multiLineTest(expr, "shall equal", expt), () => {
-//   expect(runsec(expr).out).toBe(expt);
-// });
+test(multiLineTest(expr, "shall equal", expt), () => {
+  expect(runsec(expr).out).toBe(expt);
+});

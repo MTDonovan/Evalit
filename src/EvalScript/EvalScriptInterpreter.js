@@ -295,6 +295,9 @@ class EvalScriptInterpreter {
     return `${y[y.length - 1]}`;
   }
   compileEvalResults() {
+    this.sumArray = [];
+    this.runningSum = 0;
+
     let arr = this.code.split("\n");
 
     /** Per array item, remove problem characters. */
@@ -371,6 +374,7 @@ class EvalScriptInterpreter {
           if (this.verifyLineEmpty(item)) {
             this.sumArray.push(this.runningSum);
             this.runningSum = 0;
+            // NOT THIS!
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
           if (this.verifyComment(item)) {
@@ -463,7 +467,6 @@ class EvalScriptInterpreter {
               this.count += 1;
               if (isSum) {
                 // HERE!
-                // let len = this.code.match(/\$sum/g).length;
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}SUM ${res}\n`;
               } else {
                 return `${this.lineno ? (index + 1).toString() + "  " : ""}${this.lineResultFlag}${res}\n`;
