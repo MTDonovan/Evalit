@@ -144,3 +144,9 @@ ${ $data.PI }            // This line will resolve to "3.14"
 // Access the $fn module exported from user.defined.functions.js
 ${ $fn.up([150, 5.25]) } // This line will resolve to "157.875"
 ```
+
+# Support
+
+If you like Evalit or other projects that I work on, please consider leaving a tip.
+
+<a href='https://ko-fi.com/K3K0M68XX' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
