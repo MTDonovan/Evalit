@@ -374,7 +374,6 @@ class EvalScriptInterpreter {
           if (this.verifyLineEmpty(item)) {
             this.sumArray.push(this.runningSum);
             this.runningSum = 0;
-            // NOT THIS!
             return `${this.lineno ? (index + 1).toString() + "  " : ""}${item}\n`;
           }
           if (this.verifyComment(item)) {
