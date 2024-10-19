@@ -15,7 +15,7 @@ try {
 }
 const $fn = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 import * as path from "path";
-import { writeFileSync, readFileSync, readdirSync } from "fs";
+import { writeFileSync, readFileSync, readdirSync, watch } from "fs";
 
 
 
@@ -119,6 +119,7 @@ export default {
     let theme = window.localStorage.getItem("theme");
     if (theme) {
       this.currentTheme = theme;
+      this.adjustBodyTheme();
     }
     /**
      * Load the previous saved directory if it exists in the localstorage. The
@@ -153,6 +154,11 @@ export default {
     });
 
     this.updateTableWrapperHeight();
+  },
+  watch: {
+    currentTheme() {
+      this.adjustBodyTheme();
+    }
   },
   computed: {
     scaledAutocompleteResultsContainerHeight() {
@@ -377,6 +383,10 @@ export default {
     }
   },
   methods: {
+    adjustBodyTheme() {
+      const bodyElm = document.querySelector("body");
+      bodyElm.setAttribute("style", `background-color: ${this.currentTheme === "vs-light" ? "#f7f7f7" : "#1e1e1e"};`);
+    },
     toggleFileTree() {
       this.fileTreeVisible = !this.fileTreeVisible;
       this.updateTableWrapperHeight();
