@@ -12,7 +12,7 @@
     "cmd:test": "vue-cli-service electron:serve -c test.eval",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "scss": "node-sass ./src/style -o ./src/style",
+    "sass": "npx sass ./src/style:./src/style --no-source-map --style=compressed",
     "appimage": "./dist_electron/Evalit-0.1.0.AppImage"
   },
   "main": "background.js",
@@ -22,6 +22,7 @@
     "electron-icon-builder": "^2.0.1",
     "monaco-editor": "^0.20.0",
     "rambda": "^6.9.0",
+    "sass": "^1.80.3",
     "vue": "^2.6.12",
     "vue-monaco": "^1.2.2",
     "vue-shortkey": "^3.1.7"
@@ -38,7 +39,6 @@
     "electron": "^11.4.12",
     "electron-devtools-installer": "^3.1.1",
     "jest": "^28.1.3",
-    "node-sass": "^6.0.1",
     "vue-cli-plugin-electron-builder": "~2.0.0",
     "vue-template-compiler": "^2.6.12"
   }
