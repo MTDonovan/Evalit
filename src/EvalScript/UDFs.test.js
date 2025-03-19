@@ -1,4 +1,5 @@
-import { runsec, editor, multiLineTest } from './helpers';
+import { runsec } from './helpers';
+import { test, expect } from '@jest/globals';
 
 
 test(`"2.586 | fix {2}" shall output "2.59"`, () => {

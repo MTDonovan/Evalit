@@ -1,4 +1,5 @@
 import { runsec, editor, multiLineTest } from './helpers';
+import { test, expect } from '@jest/globals';
 
 
 var expr = editor(`
