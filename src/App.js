@@ -1,7 +1,6 @@
-import { app, ipcRenderer, remote } from "electron";
+import { ipcRenderer, remote } from "electron";
 import MonacoEditor from "vue-monaco";
 import { E, UDFs } from "./EvalScript/index";
-import * as monaco from "monaco-editor";
 try {
   const $data = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "data"));
 } catch (err) {
@@ -15,8 +14,7 @@ try {
 }
 const $fn = __non_webpack_require__(ipcRenderer.sendSync("get-file-path", "functions"));
 import * as path from "path";
-import { writeFileSync, readFileSync, readdirSync, watch } from "fs";
-
+import { writeFileSync, readFileSync, readdirSync } from "fs";
 
 
 export default {
