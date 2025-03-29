@@ -1,0 +1,35 @@
+name: Run Unit Tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  run-tests:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Jest tests
+        run: npm run test
+
+      - name: Generate icons
+        run: npm run electron:generate-icons
+
+      - name: Build Electron app
+        run: npm run electron:build
+
+      - name: Upload dist_electron as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist_electron
+          path: dist_electron/

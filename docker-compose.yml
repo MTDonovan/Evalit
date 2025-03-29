@@ -1,0 +1,13 @@
+services:
+  evalit-electron-app:
+    image: electronuserland/builder:wine
+    container_name: evalit-electron-app
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=host.docker.internal:0
+    working_dir: /app
+    command: |
+      npm install
+      npm run test
