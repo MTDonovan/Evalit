@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  run-tests:
+  build-electron-app:
     runs-on: windows-latest
 
     steps:
