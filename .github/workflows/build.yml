@@ -1,7 +1,6 @@
-name: Run Unit Tests
+name: Build Electron App
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
@@ -19,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Jest tests
+      - name: Run tests
         run: npm run test
 
       - name: Generate icons
@@ -29,7 +28,7 @@ jobs:
         run: npm run electron:build
 
       - name: Upload dist_electron as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dist_electron
           path: dist_electron/
